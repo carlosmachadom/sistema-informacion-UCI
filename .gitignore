@@ -1,1 +1,7 @@
 /bin/
+.path
+.project
+.idea
+cache/
+out/
+files/
