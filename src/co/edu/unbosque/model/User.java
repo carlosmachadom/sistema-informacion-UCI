@@ -12,7 +12,7 @@ public class User {
     /**
      * Cédula de identidad del usuario.
      */
-    private long cedula;
+    private long CC;
     /**
      * Años de experiencia del usuario.
      */
@@ -29,18 +29,18 @@ public class User {
     /**
      * Constructor de la clase `User`.
      *
-     * @param cedula     Cédula de identidad del usuario.
+     * @param CC     Cédula de identidad del usuario.
      * @param experience Años de experiencia del usuario.
      * @param email      Correo electrónico del usuario.
      * @param password   Contraseña del usuario.
      *                   <p>
      *                   La validación del correo electrónico y la experiencia se realiza dentro del constructor.
      */
-    public User(long cedula, int experience, String email, String password) {
+    public User(long CC, int experience, String email, String password) {
         ValidationsUser.verifyEmail(email);
         this.email = email;
         this.password = password;
-        this.cedula = cedula;
+        this.CC = CC;
         ValidationsUser.verifyExperience(experience);
         this.experience = experience;
     }
@@ -50,17 +50,17 @@ public class User {
      *
      * @return La cédula de identidad del usuario.
      */
-    public long getCedula() {
-        return cedula;
+    public long getCC() {
+        return CC;
     }
 
     /**
      * Método setter para la cédula de identidad del usuario.
      *
-     * @param cedula La nueva cédula de identidad a asignar al usuario.
+     * @param CC La nueva cédula de identidad a asignar al usuario.
      */
-    public void setCedula(long cedula) {
-        this.cedula = cedula;
+    public void setCC(long CC) {
+        this.CC = CC;
     }
 
     /**

@@ -1,10 +1,11 @@
 /**
  *
  */
-package co.edu.unbosque.model;
+package co.edu.unbosque.model.cyclists;
 
 import co.edu.unbosque.helper.ValidationsCyclist;
 import co.edu.unbosque.interfaces.CyclistInterface;
+import co.edu.unbosque.model.User;
 
 import java.time.LocalTime;
 import java.util.UUID;
