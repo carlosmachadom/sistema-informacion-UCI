@@ -1,4 +1,4 @@
-package co.edu.unbosque.model;
+package co.edu.unbosque.model.cyclists;
 
 /**
  * Esta clase representa a un ciclista de tipo "Clasicómano".
