@@ -44,9 +44,13 @@ public class Squad {
         ValidationsCyclist.verifyName(name);
         this.name = name;
         this.raceTime = LocalTime.of(0, 0, 0);
-        country != null
-                ? this.country = country
-                : this.country = null;
+        
+        if(country != null) {
+        	this.country = country;        	
+        } else {
+        	this.country = null;        	
+        }
+        
         platoon = new ArrayList<>(8);
     }
 
