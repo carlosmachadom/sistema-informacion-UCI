@@ -1,4 +1,4 @@
-package co.edu.unbosque.model;
+package co.edu.unbosque.model.cyclists;
 
 import co.edu.unbosque.helper.ValidationsCyclist;
 

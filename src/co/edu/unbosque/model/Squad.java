@@ -4,6 +4,7 @@
 package co.edu.unbosque.model;
 
 import co.edu.unbosque.helper.ValidationsCyclist;
+import co.edu.unbosque.model.cyclists.Cyclist;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -44,13 +45,9 @@ public class Squad {
         ValidationsCyclist.verifyName(name);
         this.name = name;
         this.raceTime = LocalTime.of(0, 0, 0);
-        
-        if(country != null) {
-        	this.country = country;        	
-        } else {
-        	this.country = null;        	
-        }
-        
+
+        if (country != null) this.country = country;
+        else this.country = null;
         platoon = new ArrayList<>(8);
     }
 
