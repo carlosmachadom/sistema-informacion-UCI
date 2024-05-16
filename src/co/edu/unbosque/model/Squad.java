@@ -48,7 +48,6 @@ public class Squad {
 
         if (country != null) this.country = country;
         else this.country = null;
-
         platoon = new ArrayList<>(8);
     }
 
