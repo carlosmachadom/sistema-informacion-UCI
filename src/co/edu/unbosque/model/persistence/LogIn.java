@@ -70,7 +70,6 @@ public class LogIn implements RepositoryInterface {
      * @param token El token de inicio de sesión que se desea almacenar.
      * @throws IOException Si ocurre una excepción durante la escritura del token en el archivo.
      */
-
     public void writeFile(String token) {
         String path = FileHandler.getFilepath() + file;
 
@@ -89,7 +88,6 @@ public class LogIn implements RepositoryInterface {
      * @return El token de inicio de sesión almacenado, o `null` si no se encuentra el token o hay un error de lectura.
      * @throws IOException Si ocurre una excepción durante la lectura del token del archivo.
      */
-
     public String readFile() {
         String path = FileHandler.getFilepath() + file;
 
@@ -100,5 +98,14 @@ public class LogIn implements RepositoryInterface {
             System.out.println(err.getMessage());
             return null;
         }
+    }
+
+    /**
+     * Obtiene la ruta o el nombre del archivo asociado al objeto.
+     *
+     * @return La ruta o el nombre del archivo como una cadena de texto.
+     */
+    public String getFile() {
+        return file;
     }
 }

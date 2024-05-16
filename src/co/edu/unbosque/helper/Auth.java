@@ -2,6 +2,7 @@ package co.edu.unbosque.helper;
 
 import co.edu.unbosque.model.persistence.LogIn;
 import co.edu.unbosque.util.AutenticationError;
+import co.edu.unbosque.util.FileHandler;
 import co.edu.unbosque.util.TokenSchema;
 
 /**
@@ -63,5 +64,17 @@ public class Auth {
         } catch (AutenticationError err) {
             System.out.println(err.getMessage());
         }
+    }
+
+    /**
+     * Desconecta al usuario actual eliminando el archivo de sesión.
+     * <p>
+     * Se utiliza para cerrar la sesión del usuario y eliminar la información de autenticación almacenada en un archivo.
+     * <p>
+     * **Precaución:** Este método elimina permanentemente el archivo de sesión. Asegúrate de que el usuario haya terminado su actividad antes de llamar a este método.
+     */
+    public void disconnectUser() {
+        String file = FileHandler.getFilepath() + logIn.getFile();
+        FileHandler.deleteFile(file);
     }
 }
