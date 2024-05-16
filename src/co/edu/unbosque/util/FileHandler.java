@@ -16,7 +16,7 @@ public class FileHandler {
      * La ruta base para los archivos que se crean o eliminan. Se define como "src"
      * seguido por el separador de archivos del sistema operativo y luego "database".
      */
-    private static final String filepath = "src" + File.separator + "database" + File.separator;
+    private static final String filepath = "database" + File.separator;
 
     /**
      * Crea un nuevo archivo en la ruta especificada por el parámetro `file`.
