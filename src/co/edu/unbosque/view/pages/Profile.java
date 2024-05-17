@@ -1,7 +1,7 @@
 /**
  * 
  */
-package co.edu.unbosque.view;
+package co.edu.unbosque.view.pages;
 
 import javax.swing.JPanel;
 

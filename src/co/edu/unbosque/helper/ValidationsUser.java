@@ -6,15 +6,15 @@ import co.edu.unbosque.util.PerserInvalidLogin;
 import java.util.regex.Matcher;
 
 /**
- * Esta clase proporciona métodos estáticos para validar información de un usuario.
- * Utiliza la clase `Setup` para compilar expresiones regulares y el objeto `Matcher`
- * para verificar el formato de los datos del usuario.
+ * Esta clase proporciona métodos estáticos para validar información de un
+ * usuario. Utiliza la clase `Setup` para compilar expresiones regulares y el
+ * objeto `Matcher` para verificar el formato de los datos del usuario.
  */
 public class ValidationsUser {
-    /**
-     * Variable Matcher  validacion del Regex
-     */
-    private static Matcher match;
+	/**
+	 * Variable Matcher validacion del Regex
+	 */
+	private static Matcher match;
 
     public static void verifyCC(long CC) {
         match = Setup.compiler("^[0-9]{7,10}$", String.valueOf(CC));

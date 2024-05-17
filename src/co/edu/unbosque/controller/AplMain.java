@@ -12,7 +12,8 @@ public class AplMain {
      * @param args Los argumentos pasados al programa en su ejecución.
      */
     public static void main(String[] args) {
-        UCI app = new UCI();
+        Controller app = new Controller();
+        app.run();
     }
 }
 
