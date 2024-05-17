@@ -1,7 +1,7 @@
 /**
  * 
  */
-package co.edu.unbosque.view;
+package co.edu.unbosque.view.pages.auth;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -21,11 +21,15 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import co.edu.unbosque.view.components.AuthFooter;
+import co.edu.unbosque.view.components.AuthHeader;
+import co.edu.unbosque.view.utils.ColorPalette;
+import co.edu.unbosque.view.utils.FontSystem;
+
 /**
  * 
  */
 public class LoginForm extends JPanel{
-	private JComboBox<String> role; 
 	private JTextField user;
 	private JPasswordField password;
 	private JButton signInButton;
@@ -79,13 +83,6 @@ public class LoginForm extends JPanel{
         roleLabel.setForeground(ColorPalette.getMainBlack());
         roleLabel.setBorder(new EmptyBorder(0,0,0,0));
         roleLabelContainer.add(roleLabel);
-        
-        String[] roles = {"Director", "Masajista", "Ciclista"};
-        role = new JComboBox<String>(roles);
-        role.setFont(FontSystem.getLargeParagraph());
-        role.setForeground(ColorPalette.getMainBlack());
-        role.setBorder(BorderFactory.createLineBorder(ColorPalette.getMainBlack()));
-        role.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         JPanel userLabelContainer = new JPanel();
         userLabelContainer.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
@@ -156,10 +153,7 @@ public class LoginForm extends JPanel{
         
         // Agregar componentes al mainContent
         mainContent.add(titleLabel);
-        mainContent.add(subTitleLabel);        
-        mainContent.add(Box.createVerticalStrut(8));
-        mainContent.add(roleLabelContainer);
-        mainContent.add(role);
+        mainContent.add(subTitleLabel); 
         mainContent.add(Box.createVerticalStrut(8));
         mainContent.add(userLabelContainer);
         mainContent.add(user);
@@ -186,10 +180,6 @@ public class LoginForm extends JPanel{
 	public void insertFooter() {
 		AuthFooter footer = new AuthFooter();
 		add(footer, BorderLayout.SOUTH);
-	}
-
-	public JComboBox<String> getRole() {
-		return role;
 	}
 
 	public JTextField getUser() {

@@ -1,4 +1,4 @@
-package co.edu.unbosque.view;
+package co.edu.unbosque.view.layouts;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -6,12 +6,17 @@ import java.awt.Dimension;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
-public class AuthMainContent extends JPanel {
+import co.edu.unbosque.view.pages.Home;
+import co.edu.unbosque.view.pages.auth.LoginForm;
+import co.edu.unbosque.view.pages.auth.RegistrationForm;
+import co.edu.unbosque.view.utils.ColorPalette;
+
+public class AuthPagesContainer extends JPanel {
 	private Home entry;
 	private LoginForm signIn;
 	private RegistrationForm signUp;
 	
-	 public AuthMainContent() {
+	 public AuthPagesContainer() {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBackground(ColorPalette.getMainWhite());
         setMaximumSize(new Dimension(720, Integer.MAX_VALUE)); // Establecer ancho fijo y altura flexible
