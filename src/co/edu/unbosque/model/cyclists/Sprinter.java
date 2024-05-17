@@ -23,7 +23,7 @@ public class Sprinter extends Cyclist {
      * @param cadencePedaling Cadencia de pedaleo del ciclista.
      * @param springSpeed     Velocidad punta del ciclista en un sprint (kilómetros por hora).
      * @param potency         Potencia del ciclista (watts).
-     * @param cedula          Cédula de identidad del ciclista.
+     * @param CC          Cédula de identidad del ciclista.
      * @param experience      Años de experiencia del ciclista.
      * @param email           Correo electrónico del ciclista.
      * @param password        Contraseña del ciclista.
@@ -33,11 +33,11 @@ public class Sprinter extends Cyclist {
                     String cadencePedaling,
                     int springSpeed,
                     int potency,
-                    long cedula,
+                    long CC,
                     int experience,
                     String email,
                     String password) {
-        super(name, bodyStructure, cadencePedaling, cedula, experience, email, password);
+        super(name, bodyStructure, cadencePedaling, CC, experience, email, password);
         this.springSpeed = springSpeed;
         this.potency = potency;
     }

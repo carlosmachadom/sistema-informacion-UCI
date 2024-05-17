@@ -29,7 +29,7 @@ public class Climber extends Cyclist {
      * @param accelerationUphill Aceleración del ciclista en subida (metros por segundo al cuadrado).
      * @param climbingGrade      Pendiente máxima que puede subir el ciclista (grados).
      * @param position           Posición del ciclista en la competencia (por ejemplo, primer lugar).
-     * @param cedula             Cédula de identidad del ciclista.
+     * @param CC                 Cédula de identidad del ciclista.
      * @param experience         Años de experiencia del ciclista.
      * @param email              Correo electrónico del ciclista.
      * @param password           Contraseña del ciclista.
@@ -44,11 +44,11 @@ public class Climber extends Cyclist {
             double accelerationUphill,
             int climbingGrade,
             String position,
-            long cedula,
+            long CC,
             int experience,
             String email,
             String password) {
-        super(name, bodyStructure, cadencePedaling, cedula, experience, email, password);
+        super(name, bodyStructure, cadencePedaling, CC, experience, email, password);
 
         ValidationsCyclist.verifyClimbingGrade(climbingGrade);
         this.climbingGrade = climbingGrade;

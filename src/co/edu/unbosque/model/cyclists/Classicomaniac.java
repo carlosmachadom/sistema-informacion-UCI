@@ -1,5 +1,7 @@
 package co.edu.unbosque.model.cyclists;
 
+import co.edu.unbosque.helper.ValidationsCyclist;
+
 /**
  * Esta clase representa a un ciclista de tipo "Clasicómano".
  * Hereda de la clase base `Cyclist` e incluye una propiedad adicional
@@ -18,7 +20,7 @@ public class Classicomaniac extends Cyclist {
      * @param bodyStructure   Contextura física del ciclista.
      * @param cadencePedaling Cadencia de pedaleo del ciclista.
      * @param classicsWon     Cantidad de clásicas ganadas por el ciclista.
-     * @param cedula          Cédula de identidad del ciclista.
+     * @param CC              Cédula de identidad del ciclista.
      * @param experience      Años de experiencia del ciclista.
      * @param email           Correo electrónico del ciclista.
      * @param password        Contraseña del ciclista.
@@ -28,11 +30,12 @@ public class Classicomaniac extends Cyclist {
             String bodyStructure,
             String cadencePedaling,
             int classicsWon,
-            long cedula,
+            long CC,
             int experience,
             String email,
             String password) {
-        super(name, bodyStructure, cadencePedaling, cedula, experience, email, password);
+        super(name, bodyStructure, cadencePedaling, CC, experience, email, password);
+        ValidationsCyclist.verifySpeedMaxOrClassicsWon(classicsWon);
         this.classicsWon = classicsWon;
     }
 
@@ -62,6 +65,7 @@ public class Classicomaniac extends Cyclist {
      * @param classicsWon La nueva cantidad de clásicas ganadas.
      */
     public void setClassicsWon(int classicsWon) {
+        ValidationsCyclist.verifySpeedMaxOrClassicsWon(classicsWon);
         this.classicsWon = classicsWon;
     }
 }

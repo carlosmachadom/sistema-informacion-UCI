@@ -3,7 +3,7 @@
  */
 package co.edu.unbosque.model;
 
-import co.edu.unbosque.helper.ValidationsCyclist;
+import co.edu.unbosque.helper.ValidationsGenerics;
 import co.edu.unbosque.model.cyclists.Cyclist;
 
 import java.time.LocalTime;
@@ -42,12 +42,16 @@ public class Squad {
      *                Se valida el nombre del equipo utilizando métodos estáticos de la clase `ValidationsCyclist`.
      */
     public Squad(String name, String country) {
-        ValidationsCyclist.verifyName(name);
+        ValidationsGenerics.verifyNameOrNationalityOrCountry(name);
         this.name = name;
         this.raceTime = LocalTime.of(0, 0, 0);
 
-        if (country != null) this.country = country;
-        else this.country = null;
+        if (country != null) {
+            ValidationsGenerics.verifyNameOrNationalityOrCountry(country);
+            this.country = country;
+        } else {
+            this.country = null;
+        }
         platoon = new ArrayList<>(8);
     }
 
@@ -66,6 +70,7 @@ public class Squad {
      * @param name El nuevo nombre a asignar al equipo.
      */
     public void setName(String name) {
+        ValidationsGenerics.verifyNameOrNationalityOrCountry(name);
         this.name = name;
     }
 
@@ -102,6 +107,7 @@ public class Squad {
      * @param country El nuevo país de origen a asignar al equipo (opcional).
      */
     public void setCountry(String country) {
+        ValidationsGenerics.verifyNameOrNationalityOrCountry(country);
         this.country = country;
     }
 
