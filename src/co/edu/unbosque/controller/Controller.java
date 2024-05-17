@@ -112,28 +112,28 @@ public class Controller implements ActionListener {
     
     public void createNewUser(String role) {
     	if (role.equals("Director")) {
-    		//String dni = view.getRoot().getAuthLayout().getPagesContainer().getSignUp();
-    		//String nationality = view.getRoot().getAuthLayout().getPagesContainer().getSignUp();
-    		//String experience = view.getRoot().getAuthLayout().getPagesContainer().getSignUp();
-    		//String email = view.getRoot().getAuthLayout().getPagesContainer().getSignUp();
-    		//String password = view.getRoot().getAuthLayout().getPagesContainer().getSignUp();
+    		String dni = view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRoleFormsContainer().getDni().getInput().getText();
+    		String nationality = view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRoleFormsContainer().getNationality().getInput().getText();
+    		//String experience = view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRoleFormsContainer().getYearsOfexperience().getInput();
+    		//String email = view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRoleFormsContainer();
+    		//String password = view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRoleFormsContainer();
     	}
     	
     	if (role.equals("Masajista")) {
-    		//String dni = view.getRoot().getAuthLayout().getPagesContainer().getSignUp();
-    		//String experience = view.getRoot().getAuthLayout().getPagesContainer().getSignUp();
-    		//String email = view.getRoot().getAuthLayout().getPagesContainer().getSignUp();
-    		//String password = view.getRoot().getAuthLayout().getPagesContainer().getSignUp();
+    		//String dni = view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRoleFormsContainer().getDni().getInput().getText();
+    		//String experience = view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRoleFormsContainer();
+    		//String email = view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRoleFormsContainer();
+    		//String password = view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRoleFormsContainer();
     	}
     	
     	if (role.equals("Ciclista")) {
-    		//String specialization = view.getRoot().getAuthLayout().getPagesContainer().getSignUp();
-    		//String experience = view.getRoot().getAuthLayout().getPagesContainer().getSignUp();
-    		//String names = view.getRoot().getAuthLayout().getPagesContainer().getSignUp();
-    		//String lastNames = view.getRoot().getAuthLayout().getPagesContainer().getSignUp();
-    		//String dni = view.getRoot().getAuthLayout().getPagesContainer().getSignUp();
-    		//String email = view.getRoot().getAuthLayout().getPagesContainer().getSignUp();
-    		//String password = view.getRoot().getAuthLayout().getPagesContainer().getSignUp();
+    		//String specialization = view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRoleFormsContainer();
+    		//String experience = view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRoleFormsContainer();
+    		//String names = view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRoleFormsContainer();
+    		//String lastNames = view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRoleFormsContainer();
+    		//String dni = view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRoleFormsContainer().getDni().getInput().getText();
+    		//String email = view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRoleFormsContainer();
+    		//String password = view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRoleFormsContainer();
     	}
     }
     

@@ -167,4 +167,8 @@ public class RegistrationFormRoleBasedFormRenderer extends JPanel{
 	public TextInput getCiclistLastNames() {
 		return ciclistLastNames;
 	}
+
+	public TextInput getNationality() {
+		return nationality;
+	}
 }
