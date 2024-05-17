@@ -13,6 +13,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import co.edu.unbosque.view.components.PasswordInput;
 import co.edu.unbosque.view.components.SelectorInput;
 import co.edu.unbosque.view.components.TextInput;
 import co.edu.unbosque.view.utils.ColorPalette;
@@ -21,7 +22,7 @@ import co.edu.unbosque.view.utils.FontSystem;
 public class RegistrationFormRoleBasedFormRenderer extends JPanel{
 	private JTextField email;
 	private JTextField dni;
-	private JPasswordField password;
+	private PasswordInput password;
 	private JTextField yearsOfexperience;
 	private SelectorInput cyclistExpertise; 
 	private TextInput ciclistNames;
@@ -34,26 +35,9 @@ public class RegistrationFormRoleBasedFormRenderer extends JPanel{
         setVisible(true);
 	}
 	
-	public void insertCommonFields() {            
-        JPanel passwordLabelContainer = new JPanel();
-        passwordLabelContainer.setLayout(new FlowLayout(FlowLayout.LEFT, 0,0));
-        passwordLabelContainer.setBorder(new EmptyBorder(0,0,0,0));
-        passwordLabelContainer.setBackground(ColorPalette.getTransparent());
-        JLabel passwordLabel = new JLabel("Contraseña:");
-        passwordLabel.setFont(FontSystem.getH3());
-        passwordLabel.setForeground(ColorPalette.getMainBlack());
-        passwordLabelContainer.add(passwordLabel);
-        
-        password = new JPasswordField(20);
-        password.setFont(FontSystem.getLargeParagraph());
-        password.setForeground(ColorPalette.getMainBlack());
-        password.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(ColorPalette.getMainBlack()),
-            new EmptyBorder(8, 8, 8, 8)
-        ));
+	public void insertCommonFields() {        
+        password = new PasswordInput("Contraseña:", 20);
         password.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
-        add(passwordLabelContainer);
         add(password);
 	}
 	
@@ -117,12 +101,12 @@ public class RegistrationFormRoleBasedFormRenderer extends JPanel{
 		return dni;
 	}
 
-	public JPasswordField getPassword() {
-		return password;
-	}
-
 	public JTextField getYearsOfexperience() {
 		return yearsOfexperience;
+	}
+	
+	public PasswordInput getPassword() {
+		return password;
 	}
 
 	public SelectorInput getCyclistExpertise() {
