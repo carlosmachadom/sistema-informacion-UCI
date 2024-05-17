@@ -16,8 +16,7 @@ public class Gregarious extends Cyclist {
      * @param name            Nombre del ciclista.
      * @param bodyStructure   Contextura física del ciclista.
      * @param cadencePedaling Cadencia de pedaleo del ciclista.
-     * @param functionPlatoon Función del ciclista dentro del pelotón (por ejemplo, lanzador, protector).
-     * @param cedula          Cédula de identidad del ciclista.
+     * @param CC              Cédula de identidad del ciclista.
      * @param experience      Años de experiencia del ciclista.
      * @param email           Correo electrónico del ciclista.
      * @param password        Contraseña del ciclista.
@@ -25,13 +24,11 @@ public class Gregarious extends Cyclist {
     public Gregarious(String name,
                       String bodyStructure,
                       String cadencePedaling,
-                      String functionPlatoon,
-                      long cedula,
+                      long CC,
                       int experience,
                       String email,
                       String password) {
-        super(name, bodyStructure, cadencePedaling, cedula, experience, email, password);
-        this.functionPlatoon = functionPlatoon;
+        super(name, bodyStructure, cadencePedaling, CC, experience, email, password);
     }
 
     /**
@@ -41,23 +38,5 @@ public class Gregarious extends Cyclist {
     @Override
     public void specialty() {
 
-    }
-
-    /**
-     * Método getter para la función del ciclista dentro del pelotón.
-     *
-     * @return La función del ciclista dentro del pelotón (por ejemplo, lanzador, protector).
-     */
-    public String getFunctionPlatoon() {
-        return functionPlatoon;
-    }
-
-    /**
-     * Método setter para la función del ciclista dentro del pelotón.
-     *
-     * @param functionPlatoon La nueva función a asignar al ciclista dentro del pelotón.
-     */
-    public void setFunctionPlatoon(String functionPlatoon) {
-        this.functionPlatoon = functionPlatoon;
     }
 }

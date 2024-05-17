@@ -12,7 +12,7 @@ public class User {
     /**
      * Cédula de identidad del usuario.
      */
-    private long CC;
+    private final long CC;
     /**
      * Años de experiencia del usuario.
      */
@@ -20,7 +20,7 @@ public class User {
     /**
      * Correo electrónico del usuario.
      */
-    private String email;
+    private final String email;
     /**
      * Contraseña del usuario.
      */
@@ -29,7 +29,7 @@ public class User {
     /**
      * Constructor de la clase `User`.
      *
-     * @param CC     Cédula de identidad del usuario.
+     * @param CC         Cédula de identidad del usuario.
      * @param experience Años de experiencia del usuario.
      * @param email      Correo electrónico del usuario.
      * @param password   Contraseña del usuario.
@@ -39,7 +39,9 @@ public class User {
     public User(long CC, int experience, String email, String password) {
         ValidationsUser.verifyEmail(email);
         this.email = email;
+        ValidationsUser.verifyPassword(password);
         this.password = password;
+        ValidationsUser.verifyCC(CC);
         this.CC = CC;
         ValidationsUser.verifyExperience(experience);
         this.experience = experience;
@@ -52,15 +54,6 @@ public class User {
      */
     public long getCC() {
         return CC;
-    }
-
-    /**
-     * Método setter para la cédula de identidad del usuario.
-     *
-     * @param CC La nueva cédula de identidad a asignar al usuario.
-     */
-    public void setCC(long CC) {
-        this.CC = CC;
     }
 
     /**
@@ -78,6 +71,7 @@ public class User {
      * @param experience Los nuevos años de experiencia a asignar al usuario.
      */
     public void setExperience(int experience) {
+        ValidationsUser.verifyExperience(experience);
         this.experience = experience;
     }
 
@@ -88,15 +82,6 @@ public class User {
      */
     public String getEmail() {
         return email;
-    }
-
-    /**
-     * Método setter para el correo electrónico del usuario.
-     *
-     * @param email El nuevo correo electrónico a asignar al usuario.
-     */
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     /**
@@ -114,6 +99,7 @@ public class User {
      * @param password La nueva contraseña a asignar al usuario.
      */
     public void setPassword(String password) {
+        ValidationsUser.verifyPassword(password);
         this.password = password;
     }
 }

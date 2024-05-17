@@ -99,7 +99,6 @@ public class UsersDAO implements DAOInterface<User> {
             auth.verifyAuthorizationUser();
             User putUser = findOne(item);
             putUser.setExperience(item.getExperience());
-            putUser.setEmail(item.getEmail());
             putUser.setPassword(item.getPassword());
 
             fileFactory.writeFile(users);

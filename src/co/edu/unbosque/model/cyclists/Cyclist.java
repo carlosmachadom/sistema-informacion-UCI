@@ -4,6 +4,7 @@
 package co.edu.unbosque.model.cyclists;
 
 import co.edu.unbosque.helper.ValidationsCyclist;
+import co.edu.unbosque.helper.ValidationsGenerics;
 import co.edu.unbosque.interfaces.CyclistInterface;
 import co.edu.unbosque.model.User;
 
@@ -19,7 +20,7 @@ public abstract class Cyclist extends User implements CyclistInterface {
     /**
      * Identificador del ciclista
      */
-    private UUID id;
+    private final UUID id;
     /**
      * Nombre de ciclista
      */
@@ -43,7 +44,7 @@ public abstract class Cyclist extends User implements CyclistInterface {
      * @param name            Nombre del ciclista.
      * @param bodyStructure   Contextura física del ciclista.
      * @param cadencePedaling Cadencia de pedaleo del ciclista.
-     * @param cedula          Cédula de identidad del ciclista.
+     * @param CC          Cédula de identidad del ciclista.
      * @param experience      Años de experiencia del ciclista.
      * @param email           Correo electrónico del ciclista.
      * @param password        Contraseña del ciclista.
@@ -51,13 +52,13 @@ public abstract class Cyclist extends User implements CyclistInterface {
     public Cyclist(String name,
                    String bodyStructure,
                    String cadencePedaling,
-                   long cedula,
+                   long CC,
                    int experience,
                    String email,
                    String password) {
-        super(cedula, experience, email, password);
-        ValidationsCyclist.verifyName(name);
-        this.name = name.trim().substring(0, 1).toUpperCase() + name.trim().substring(1);
+        super(CC, experience, email, password);
+        ValidationsGenerics.verifyNameOrNationalityOrCountry(name);
+        this.name = name;
 
         id = UUID.randomUUID();
         timeRice = LocalTime.of(0, 0, 0);
@@ -83,15 +84,6 @@ public abstract class Cyclist extends User implements CyclistInterface {
     }
 
     /**
-     * Método setter para el identificador único del ciclista (UUID).
-     *
-     * @param id El nuevo UUID a asignar al ciclista.
-     */
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    /**
      * Método getter para el nombre del ciclista.
      *
      * @return El nombre del ciclista.
@@ -110,7 +102,7 @@ public abstract class Cyclist extends User implements CyclistInterface {
      *             (posiblemente letras y espacios) definido en la clase `ValidationsCyclist`.
      */
     public void setName(String name) {
-        ValidationsCyclist.verifyName(name);
+        ValidationsGenerics.verifyNameOrNationalityOrCountry(name);
         this.name = name.trim().substring(0, 1).toUpperCase() + name.trim().substring(1);
     }
 

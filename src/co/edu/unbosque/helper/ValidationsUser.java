@@ -16,6 +16,17 @@ public class ValidationsUser {
      */
     private static Matcher match;
 
+    public static void verifyCC(long CC) {
+        match = Setup.compiler("^[0-9]{7,10}$", String.valueOf(CC));
+        try {
+            if (!match.matches()) {
+                throw new ParserStringError("Formato no valido (Invalid format)");
+            }
+        } catch (ParserStringError err) {
+            System.out.println("err = " + err.getMessage());
+        }
+    }
+
     /**
      * Valida el formato del correo electrónico de un usuario.
      * Un correo electrónico válido debe seguir el formato estándar de correo electrónico:
@@ -26,7 +37,7 @@ public class ValidationsUser {
      *                            estándar de correo electrónico.
      */
     public static void verifyEmail(String email) {
-        match = Setup.compiler("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*$", email);
+        match = Setup.compiler("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\\\.(com|edu|org|net|gov|co)$", email);
         try {
             if (!match.matches()) {
                 throw new PerserInvalidLogin("Formato no valido (Invalid format)");
@@ -45,6 +56,17 @@ public class ValidationsUser {
      */
     public static void verifyExperience(int experience) {
         match = Setup.compiler("^[0-9]*$", String.valueOf(experience));
+        try {
+            if (!match.matches()) {
+                throw new ParserStringError("Formato no valido (Invalid format)");
+            }
+        } catch (ParserStringError err) {
+            System.out.println("err = " + err.getMessage());
+        }
+    }
+
+    public static void verifyPassword(String password) {
+        match = Setup.compiler("^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*()_+\\\\-=[\\\\]{};':\\\"\\\\\\\\|,.<>/?]).{8,}$", password);
         try {
             if (!match.matches()) {
                 throw new ParserStringError("Formato no valido (Invalid format)");
