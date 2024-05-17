@@ -1,4 +1,4 @@
-package co.edu.unbosque.view;
+package co.edu.unbosque.view.pages;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -15,6 +15,11 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import co.edu.unbosque.view.components.AuthFooter;
+import co.edu.unbosque.view.components.AuthHeader;
+import co.edu.unbosque.view.utils.ColorPalette;
+import co.edu.unbosque.view.utils.FontSystem;
 
 public class Home extends JPanel {
 	private JButton signInButton;

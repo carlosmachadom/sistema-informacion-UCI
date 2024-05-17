@@ -1,4 +1,4 @@
-package co.edu.unbosque.view;
+package co.edu.unbosque.view.utils;
 
 import java.awt.Font;
 

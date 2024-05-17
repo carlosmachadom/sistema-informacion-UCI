@@ -1,7 +1,7 @@
 /**
  * 
  */
-package co.edu.unbosque.view;
+package co.edu.unbosque.view.pages.auth;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -21,13 +21,18 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import co.edu.unbosque.view.components.AuthFooter;
+import co.edu.unbosque.view.components.AuthHeader;
+import co.edu.unbosque.view.components.SelectorInput;
+import co.edu.unbosque.view.utils.ColorPalette;
+import co.edu.unbosque.view.utils.FontSystem;
+
 /**
  * 
  */
 public class RegistrationForm extends JPanel{
-	private JComboBox<String> role; 
-	private JTextField user;
-	private JPasswordField password;
+	private SelectorInput role; 
+	private RegistrationFormRoleBasedFormRenderer roleFormsContainer;
 	private JButton signInButton;
 	private JButton signUpButton;
 	
@@ -70,59 +75,12 @@ public class RegistrationForm extends JPanel{
         subTitleLabel.setForeground(ColorPalette.getMainBlack());
         subTitleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         
-        JPanel roleLabelContainer = new JPanel();
-        roleLabelContainer.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
-        roleLabelContainer.setBorder(new EmptyBorder(0,0,0,0));
-        roleLabelContainer.setBackground(ColorPalette.getTransparent());
-        JLabel roleLabel = new JLabel("Selecciona una opción:");
-        roleLabel.setFont(FontSystem.getH3());
-        roleLabel.setForeground(ColorPalette.getMainBlack());
-        roleLabel.setBorder(new EmptyBorder(0,0,0,0));
-        roleLabelContainer.add(roleLabel);
-        
         String[] roles = {"Director", "Masajista", "Ciclista"};
-        role = new JComboBox<String>(roles);
-        role.setFont(FontSystem.getLargeParagraph());
-        role.setForeground(ColorPalette.getMainBlack());
-        role.setBorder(BorderFactory.createLineBorder(ColorPalette.getMainBlack()));
-        role.setAlignmentX(Component.CENTER_ALIGNMENT);
+        role = new SelectorInput("Selecciona una opción:", roles, "Form_SignUp_Role_Selection");
+        role.setAlignmentX(Component.CENTER_ALIGNMENT);      
         
-        JPanel userLabelContainer = new JPanel();
-        userLabelContainer.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
-        userLabelContainer.setBorder(new EmptyBorder(0,0,0,0));
-        userLabelContainer.setBackground(ColorPalette.getTransparent());
-        JLabel userLabel = new JLabel("Usuario:");
-        userLabel.setFont(FontSystem.getH3());
-        userLabel.setForeground(ColorPalette.getMainBlack());
-        userLabel.setBorder(new EmptyBorder(0,0,0,0));
-        userLabelContainer.add(userLabel);
-        
-        user = new JTextField();
-        user.setFont(FontSystem.getLargeParagraph());
-        user.setForeground(ColorPalette.getMainBlack());
-        user.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(ColorPalette.getMainBlack()),
-            new EmptyBorder(8, 8, 8, 8)
-        ));
-        user.setAlignmentX(Component.CENTER_ALIGNMENT);        
-        
-        JPanel passwordLabelContainer = new JPanel();
-        passwordLabelContainer.setLayout(new FlowLayout(FlowLayout.LEFT, 0,0));
-        passwordLabelContainer.setBorder(new EmptyBorder(0,0,0,0));
-        passwordLabelContainer.setBackground(ColorPalette.getTransparent());
-        JLabel passwordLabel = new JLabel("Contraseña:");
-        passwordLabel.setFont(FontSystem.getH3());
-        passwordLabel.setForeground(ColorPalette.getMainBlack());
-        passwordLabelContainer.add(passwordLabel);
-        
-        password = new JPasswordField(20);
-        password.setFont(FontSystem.getLargeParagraph());
-        password.setForeground(ColorPalette.getMainBlack());
-        password.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(ColorPalette.getMainBlack()),
-            new EmptyBorder(8, 8, 8, 8)
-        ));
-        password.setAlignmentX(Component.CENTER_ALIGNMENT);
+        roleFormsContainer = new RegistrationFormRoleBasedFormRenderer();
+        roleFormsContainer.setAlignmentX(Component.CENTER_ALIGNMENT); 
         
         JPanel signUpButtonContainer = new JPanel();
         signUpButtonContainer.setLayout(new BorderLayout());
@@ -150,21 +108,15 @@ public class RegistrationForm extends JPanel{
         signInButton.setBackground(ColorPalette.getMainBlack());
         signInButton.setActionCommand("Form_SignIn");
         signInButtonContainer.add(signInButton, BorderLayout.CENTER); 
-
        
         
         // Agregar componentes al mainContent
         mainContent.add(titleLabel);
         mainContent.add(subTitleLabel);        
         mainContent.add(Box.createVerticalStrut(8));
-        mainContent.add(roleLabelContainer);
         mainContent.add(role);
         mainContent.add(Box.createVerticalStrut(8));
-        mainContent.add(userLabelContainer);
-        mainContent.add(user);
-        mainContent.add(Box.createVerticalStrut(8));
-        mainContent.add(passwordLabelContainer);
-        mainContent.add(password);
+        mainContent.add(roleFormsContainer);
         mainContent.add(Box.createVerticalStrut(16));
         mainContent.add(signUpButtonContainer);
         mainContent.add(Box.createVerticalStrut(16));
@@ -185,5 +137,21 @@ public class RegistrationForm extends JPanel{
 	public void insertFooter() {
 		AuthFooter footer = new AuthFooter();
 		add(footer, BorderLayout.SOUTH);
+	}
+
+	public SelectorInput getRole() {
+		return role;
+	}
+
+	public JButton getSignInButton() {
+		return signInButton;
+	}
+
+	public JButton getSignUpButton() {
+		return signUpButton;
+	}
+
+	public RegistrationFormRoleBasedFormRenderer getRoleFormsContainer() {
+		return roleFormsContainer;
 	}
 }

@@ -4,10 +4,13 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
+import co.edu.unbosque.view.layouts.AuthLayout;
+import co.edu.unbosque.view.layouts.DashboardLayout;
+
 @SuppressWarnings("serial")
 public class Root extends JPanel {
-	private LoginLayout authLayout;
-	private AppLayout dashboard;
+	private AuthLayout authLayout;
+	private DashboardLayout dashboard;
 	
 	public Root() {
 		setLayout(new BorderLayout());
@@ -18,7 +21,7 @@ public class Root extends JPanel {
 	public void insertAuthLogic() {
     	removeAllComponents();
     	reRenderApp();
-    	authLayout = new LoginLayout(); // Crea una instancia del Layout para autenticación
+    	authLayout = new AuthLayout(); // Crea una instancia del Layout para autenticación
         add(authLayout, BorderLayout.CENTER); // Agrega el LayoutPrincipal al centro de la ventana
         reRenderApp();
     }
@@ -26,7 +29,7 @@ public class Root extends JPanel {
     public void insertAppLogic() {
     	removeAllComponents();
     	reRenderApp();
-    	dashboard = new AppLayout(); // Crea una instancia del Layout para autenticación
+    	dashboard = new DashboardLayout(); // Crea una instancia del Layout para autenticación
         add(dashboard, BorderLayout.CENTER); // Agrega el LayoutPrincipal al centro de la ventana
         reRenderApp();
     }
@@ -40,19 +43,19 @@ public class Root extends JPanel {
     	repaint();
     }
 
-	public LoginLayout getAuthLayout() {
+	public AuthLayout getAuthLayout() {
 		return authLayout;
 	}
 
-	public void setAuthLayout(LoginLayout authLayout) {
+	public void setAuthLayout(AuthLayout authLayout) {
 		this.authLayout = authLayout;
 	}
 
-	public AppLayout getDashboard() {
+	public DashboardLayout getDashboard() {
 		return dashboard;
 	}
 
-	public void setDashboard(AppLayout dashboard) {
+	public void setDashboard(DashboardLayout dashboard) {
 		this.dashboard = dashboard;
 	}
 }

@@ -1,22 +1,9 @@
-/**
- * 
- */
 package co.edu.unbosque.view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.io.File;
-
-import javax.swing.ImageIcon;
-/**
- * 
- */
 import javax.swing.JFrame;
 
-/**
- * 
- */
 @SuppressWarnings("serial")
 public class Window extends JFrame {
 	private Root root;	

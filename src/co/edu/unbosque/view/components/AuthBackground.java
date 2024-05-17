@@ -1,4 +1,4 @@
-package co.edu.unbosque.view;
+package co.edu.unbosque.view.components;
 
 import java.awt.Graphics;
 import java.io.File;
