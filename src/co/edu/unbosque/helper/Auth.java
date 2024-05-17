@@ -55,7 +55,7 @@ public class Auth {
     /**
      * Verifies if the currently logged in user has authorization (e.g., role of "director") to perform an action.
      */
-    public void verifyAuthorizationUser() {
+    public void verifyAuthorizationDirector() {
         String accessToken = logIn.readFile();
         try {
             if (!accessToken.contains("director")) {
