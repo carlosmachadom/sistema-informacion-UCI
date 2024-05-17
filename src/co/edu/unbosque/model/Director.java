@@ -17,17 +17,17 @@ public class Director extends User {
     /**
      * Constructor de la clase `Director`.
      *
-     * @param nationality Nacionalidad del director.
      * @param CC          Cédula de identidad del director.
      * @param experience  Años de experiencia del director (en el contexto del sistema).
      * @param email       Correo electrónico del director.
      * @param password    Contraseña del director.
+     * @param nationality Nacionalidad del director.
      */
-    public Director(String nationality,
-                    long CC,
+    public Director(long CC,
                     int experience,
                     String email,
-                    String password) {
+                    String password,
+                    String nationality) {
         super(CC, experience, email, password);
         ValidationsGenerics.verifyNameOrNationalityOrCountry(nationality);
         this.nationality = nationality;
