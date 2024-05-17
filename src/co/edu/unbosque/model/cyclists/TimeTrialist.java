@@ -25,7 +25,7 @@ public class TimeTrialist extends Cyclist {
      * @param cadencePedaling Cadencia de pedaleo del ciclista.
      * @param speedMaximum    Velocidad máxima alcanzada por el ciclista en una prueba contrarreloj (kilómetros por hora).
      * @param state           Estado del ciclista (por ejemplo, en forma, lesionado).
-     * @param cedula          Cédula de identidad del ciclista.
+     * @param CC              Cédula de identidad del ciclista.
      * @param experience      Años de experiencia del ciclista.
      * @param email           Correo electrónico del ciclista.
      * @param password        Contraseña del ciclista.
@@ -37,13 +37,13 @@ public class TimeTrialist extends Cyclist {
                         String cadencePedaling,
                         int speedMaximum,
                         String state,
-                        long cedula,
+                        long CC,
                         int experience,
                         String email,
                         String password) {
-        super(name, bodyStructure, cadencePedaling, cedula, experience, email, password);
+        super(name, bodyStructure, cadencePedaling, CC, experience, email, password);
 
-        ValidationsCyclist.verifySpeedMax(speedMaximum);
+        ValidationsCyclist.verifySpeedMaxOrClassicsWon(speedMaximum);
         this.speedMaximum = speedMaximum;
 
         this.state = state;
@@ -74,7 +74,7 @@ public class TimeTrialist extends Cyclist {
      *                     La velocidad máxima se valida antes de actualizar el valor del atributo.
      */
     public void setSpeedMaximum(int speedMaximum) {
-        ValidationsCyclist.verifySpeedMax(speedMaximum);
+        ValidationsCyclist.verifySpeedMaxOrClassicsWon(speedMaximum);
         this.speedMaximum = speedMaximum;
     }
 

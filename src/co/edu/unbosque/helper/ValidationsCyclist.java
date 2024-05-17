@@ -16,31 +16,6 @@ public class ValidationsCyclist {
 	private static Matcher match;
 
 	/**
-	 * Valida el formato del nombre de un ciclista. Solo se permiten letras
-	 * mayúsculas y minúsculas y espacios.
-	 *
-	 * @param name El nombre del ciclista a validar.
-	 * @throws ParserStringError Si el nombre no cumple con el formato permitido
-	 *                           (letras mayúsculas y minúsculas y espacios).
-	 */
-	public static boolean verifyName(String name) {
-		match = Setup.compiler("^[A-Za-z ]+$", name);
-		boolean flag = false;
-		try {
-			if (!match.matches()) {
-				flag = false;
-				throw new ParserStringError("Formato no valido");
-			} else {
-				flag = true;
-			}
-
-		} catch (ParserStringError err) {
-			System.out.println("err = " + err.getMessage());
-		}
-		return flag;
-	}
-
-	/**
 	 * Valida la velocidad máxima de un ciclista. La velocidad máxima debe ser un
 	 * número entero mayor o igual a 0.
 	 *

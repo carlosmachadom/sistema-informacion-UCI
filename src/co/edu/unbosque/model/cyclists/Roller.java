@@ -17,7 +17,7 @@ public class Roller extends Cyclist {
      * @param bodyStructure   Contextura física del ciclista.
      * @param cadencePedaling Cadencia de pedaleo del ciclista.
      * @param cadenceSpeed    Cadencia de velocidad del ciclista (revoluciones por minuto).
-     * @param cedula          Cédula de identidad del ciclista.
+     * @param CC              Cédula de identidad del ciclista.
      * @param experience      Años de experiencia del ciclista.
      * @param email           Correo electrónico del ciclista.
      * @param password        Contraseña del ciclista.
@@ -26,11 +26,11 @@ public class Roller extends Cyclist {
                   String bodyStructure,
                   String cadencePedaling,
                   double cadenceSpeed,
-                  long cedula,
+                  long CC,
                   int experience,
                   String email,
                   String password) {
-        super(name, bodyStructure, cadencePedaling, cedula, experience, email, password);
+        super(name, bodyStructure, cadencePedaling, CC, experience, email, password);
         this.cadenceSpeed = cadenceSpeed;
     }
 
