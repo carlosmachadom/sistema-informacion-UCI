@@ -19,10 +19,10 @@ public class UsersDAO implements DAOInterface<User> {
      * Factory para la lectura y escritura del archivo de usuarios.
      */
     private final FileFactory<User> fileFactory;
+
     /**
      * Lista en memoria para almacenar la información de los usuarios leída del archivo.
      */
-
     private List<User> users;
     /**
      * Objeto de autenticación y autorización.
@@ -96,7 +96,7 @@ public class UsersDAO implements DAOInterface<User> {
     public boolean updateItem(User item) {
         auth.verifyIsLogged(item.getEmail(), item.getPassword());
         if (findOne(item) != null) {
-            auth.verifyAuthorizationUser();
+            auth.verifyAuthorizationDirector();
             User putUser = findOne(item);
             putUser.setExperience(item.getExperience());
             putUser.setPassword(item.getPassword());
@@ -119,7 +119,7 @@ public class UsersDAO implements DAOInterface<User> {
     public boolean deleteItem(User item) {
         auth.verifyIsLogged(item.getEmail(), item.getPassword());
         if (findOne(item) != null) {
-            auth.verifyAuthorizationUser();
+            auth.verifyAuthorizationDirector();
             User userDestroy = findOne(item);
             users.remove(userDestroy);
 
