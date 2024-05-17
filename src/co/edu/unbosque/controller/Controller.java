@@ -23,6 +23,8 @@ import co.edu.unbosque.view.Window;
 public class Controller implements ActionListener {
 	private Window view;
 	private Users userAuh;
+	// private Session // Carga los datos necesarios // Nombre // Correo
+	// private boolean isLogged;
 	
 	public Controller() {
 		view = new Window();
@@ -43,19 +45,18 @@ public class Controller implements ActionListener {
 	
 	public void setListeners() {
 		if (view.getRoot().getAuthLayout().getPagesContainer().getEntry() != null) {
-			view.getRoot().getAuthLayout().getPagesContainer().getEntry().getSignInButton().addActionListener(this);
-			view.getRoot().getAuthLayout().getPagesContainer().getEntry().getRegisterButton().addActionListener(this);
+			view.getRoot().getAuthLayout().getPagesContainer().getEntry().getSignInButton().getButton().addActionListener(this);
+			view.getRoot().getAuthLayout().getPagesContainer().getEntry().getRegisterButton().getButton().addActionListener(this);
 		}
 		
 		if (view.getRoot().getAuthLayout().getPagesContainer().getSignIn() != null) {
-			view.getRoot().getAuthLayout().getPagesContainer().getSignIn().getSignInButton().addActionListener(this);
-			view.getRoot().getAuthLayout().getPagesContainer().getSignIn().getSignUpButton().addActionListener(this);
+			view.getRoot().getAuthLayout().getPagesContainer().getSignIn().getSignInButton().getButton().addActionListener(this);
+			view.getRoot().getAuthLayout().getPagesContainer().getSignIn().getSignUpButton().getButton().addActionListener(this);
 		}
 		
 		if (view.getRoot().getAuthLayout().getPagesContainer().getSignUp() != null) {
-			view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRole().getSelector().addActionListener(this);
-			view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getSignInButton().addActionListener(this);
-			view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getSignUpButton().addActionListener(this);
+			view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getSignInButton().getButton().addActionListener(this);
+			view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getSignUpButton().getButton().addActionListener(this);
 		}
 	}
 
@@ -74,7 +75,6 @@ public class Controller implements ActionListener {
     			setListeners();
     		} else if (command.equals("Home_SignUp")) {
     			view.getRoot().getAuthLayout().getPagesContainer().insertRegistrationForm();
-				validateSignUpRoleForm();
     			setListeners();
     		}
 		}
@@ -83,17 +83,16 @@ public class Controller implements ActionListener {
     	if (view.getRoot().getAuthLayout().getPagesContainer().getSignIn() != null) {    		
     		if (command.equals("Form_SignIn")) {
     			// Validar usuario
-    			//-- Obtener la info
-    			String user = view.getRoot().getAuthLayout().getPagesContainer().getSignIn().getUser().getText();
-    			String password = view.getRoot().getAuthLayout().getPagesContainer().getSignIn().getPassword().getText();
+    			String user = view.getRoot().getAuthLayout().getPagesContainer().getSignIn().getUser().getInput().getText();
+    			char[] password = view.getRoot().getAuthLayout().getPagesContainer().getSignIn().getPassword().getInput().getPassword();
+    			// String passwordString = new String(password);
+    			// Arrays.fill(password, ' ');
     			
     			// Si falla la validación se envía el mensaje
     			
-    			
     			// Si no se procede a insertar el dashboard con el contexto del usuario
     		} else if (command.equals("Form_SignUp")) {
-    			view.getRoot().getAuthLayout().getPagesContainer().insertRegistrationForm();   
-				validateSignUpRoleForm();
+    			view.getRoot().getAuthLayout().getPagesContainer().insertRegistrationForm();
     			setListeners();
     		}
 		}
@@ -101,42 +100,44 @@ public class Controller implements ActionListener {
     	
     	// Manejo de eventos para pagina de registro
 		if (view.getRoot().getAuthLayout().getPagesContainer().getSignUp() != null) {		
-			if(command.equals("Form_SignUp_Role_Selection")) {
-				validateSignUpRoleForm();
-			} else if (command.equals("Form_SignIn")) {
-				System.out.println("Holaa");
+			if (command.equals("Form_SignIn")) {
 				view.getRoot().getAuthLayout().getPagesContainer().insertLoginForm();
-    			setListeners();
-    			
+    			setListeners();    			
     		} else if (command.equals("Form_SignUp")) {
-    			// Validar Creación de usuario usuario
-    			
-    			// Si falla la validación se envía el mensaje
-    			
-    			// Si no se procede a insertar el dashboard con el contexto del usuario
+    			String currentRole = view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRole().getSelector().getSelectedItem().toString();
+    			createNewUser(currentRole);
     		}
 		}    	
     }
     
-    public void validateSignUpRoleForm() {
-    	if (view.getRoot().getAuthLayout().getPagesContainer().getSignUp() != null) {
-    		String selectedRole = view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRole().getSelector().getSelectedItem().toString();
-    		
-    		switch (selectedRole) {
-    		case "Director":
-    			view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRoleFormsContainer().insertDirectorsForm();
-    			break;
-    		case "Masajista":
-    			view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRoleFormsContainer().insertMassageTherapistsForm();
-    			break;
-    		case "Ciclista":
-    			view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRoleFormsContainer().insertCyclistForm();
-    			break;
-    		default: 
-    			break;
-    		}    		
+    public void createNewUser(String role) {
+    	if (role.equals("Director")) {
+    		//String dni = view.getRoot().getAuthLayout().getPagesContainer().getSignUp();
+    		//String nationality = view.getRoot().getAuthLayout().getPagesContainer().getSignUp();
+    		//String experience = view.getRoot().getAuthLayout().getPagesContainer().getSignUp();
+    		//String email = view.getRoot().getAuthLayout().getPagesContainer().getSignUp();
+    		//String password = view.getRoot().getAuthLayout().getPagesContainer().getSignUp();
     	}
     	
+    	if (role.equals("Masajista")) {
+    		//String dni = view.getRoot().getAuthLayout().getPagesContainer().getSignUp();
+    		//String experience = view.getRoot().getAuthLayout().getPagesContainer().getSignUp();
+    		//String email = view.getRoot().getAuthLayout().getPagesContainer().getSignUp();
+    		//String password = view.getRoot().getAuthLayout().getPagesContainer().getSignUp();
+    	}
+    	
+    	if (role.equals("Ciclista")) {
+    		//String specialization = view.getRoot().getAuthLayout().getPagesContainer().getSignUp();
+    		//String experience = view.getRoot().getAuthLayout().getPagesContainer().getSignUp();
+    		//String names = view.getRoot().getAuthLayout().getPagesContainer().getSignUp();
+    		//String lastNames = view.getRoot().getAuthLayout().getPagesContainer().getSignUp();
+    		//String dni = view.getRoot().getAuthLayout().getPagesContainer().getSignUp();
+    		//String email = view.getRoot().getAuthLayout().getPagesContainer().getSignUp();
+    		//String password = view.getRoot().getAuthLayout().getPagesContainer().getSignUp();
+    	}
     }
-
+    
+    public void login() {
+    	
+    }
 }

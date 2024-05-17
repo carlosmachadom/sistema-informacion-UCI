@@ -18,12 +18,13 @@ import javax.swing.border.EmptyBorder;
 
 import co.edu.unbosque.view.components.AuthFooter;
 import co.edu.unbosque.view.components.AuthHeader;
+import co.edu.unbosque.view.components.ButtonGeneral;
 import co.edu.unbosque.view.utils.ColorPalette;
 import co.edu.unbosque.view.utils.FontSystem;
 
 public class Home extends JPanel {
-	private JButton signInButton;
-	private JButton registerButton;
+	private ButtonGeneral signInButton;
+	private ButtonGeneral registerButton;
 	
 	public Home() {
 		setLayout(new BorderLayout());
@@ -59,7 +60,7 @@ public class Home extends JPanel {
         titleLabel.setFont(FontSystem.getLargeTitle());
         titleLabel.setForeground(ColorPalette.getMainBlack());
 
-        JLabel subTitleLabel = new JLabel("<html><p style='text-align: center;'>Sistema de gestión de la <span style='font-weight: bold;color: #FF204E;'>Union Cicliste Internationale.</span></p><html>");
+        JLabel subTitleLabel = new JLabel("<html><p style='text-align: center;'>Sistema de gestión de la <br/><span style='font-weight: bold;color: #FF204E;'>Union Cicliste Internationale</span></p><html>");
         subTitleLabel.setFont(FontSystem.getLargeParagraph());
         subTitleLabel.setForeground(ColorPalette.getMainBlack());
         
@@ -67,31 +68,28 @@ public class Home extends JPanel {
         signInLabel.setFont(FontSystem.getExtraLargeParagraph());
         signInLabel.setForeground(ColorPalette.getMainBlack());
         
-        signInButton = new JButton("Iniciar Sesión");
-        signInButton.setFont(FontSystem.getH4());
-        signInButton.setForeground(ColorPalette.getMainWhite());
-        signInButton.setBorder(new EmptyBorder(12, 16, 12, 16));
-        signInButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        signInButton.setBackground(ColorPalette.getMainRed());
-        signInButton.setActionCommand("Home_SignIn");
+        signInButton = new ButtonGeneral(
+    		"Iniciar Sesión", 
+    		"Home_SignIn", 
+    		ColorPalette.getMainRed(), 
+    		ColorPalette.getMainWhite()
+        );
         
         JLabel registerLabel = new JLabel("¿Eres nuevo?");
         registerLabel.setFont(FontSystem.getExtraLargeParagraph());
         
-        registerButton = new JButton("Registrarse");
-        registerButton.setFont(FontSystem.getH4());
-        registerButton.setForeground(ColorPalette.getMainWhite());
-        registerButton.setBorder(new EmptyBorder(12, 16, 12, 16));
-        registerButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        registerButton.setBackground(ColorPalette.getMainBlack());
-        registerButton.setActionCommand("Home_SignUp");
+        registerButton = new ButtonGeneral(
+    		"Registrarse", 
+    		"Home_SignUp", 
+    		ColorPalette.getMainBlack(), 
+    		ColorPalette.getMainWhite()
+        );
         
         // Agregar componentes al mainContent
         mainContent.add(Box.createVerticalStrut(8));
         mainContent.add(titleLabel);
         mainContent.add(Box.createVerticalStrut(4));
-        mainContent.add(subTitleLabel);
-        
+        mainContent.add(subTitleLabel);        
         mainContent.add(Box.createVerticalStrut(16));
         mainContent.add(signInLabel);
         mainContent.add(Box.createVerticalStrut(8));
@@ -125,11 +123,11 @@ public class Home extends JPanel {
 		add(footer, BorderLayout.SOUTH);
 	}
 
-	public JButton getSignInButton() {
+	public ButtonGeneral getSignInButton() {
 		return signInButton;
 	}
 
-	public JButton getRegisterButton() {
+	public ButtonGeneral getRegisterButton() {
 		return registerButton;
 	}
 }

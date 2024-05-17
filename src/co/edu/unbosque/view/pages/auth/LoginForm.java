@@ -23,6 +23,10 @@ import javax.swing.border.EmptyBorder;
 
 import co.edu.unbosque.view.components.AuthFooter;
 import co.edu.unbosque.view.components.AuthHeader;
+import co.edu.unbosque.view.components.ButtonGeneral;
+import co.edu.unbosque.view.components.PasswordInput;
+import co.edu.unbosque.view.components.SelectorInput;
+import co.edu.unbosque.view.components.TextInput;
 import co.edu.unbosque.view.utils.ColorPalette;
 import co.edu.unbosque.view.utils.FontSystem;
 
@@ -30,10 +34,10 @@ import co.edu.unbosque.view.utils.FontSystem;
  * 
  */
 public class LoginForm extends JPanel{
-	private JTextField user;
-	private JPasswordField password;
-	private JButton signInButton;
-	private JButton signUpButton;
+	private TextInput user;
+	private PasswordInput password;
+	private ButtonGeneral signInButton;
+	private ButtonGeneral signUpButton;
 	
 	public LoginForm() {
 		setLayout(new BorderLayout());
@@ -74,96 +78,39 @@ public class LoginForm extends JPanel{
         subTitleLabel.setForeground(ColorPalette.getMainBlack());
         subTitleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         
-        JPanel roleLabelContainer = new JPanel();
-        roleLabelContainer.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
-        roleLabelContainer.setBorder(new EmptyBorder(0,0,0,0));
-        roleLabelContainer.setBackground(ColorPalette.getTransparent());
-        JLabel roleLabel = new JLabel("Selecciona una opción:");
-        roleLabel.setFont(FontSystem.getH3());
-        roleLabel.setForeground(ColorPalette.getMainBlack());
-        roleLabel.setBorder(new EmptyBorder(0,0,0,0));
-        roleLabelContainer.add(roleLabel);
-        
-        JPanel userLabelContainer = new JPanel();
-        userLabelContainer.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
-        userLabelContainer.setBorder(new EmptyBorder(0,0,0,0));
-        userLabelContainer.setBackground(ColorPalette.getTransparent());
-        JLabel userLabel = new JLabel("Usuario:");
-        userLabel.setFont(FontSystem.getH3());
-        userLabel.setForeground(ColorPalette.getMainBlack());
-        userLabel.setBorder(new EmptyBorder(0,0,0,0));
-        userLabelContainer.add(userLabel);
-        
-        user = new JTextField();
-        user.setFont(FontSystem.getLargeParagraph());
-        user.setForeground(ColorPalette.getMainBlack());
-        user.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(ColorPalette.getMainBlack()),
-            new EmptyBorder(8, 8, 8, 8)
-        ));
+        user = new TextInput("Usuario:");
         user.setAlignmentX(Component.CENTER_ALIGNMENT);        
         
-        JPanel passwordLabelContainer = new JPanel();
-        passwordLabelContainer.setLayout(new FlowLayout(FlowLayout.LEFT, 0,0));
-        passwordLabelContainer.setBorder(new EmptyBorder(0,0,0,0));
-        passwordLabelContainer.setBackground(ColorPalette.getTransparent());
-        JLabel passwordLabel = new JLabel("Contraseña:");
-        passwordLabel.setFont(FontSystem.getH3());
-        passwordLabel.setForeground(ColorPalette.getMainBlack());
-        passwordLabelContainer.add(passwordLabel);
-        
-        password = new JPasswordField(20);
-        password.setFont(FontSystem.getLargeParagraph());
-        password.setForeground(ColorPalette.getMainBlack());
-        password.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(ColorPalette.getMainBlack()),
-            new EmptyBorder(8, 8, 8, 8)
-        ));
+        password = new PasswordInput("Contraseña:", 20);
         password.setAlignmentX(Component.CENTER_ALIGNMENT);
         
+        signInButton = new ButtonGeneral(
+    		"Iniciar Sesión", 
+    		"Form_SignIn", 
+    		ColorPalette.getMainRed(), 
+    		ColorPalette.getMainWhite()
+        );       
+        signInButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         
-        JPanel signInButtonContainer = new JPanel();
-        signInButtonContainer.setLayout(new BorderLayout());
-        signInButtonContainer.setBorder(new EmptyBorder(0,0,0,0));
-        signInButtonContainer.setBackground(ColorPalette.getTransparent());
-        signInButton = new JButton("Iniciar Sesión");
-        signInButton.setFont(FontSystem.getH4());
-        signInButton.setForeground(ColorPalette.getMainWhite());
-        signInButton.setBorder(new EmptyBorder(12, 16, 12, 16));
-        signInButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        signInButton.setBackground(ColorPalette.getMainRed());
-        signInButton.setActionCommand("Form_SignIn");
-        signInButtonContainer.add(signInButton, BorderLayout.CENTER);        
-        
-        JPanel signUpButtonContainer = new JPanel();
-        signUpButtonContainer.setLayout(new BorderLayout());
-        signUpButtonContainer.setBorder(new EmptyBorder(0,0,0,0));
-        signUpButtonContainer.setBackground(ColorPalette.getTransparent());
-        signUpButton = new JButton("Registrarse");
-        signUpButton.setFocusPainted(false);
-        signUpButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        signUpButton.setFont(FontSystem.getH4());
-        signUpButton.setForeground(ColorPalette.getMainWhite());
-        signUpButton.setBorder(new EmptyBorder(12, 16, 12, 16));
-        signUpButton.setBackground(ColorPalette.getMainBlack());
-        signUpButton.setActionCommand("Form_SignUp");
-        signUpButtonContainer.add(signUpButton, BorderLayout.CENTER);
-
-       
+        signUpButton = new ButtonGeneral(
+    		"Registrarse", 
+    		"Form_SignUp", 
+    		ColorPalette.getMainBlack(), 
+    		ColorPalette.getMainWhite()
+        );    
+        signUpButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         // Agregar componentes al mainContent
         mainContent.add(titleLabel);
         mainContent.add(subTitleLabel); 
         mainContent.add(Box.createVerticalStrut(8));
-        mainContent.add(userLabelContainer);
         mainContent.add(user);
         mainContent.add(Box.createVerticalStrut(8));
-        mainContent.add(passwordLabelContainer);
         mainContent.add(password);
         mainContent.add(Box.createVerticalStrut(16));
-        mainContent.add(signInButtonContainer);
+        mainContent.add(signInButton);
         mainContent.add(Box.createVerticalStrut(16));
-        mainContent.add(signUpButtonContainer);
+        mainContent.add(signUpButton);
         
         
         // Agregar mainContent al wrapperPanel con GridBagConstraints para centrar verticalmente
@@ -182,19 +129,19 @@ public class LoginForm extends JPanel{
 		add(footer, BorderLayout.SOUTH);
 	}
 
-	public JTextField getUser() {
+	public TextInput getUser() {
 		return user;
 	}
 
-	public JTextField getPassword() {
+	public PasswordInput getPassword() {
 		return password;
 	}
 
-	public JButton getSignInButton() {
+	public ButtonGeneral getSignInButton() {
 		return signInButton;
 	}
 
-	public JButton getSignUpButton() {
+	public ButtonGeneral getSignUpButton() {
 		return signUpButton;
 	}
 }

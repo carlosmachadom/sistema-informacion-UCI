@@ -9,6 +9,7 @@ public class ColorPalette {
     private static final Color MAIN_PURPLE = new Color(93, 14, 65);
     private static final Color MAIN_BLACK = new Color(0, 34, 77);
     private static final Color MAIN_WHITE = new Color(255, 245, 248);
+    private static final Color SIMPLE_WHITE = new Color(255, 255, 255);
     private static final Color MAIN_GRAY = new Color(204, 202, 202);
     private static final Color TRANSPARENT = new Color(204, 202, 202, 0);
     private static final Color SECONDARY_BLUE = new Color(0, 207, 204);
@@ -43,5 +44,9 @@ public class ColorPalette {
 
 	public static Color getSecondaryBlue() {
 		return SECONDARY_BLUE;
+	}
+
+	public static Color getSimpleWhite() {
+		return SIMPLE_WHITE;
 	}
 }

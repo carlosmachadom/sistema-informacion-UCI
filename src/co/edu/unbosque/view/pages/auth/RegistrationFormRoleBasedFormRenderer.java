@@ -2,6 +2,7 @@ package co.edu.unbosque.view.pages.auth;
 
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -13,39 +14,56 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import co.edu.unbosque.view.components.NumericInput;
 import co.edu.unbosque.view.components.PasswordInput;
 import co.edu.unbosque.view.components.SelectorInput;
 import co.edu.unbosque.view.components.TextInput;
 import co.edu.unbosque.view.utils.ColorPalette;
-import co.edu.unbosque.view.utils.FontSystem;
 
 public class RegistrationFormRoleBasedFormRenderer extends JPanel{
-	private JTextField email;
-	private JTextField dni;
+	private TextInput email;
+	private TextInput dni;
 	private PasswordInput password;
-	private JTextField yearsOfexperience;
+	private NumericInput yearsOfexperience;
 	private SelectorInput cyclistExpertise; 
 	private TextInput ciclistNames;
 	private TextInput ciclistLastNames;
+	private TextInput nationality;
 	
 	public RegistrationFormRoleBasedFormRenderer() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBorder(new EmptyBorder(0,0,0,0));
-        setBackground(ColorPalette.getTransparent());
+        setBackground(ColorPalette.getMainWhite());
         setVisible(true);
-	}
-	
-	public void insertCommonFields() {        
-        password = new PasswordInput("Contraseña:", 20);
-        password.setAlignmentX(Component.CENTER_ALIGNMENT);
-        add(password);
 	}
 	
 	public void insertDirectorsForm() {
 		removeAllComponents();
 		reRenderComponents();
 		
-		insertCommonFields();
+		dni = new TextInput("Cédula:");
+        dni.setAlignmentX(Component.CENTER_ALIGNMENT);
+        add(dni);
+        add(Box.createVerticalStrut(8));
+        
+        nationality = new TextInput("Nacionalidad:");
+        nationality.setAlignmentX(Component.CENTER_ALIGNMENT);
+        add(nationality);
+        add(Box.createVerticalStrut(8));
+        
+        yearsOfexperience  = new NumericInput("Experienca (Años):");
+		yearsOfexperience.setAlignmentX(Component.CENTER_ALIGNMENT); 
+        add(yearsOfexperience);
+        add(Box.createVerticalStrut(8));
+        
+        email = new TextInput("Correo Electrónico:");
+        email.setAlignmentX(Component.CENTER_ALIGNMENT);
+        add(email);
+        add(Box.createVerticalStrut(8));
+		
+        password = new PasswordInput("Contraseña:", 20);
+        password.setAlignmentX(Component.CENTER_ALIGNMENT);
+        add(password);
 		
 		reRenderComponents();
 	}
@@ -54,7 +72,24 @@ public class RegistrationFormRoleBasedFormRenderer extends JPanel{
 		removeAllComponents();
 		reRenderComponents();
 		
-		insertCommonFields();
+		dni = new TextInput("Cédula:");
+        dni.setAlignmentX(Component.CENTER_ALIGNMENT);
+        add(dni);
+        add(Box.createVerticalStrut(8));
+        
+        yearsOfexperience  = new NumericInput("Experienca (Años):");
+		yearsOfexperience.setAlignmentX(Component.CENTER_ALIGNMENT); 
+        add(yearsOfexperience);
+        add(Box.createVerticalStrut(8));
+        
+        email = new TextInput("Correo Electrónico:");
+        email.setAlignmentX(Component.CENTER_ALIGNMENT);
+        add(email);
+        add(Box.createVerticalStrut(8));
+		
+        password = new PasswordInput("Contraseña:", 20);
+        password.setAlignmentX(Component.CENTER_ALIGNMENT);
+        add(password);
 		
 		reRenderComponents();
 	}
@@ -62,24 +97,36 @@ public class RegistrationFormRoleBasedFormRenderer extends JPanel{
 	public void insertCyclistForm() {
 		removeAllComponents();
 		reRenderComponents();		
+		
+		// Crear un panel intermedio con GridLayout
+	    JPanel gridPanel = new JPanel(new GridLayout(4, 2, 8, 8));
+	    gridPanel.setBorder(new EmptyBorder(0,0,0,0));
+	    gridPanel.setBackground(ColorPalette.getTransparent());
 	    
-		String[] cyclistTypes = {"Gregario", "Clasicomaniaco", "Relojista", "Escalador", "Corredor", "Rodador"};
-		cyclistExpertise = new SelectorInput("Selecciona su especialidad:", cyclistTypes, "Form_SignUp_Expertise_Selection");
-		cyclistExpertise.setAlignmentX(Component.CENTER_ALIGNMENT);
-		add(cyclistExpertise);
-		add(Box.createVerticalStrut(8));
-		
-		ciclistNames = new TextInput("Nombres:");
-		ciclistNames.setAlignmentX(Component.CENTER_ALIGNMENT); 
-        add(ciclistNames);
-        add(Box.createVerticalStrut(8));
-        
-        ciclistLastNames = new TextInput("Apellidos:");
-        ciclistLastNames.setAlignmentX(Component.CENTER_ALIGNMENT);
-        add(ciclistLastNames);
-        add(Box.createVerticalStrut(8));
-		
-		insertCommonFields();
+	    String[] cyclistTypes = {"Gregario", "Clasicomaniaco", "Relojista", "Escalador", "Corredor", "Rodador"};
+	    cyclistExpertise = new SelectorInput("Especialidad:", cyclistTypes, "Form_SignUp_Expertise_Selection");
+	    gridPanel.add(cyclistExpertise);
+	    
+	    yearsOfexperience  = new NumericInput("Experienca (Años):");
+	    gridPanel.add(yearsOfexperience);
+	    
+	    ciclistNames = new TextInput("Nombres:");
+	    gridPanel.add(ciclistNames);
+	    
+	    ciclistLastNames = new TextInput("Apellidos:");
+	    gridPanel.add(ciclistLastNames);
+	    
+	    dni = new TextInput("Cédula:");
+	    gridPanel.add(dni);
+	    
+	    email = new TextInput("Correo Electrónico:");
+	    gridPanel.add(email);
+	    
+	    password = new PasswordInput("Contraseña:", 20);
+	    gridPanel.add(password);
+	    
+	    // Agregar el panel intermedio al layout principal
+	    add(gridPanel);
 		
 		reRenderComponents();
 	}
@@ -93,15 +140,15 @@ public class RegistrationFormRoleBasedFormRenderer extends JPanel{
 		repaint();
 	}
 
-	public JTextField getEmail() {
+	public TextInput getEmail() {
 		return email;
 	}
 
-	public JTextField getDni() {
+	public TextInput getDni() {
 		return dni;
 	}
 
-	public JTextField getYearsOfexperience() {
+	public NumericInput getYearsOfexperience() {
 		return yearsOfexperience;
 	}
 	

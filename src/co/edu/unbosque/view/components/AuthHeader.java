@@ -13,7 +13,7 @@ import javax.swing.border.EmptyBorder;
 public class AuthHeader extends JPanel {
 	public AuthHeader() {
 		setLayout(new FlowLayout(FlowLayout.LEADING));
-		setBorder(new EmptyBorder(40,40,40,40));
+		setBorder(new EmptyBorder(24,40,24,40));
 		setBackground(new Color(255,245,248));
 		
 		initializeComponents();

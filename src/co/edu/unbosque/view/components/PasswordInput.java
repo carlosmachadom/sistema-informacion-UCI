@@ -56,7 +56,7 @@ public class PasswordInput extends JPanel {
         add(input);
 	}
 
-	public JTextField getInput() {
+	public JPasswordField getInput() {
 		return input;
 	}
 }

@@ -9,6 +9,8 @@ import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -23,6 +25,7 @@ import javax.swing.border.EmptyBorder;
 
 import co.edu.unbosque.view.components.AuthFooter;
 import co.edu.unbosque.view.components.AuthHeader;
+import co.edu.unbosque.view.components.ButtonGeneral;
 import co.edu.unbosque.view.components.SelectorInput;
 import co.edu.unbosque.view.utils.ColorPalette;
 import co.edu.unbosque.view.utils.FontSystem;
@@ -33,8 +36,8 @@ import co.edu.unbosque.view.utils.FontSystem;
 public class RegistrationForm extends JPanel{
 	private SelectorInput role; 
 	private RegistrationFormRoleBasedFormRenderer roleFormsContainer;
-	private JButton signInButton;
-	private JButton signUpButton;
+	private ButtonGeneral signInButton;
+	private ButtonGeneral signUpButton;
 	
 	public RegistrationForm() {
 		setLayout(new BorderLayout());
@@ -57,57 +60,58 @@ public class RegistrationForm extends JPanel{
 	public void insertMainContent() {
 		// Crear un contenedor principal para centrar verticalmente el contenido
         JPanel wrapperPanel = new JPanel(new GridBagLayout());
-        wrapperPanel.setBackground(ColorPalette.getTransparent());
+        wrapperPanel.setBackground(ColorPalette.getMainWhite());
         
         // Crear el contenido principal (mainContent)
         JPanel mainContent = new JPanel();
         mainContent.setLayout(new BoxLayout(mainContent, BoxLayout.Y_AXIS));
         mainContent.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        mainContent.setBackground(ColorPalette.getTransparent());
+        mainContent.setBackground(ColorPalette.getMainWhite());
         
         JLabel titleLabel = new JLabel("Registrate");
         titleLabel.setFont(FontSystem.getLargeTitle());
         titleLabel.setForeground(ColorPalette.getMainBlack());
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel subTitleLabel = new JLabel("<html><p style='text-align: center;'>Comienza tu camino con equipos <br/>de alto rendimiento</p><html>");
+        JLabel subTitleLabel = new JLabel("<html><p style='text-align: center;'>Forma parte de la élite del ciclismo y lleva <br/>tu rendimiento al siguiente nivel.</p><html>");
         subTitleLabel.setFont(FontSystem.getLargeParagraph());
         subTitleLabel.setForeground(ColorPalette.getMainBlack());
         subTitleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         String[] roles = {"Director", "Masajista", "Ciclista"};
         role = new SelectorInput("Selecciona una opción:", roles, "Form_SignUp_Role_Selection");
+        role.getSelector().addActionListener(new ActionListener() {        	
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String command = e.getActionCommand();				
+				if (command.equals("Form_SignUp_Role_Selection")) {
+					validateRoleForm();
+				}
+			}        	
+        });
+        
         role.setAlignmentX(Component.CENTER_ALIGNMENT);      
         
         roleFormsContainer = new RegistrationFormRoleBasedFormRenderer();
-        roleFormsContainer.setAlignmentX(Component.CENTER_ALIGNMENT); 
+        roleFormsContainer.setAlignmentX(Component.CENTER_ALIGNMENT);
+        validateRoleForm();
         
-        JPanel signUpButtonContainer = new JPanel();
-        signUpButtonContainer.setLayout(new BorderLayout());
-        signUpButtonContainer.setBorder(new EmptyBorder(0,0,0,0));
-        signUpButtonContainer.setBackground(ColorPalette.getTransparent());
-        signUpButton = new JButton("Registrarse");
-        signUpButton.setFocusPainted(false);
-        signUpButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        signUpButton.setFont(FontSystem.getH4());
-        signUpButton.setForeground(ColorPalette.getMainWhite());
-        signUpButton.setBorder(new EmptyBorder(12, 16, 12, 16));
-        signUpButton.setBackground(ColorPalette.getMainRed());
-        signUpButton.setActionCommand("Form_SignUp");
-        signUpButtonContainer.add(signUpButton, BorderLayout.CENTER);
         
-        JPanel signInButtonContainer = new JPanel();
-        signInButtonContainer.setLayout(new BorderLayout());
-        signInButtonContainer.setBorder(new EmptyBorder(0,0,0,0));
-        signInButtonContainer.setBackground(ColorPalette.getTransparent());
-        signInButton = new JButton("Iniciar Sesión");
-        signInButton.setFont(FontSystem.getH4());
-        signInButton.setForeground(ColorPalette.getMainWhite());
-        signInButton.setBorder(new EmptyBorder(12, 16, 12, 16));
-        signInButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        signInButton.setBackground(ColorPalette.getMainBlack());
-        signInButton.setActionCommand("Form_SignIn");
-        signInButtonContainer.add(signInButton, BorderLayout.CENTER); 
+        signUpButton = new ButtonGeneral(
+    		"Registrarse", 
+    		"Form_SignUp", 
+    		ColorPalette.getMainRed(), 
+    		ColorPalette.getMainWhite()
+        );
+        signUpButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        signInButton = new ButtonGeneral(
+    		"Iniciar Sesión", 
+    		"Form_SignIn", 
+    		ColorPalette.getMainBlack(), 
+    		ColorPalette.getMainWhite()
+        );
+        signInButton.setAlignmentX(Component.CENTER_ALIGNMENT);
        
         
         // Agregar componentes al mainContent
@@ -118,9 +122,9 @@ public class RegistrationForm extends JPanel{
         mainContent.add(Box.createVerticalStrut(8));
         mainContent.add(roleFormsContainer);
         mainContent.add(Box.createVerticalStrut(16));
-        mainContent.add(signUpButtonContainer);
+        mainContent.add(signUpButton);
         mainContent.add(Box.createVerticalStrut(16));
-        mainContent.add(signInButtonContainer);
+        mainContent.add(signInButton);
         
         
         // Agregar mainContent al wrapperPanel con GridBagConstraints para centrar verticalmente
@@ -138,16 +142,34 @@ public class RegistrationForm extends JPanel{
 		AuthFooter footer = new AuthFooter();
 		add(footer, BorderLayout.SOUTH);
 	}
+	
+	public void validateRoleForm() {
+		String selectedRole = role.getSelector().getSelectedItem().toString();
+		
+		switch (selectedRole) {
+		case "Director":
+			roleFormsContainer.insertDirectorsForm();
+			break;
+		case "Masajista":
+			roleFormsContainer.insertMassageTherapistsForm();
+			break;
+		case "Ciclista":
+			roleFormsContainer.insertCyclistForm();
+			break;
+		default: 
+			break;
+		}
+	}
 
 	public SelectorInput getRole() {
 		return role;
 	}
 
-	public JButton getSignInButton() {
+	public ButtonGeneral getSignInButton() {
 		return signInButton;
 	}
 
-	public JButton getSignUpButton() {
+	public ButtonGeneral getSignUpButton() {
 		return signUpButton;
 	}
 
