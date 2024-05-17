@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
  */
 import java.awt.event.ActionListener;
 
+import co.edu.unbosque.model.Users;
 import co.edu.unbosque.view.Window;
 
 /**
@@ -21,9 +22,11 @@ import co.edu.unbosque.view.Window;
  */
 public class Controller implements ActionListener {
 	private Window view;
+	private Users userAuh;
 	
 	public Controller() {
 		view = new Window();
+		userAuh = new Users();
 		
 		run();
 	}
@@ -84,6 +87,7 @@ public class Controller implements ActionListener {
     			String password = view.getRoot().getAuthLayout().getMainContent().getSignIn().getPassword().getText();
     			
     			// Si falla la validación se envía el mensaje
+    			
     			
     			// Si no se procede a insertar el dashboard con el contexto del usuario
     		} else if (command.equals("Form_SignUp")) {
