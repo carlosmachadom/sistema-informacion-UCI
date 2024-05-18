@@ -2,8 +2,7 @@ package co.edu.unbosque.model.persistence.DAO;
 
 import co.edu.unbosque.helper.Auth;
 import co.edu.unbosque.interfaces.DAOInterface;
-import co.edu.unbosque.model.Director;
-import co.edu.unbosque.model.User;
+import co.edu.unbosque.model.cyclists.Cyclist;
 import co.edu.unbosque.model.persistence.FileFactory;
 
 import java.util.List;
@@ -13,34 +12,33 @@ import java.util.List;
  * Se encarga de la persistencia de objetos `User` en un archivo binario.
  * Utiliza la clase `FileFactory` para la lectura y escritura del archivo, y la clase `Auth` para la autenticación y autorización.
  *
- * @param <Director> El tipo de objeto que se persistirá (en este caso, `Director`).
+ * @param <Cyclist> El tipo de objeto que se persistirá (en este caso, `Cyclist`).
  */
-public class DirectorsDAO implements DAOInterface<Director> {
+public class CyclistsDAO implements DAOInterface<Cyclist> {
     /**
-     * Factory para la lectura y escritura del archivo de directores.
+     * Factory para la lectura y escritura del archivo de usuarios.
      */
-    private final FileFactory<Director> fileFactory;
+    private final FileFactory<Cyclist> fileFactory;
 
     /**
-     * Lista en memoria para almacenar la información de los directores leída del archivo.
+     * Lista en memoria para almacenar la información de los usuarios leída del archivo.
      */
-    private List<Director> directors;
-
+    private List<Cyclist> cyclists;
     /**
      * Objeto de autenticación y autorización.
      */
     private final Auth auth;
 
     /**
-     * Constructor para la clase `DirectorDAO`.
+     * Constructor para la clase `UsersDAO`.
      *
-     * @param directors Una lista vacía que se llenará con los usuarios leídos del archivo.
+     * @param cyclists Una lista vacía que se llenará con los usuarios leídos del archivo.
      */
-    public DirectorsDAO(List<Director> directors) {
-        fileFactory = new FileFactory<>("directors.bin");
+    public CyclistsDAO(List<Cyclist> cyclists) {
+        fileFactory = new FileFactory<>("cyclists.bin");
         fileFactory.helthCheck();
         auth = new Auth();
-        this.directors = directors;
+        this.cyclists = cyclists;
     }
     /**
      * Recupera todos los elementos de la fuente de datos.
@@ -49,7 +47,7 @@ public class DirectorsDAO implements DAOInterface<Director> {
      * Si no hay elementos almacenados, se puede retornar una lista vacía.
      */
     @Override
-    public List<Director> getAllItems() {
+    public List<Cyclist> getAllItems() {
         return fileFactory.readFile();
     }
 
@@ -63,10 +61,10 @@ public class DirectorsDAO implements DAOInterface<Director> {
      * se puede retornar `null`.
      */
     @Override
-    public Director findOne(Director exist) {
-        directors = fileFactory.readFile();
-        for (Director director : directors) {
-            if (director.getCC() == exist.getCC()) return director;
+    public Cyclist findOne(Cyclist exist) {
+        cyclists = fileFactory.readFile();
+        for (Cyclist cyclist : cyclists) {
+            if (cyclist.getCC() == exist.getCC()) return cyclist;
         }
         return null;
     }
@@ -78,14 +76,19 @@ public class DirectorsDAO implements DAOInterface<Director> {
      * @return `true` si la creación del elemento se realiza con éxito. `false` si ocurre un error durante la creación.
      */
     @Override
-    public boolean CreateItem(Director item) {
+    public boolean CreateItem(Cyclist item) {
         if (findOne(item) == null) {
             auth.generateAccessToken(item.getEmail(), item.getPassword());
 
-            Director newDirector = new Director(item.getCC(), item.getExperience(), item.getEmail(), item.getPassword(), item.getNationality());
-            directors.add(newDirector);
+            Cyclist newCyclist = new Cyclist(item.getName(), item.getBodyStructure(), item.getCadencePedaling(), item.getCC(), item.getExperience(), item.getEmail(), item.getPassword()) {
+                @Override
+                public void specialty() {
 
-            fileFactory.writeFile(directors);
+                }
+            };
+            cyclists.add(newCyclist);
+
+            fileFactory.writeFile(cyclists);
             return true;
         }
         return false;
@@ -98,16 +101,18 @@ public class DirectorsDAO implements DAOInterface<Director> {
      * @return `true` si la actualización del elemento se realiza con éxito. `false` si ocurre un error durante la actualización.
      */
     @Override
-    public boolean updateItem(Director item) {
+    public boolean updateItem(Cyclist item) {
         auth.verifyIsLogged(item.getEmail(), item.getPassword());
         if (findOne(item) != null) {
             auth.verifyAuthorizationDirector();
-            Director putDirector = findOne(item);
-            putDirector.setExperience(item.getExperience());
-            putDirector.setPassword(item.getPassword());
-            putDirector.setNationality(item.getNationality());
+            Cyclist putCyclist = findOne(item);
+            putCyclist.setName(item.getName());
+            putCyclist.setBodyStructure(item.getBodyStructure());
+            putCyclist.setCadencePedaling(item.getCadencePedaling());
+            putCyclist.setExperience(item.getExperience());
+            putCyclist.setPassword(item.getPassword());
 
-            fileFactory.writeFile(directors);
+            fileFactory.writeFile(cyclists);
             return true;
         }
         return false;
@@ -120,14 +125,14 @@ public class DirectorsDAO implements DAOInterface<Director> {
      * @return `true` si la eliminación del elemento se realiza con éxito. `false` si ocurre un error durante la eliminación.
      */
     @Override
-    public boolean deleteItem(Director item) {
+    public boolean deleteItem(Cyclist item) {
         auth.verifyIsLogged(item.getEmail(), item.getPassword());
         if (findOne(item) != null) {
             auth.verifyAuthorizationDirector();
-            Director directorDestroy = findOne(item);
-            directors.remove(directorDestroy);
+            Cyclist cyclistDestroy = findOne(item);
+            cyclists.remove(cyclistDestroy);
 
-            fileFactory.writeFile(directors);
+            fileFactory.writeFile(cyclists);
             return true;
         }
         return false;
