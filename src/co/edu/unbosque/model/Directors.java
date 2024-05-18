@@ -8,16 +8,22 @@ import co.edu.unbosque.model.persistence.adapter.DirectorMapHandler;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase que gestiona los directores, implementando las operaciones CRUD.
+ */
 public class Directors implements ListInterface<Director, DirectorDTO> {
     /**
      * Objeto de Acceso a Datos (DAO) para la persistencia de director.
      */
-    private DirectorsDAO directorDAO;
+    private final DirectorsDAO directorDAO;
     /**
      * Manejador para el mapeo entre objetos `DirectorDTO` y `Director`.
      */
-    private DirectorMapHandler directorMapHandler;
+    private final DirectorMapHandler directorMapHandler;
 
+    /**
+     * Constructor que inicializa la lista de directores, el DAO y el manejador de mapeo.
+     */
     public Directors() {
         List<Director> directors = new ArrayList<>();
         directorDAO = new DirectorsDAO(directors);
@@ -25,8 +31,10 @@ public class Directors implements ListInterface<Director, DirectorDTO> {
     }
 
     /**
-     * @param modelDTO
-     * @return
+     * Añade un nuevo director a la lista.
+     *
+     * @param modelDTO el objeto DTO del director a añadir.
+     * @return true si el director fue añadido exitosamente, false en caso contrario.
      */
     @Override
     public boolean add(DirectorDTO modelDTO) {
@@ -35,8 +43,10 @@ public class Directors implements ListInterface<Director, DirectorDTO> {
     }
 
     /**
-     * @param modelDTO
-     * @return
+     * Actualiza la información de un director existente.
+     *
+     * @param modelDTO el objeto DTO del director a actualizar.
+     * @return true si el director fue actualizado exitosamente, false en caso contrario.
      */
     @Override
     public boolean put(DirectorDTO modelDTO) {
@@ -45,8 +55,10 @@ public class Directors implements ListInterface<Director, DirectorDTO> {
     }
 
     /**
-     * @param modelDTO
-     * @return
+     * Elimina un director de la lista.
+     *
+     * @param modelDTO el objeto DTO del director a eliminar.
+     * @return true si el director fue eliminado exitosamente, false en caso contrario.
      */
     @Override
     public boolean clean(DirectorDTO modelDTO) {
@@ -55,7 +67,9 @@ public class Directors implements ListInterface<Director, DirectorDTO> {
     }
 
     /**
-     * @return
+     * Obtiene todos los directores de la lista.
+     *
+     * @return una lista de todos los directores.
      */
     @Override
     public List<Director> all() {
@@ -63,8 +77,10 @@ public class Directors implements ListInterface<Director, DirectorDTO> {
     }
 
     /**
-     * @param modelDTO
-     * @return
+     * Busca y obtiene un director único basado en la información del DTO.
+     *
+     * @param modelDTO el objeto DTO del director a buscar.
+     * @return el objeto Director correspondiente, o null si no se encuentra.
      */
     @Override
     public Director unique(DirectorDTO modelDTO) {
