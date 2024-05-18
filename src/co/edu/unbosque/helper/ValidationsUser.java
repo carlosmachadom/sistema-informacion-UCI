@@ -66,7 +66,7 @@ public class ValidationsUser {
     }
 
     public static void verifyPassword(String password) {
-        match = Setup.compiler("^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*()_+\\\\-=[\\\\]{};':\\\"\\\\\\\\|,.<>/?]).{8,}$", password);
+        match = Setup.compiler("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&])[A-Za-z\\d$@$!%*?&]{8,}$", password);
         try {
             if (!match.matches()) {
                 throw new ParserStringError("Formato no valido (Invalid format)");

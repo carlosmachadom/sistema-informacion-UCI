@@ -35,7 +35,7 @@ public class Classicomaniac extends Cyclist {
             String email,
             String password) {
         super(name, bodyStructure, cadencePedaling, CC, experience, email, password);
-        ValidationsCyclist.verifySpeedMaxOrClassicsWon(classicsWon);
+        ValidationsCyclist.verifySpeedMax(classicsWon);
         this.classicsWon = classicsWon;
     }
 
@@ -65,7 +65,7 @@ public class Classicomaniac extends Cyclist {
      * @param classicsWon La nueva cantidad de clásicas ganadas.
      */
     public void setClassicsWon(int classicsWon) {
-        ValidationsCyclist.verifySpeedMaxOrClassicsWon(classicsWon);
+        ValidationsCyclist.verifySpeedMax(classicsWon);
         this.classicsWon = classicsWon;
     }
 }
