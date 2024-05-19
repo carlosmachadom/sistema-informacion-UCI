@@ -1,7 +1,6 @@
 package co.edu.unbosque.model.user;
 
 import co.edu.unbosque.interfaces.ListInterface;
-import co.edu.unbosque.model.User;
 import co.edu.unbosque.model.persistence.DAO.UsersDAO;
 import co.edu.unbosque.model.persistence.DTO.UserDTO;
 import co.edu.unbosque.model.persistence.adapter.UserMapHandler;

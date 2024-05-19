@@ -1,12 +1,15 @@
 package co.edu.unbosque.model.persistence.adapter;
 
 import co.edu.unbosque.interfaces.MapInterface;
-import co.edu.unbosque.model.Director;
+import co.edu.unbosque.model.director.Director;
 import co.edu.unbosque.model.persistence.DTO.DirectorDTO;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase que implementa la interfaz MapInterface para la conversión entre objetos Director y DirectorDTO.
+ */
 public class DirectorMapHandler implements MapInterface<Director, DirectorDTO> {
     /**
      * Transforma un objeto DTO en un objeto modelo.

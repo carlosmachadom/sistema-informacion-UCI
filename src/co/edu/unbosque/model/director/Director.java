@@ -1,9 +1,10 @@
 /**
  *
  */
-package co.edu.unbosque.model;
+package co.edu.unbosque.model.director;
 
 import co.edu.unbosque.helper.ValidationsGenerics;
+import co.edu.unbosque.model.user.User;
 
 /**
  * Esta clase representa a un director del sistema.

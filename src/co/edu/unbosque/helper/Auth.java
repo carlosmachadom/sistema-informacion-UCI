@@ -21,7 +21,6 @@ public class Auth {
      */
     public Auth() {
         logIn = new LogIn();
-        logIn.helthCheck();
     }
 
     /**

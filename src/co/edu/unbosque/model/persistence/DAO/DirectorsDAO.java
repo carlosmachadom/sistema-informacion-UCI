@@ -1,40 +1,39 @@
 package co.edu.unbosque.model.persistence.DAO;
 
-import co.edu.unbosque.helper.Auth;
 import co.edu.unbosque.interfaces.DAOInterface;
-import co.edu.unbosque.model.Director;
-import co.edu.unbosque.model.User;
+import co.edu.unbosque.model.director.Director;
+import co.edu.unbosque.model.persistence.DTO.DirectorDTO;
 import co.edu.unbosque.model.persistence.FileFactory;
+import co.edu.unbosque.model.persistence.adapter.DirectorMapHandler;
 
 import java.util.List;
 
 public class DirectorsDAO implements DAOInterface<Director> {
     /**
-     * Factory para la lectura y escritura del archivo de directores.
+     * Manejador para mapear objetos DirectosDTO a objetos Director y viceversa.
      */
-    private final FileFactory<Director> fileFactory;
+    private final DirectorMapHandler directorMapHandler;
 
     /**
-     * Lista en memoria para almacenar la información de los directores leída del archivo.
+     * Fábrica de archivos para la persistencia de objetos DirectorDTO.
      */
-    private List<Director> directors;
+    private final FileFactory<DirectorDTO> fileFactory;
 
     /**
-     * Objeto de autenticación y autorización.
+     * Lista de usuarios almacenados en la capa de persistencia.
      */
-    private final Auth auth;
+    private final List<Director> directors;
 
     /**
-     * Constructor para la clase `DirectorDAO`.
-     *
-     * @param directors Una lista vacía que se llenará con los usuarios leídos del archivo.
+     * Constructor de la clase DirectorsDAO.
+     * Inicializa la fábrica de archivos, el manejador de mapeo y carga la lista de usuarios desde el archivo.
      */
-    public DirectorsDAO(List<Director> directors) {
+    public DirectorsDAO() {
         fileFactory = new FileFactory<>("directors.bin");
-        fileFactory.helthCheck();
-        auth = new Auth();
-        this.directors = directors;
+        directorMapHandler = new DirectorMapHandler();
+        directors = directorMapHandler.transformDTOListToModelList(fileFactory.readFile());
     }
+
     /**
      * Recupera todos los elementos de la fuente de datos.
      *
@@ -43,7 +42,7 @@ public class DirectorsDAO implements DAOInterface<Director> {
      */
     @Override
     public List<Director> getAllItems() {
-        return fileFactory.readFile();
+        return directors;
     }
 
     /**
@@ -57,9 +56,10 @@ public class DirectorsDAO implements DAOInterface<Director> {
      */
     @Override
     public Director findOne(Director exist) {
-        directors = fileFactory.readFile();
-        for (Director director : directors) {
-            if (director.getCC() == exist.getCC()) return director;
+        for (Director director : getAllItems()) {
+            if (director.getCC() == exist.getCC()) {
+                return director;
+            }
         }
         return null;
     }
@@ -73,12 +73,10 @@ public class DirectorsDAO implements DAOInterface<Director> {
     @Override
     public boolean CreateItem(Director item) {
         if (findOne(item) == null) {
-            auth.generateAccessToken(item.getEmail(), item.getPassword());
-
             Director newDirector = new Director(item.getCC(), item.getExperience(), item.getEmail(), item.getPassword(), item.getNationality());
             directors.add(newDirector);
 
-            fileFactory.writeFile(directors);
+            fileFactory.writeFile(directorMapHandler.transformModelListToDTOList(directors));
             return true;
         }
         return false;
@@ -92,15 +90,14 @@ public class DirectorsDAO implements DAOInterface<Director> {
      */
     @Override
     public boolean updateItem(Director item) {
-        auth.verifyIsLogged(item.getEmail(), item.getPassword());
         if (findOne(item) != null) {
-            auth.verifyAuthorizationDirector();
             Director putDirector = findOne(item);
+
             putDirector.setExperience(item.getExperience());
             putDirector.setPassword(item.getPassword());
             putDirector.setNationality(item.getNationality());
 
-            fileFactory.writeFile(directors);
+            fileFactory.writeFile(directorMapHandler.transformModelListToDTOList(directors));
             return true;
         }
         return false;
@@ -114,13 +111,11 @@ public class DirectorsDAO implements DAOInterface<Director> {
      */
     @Override
     public boolean deleteItem(Director item) {
-        auth.verifyIsLogged(item.getEmail(), item.getPassword());
         if (findOne(item) != null) {
-            auth.verifyAuthorizationDirector();
             Director directorDestroy = findOne(item);
             directors.remove(directorDestroy);
 
-            fileFactory.writeFile(directors);
+            fileFactory.writeFile(directorMapHandler.transformModelListToDTOList(directors));
             return true;
         }
         return false;

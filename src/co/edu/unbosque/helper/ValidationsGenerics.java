@@ -14,7 +14,7 @@ public class ValidationsGenerics {
         match = Setup.compiler("^[a-zA-Z ]+$", name);
         try {
             if (!match.matches()) {
-                throw new ParserStringError("Formato no valido (Invalid format)");
+                throw new ParserStringError("Formato no valido Nombre");
             }
         } catch (ParserStringError err) {
             System.out.println("err = " + err.getMessage());

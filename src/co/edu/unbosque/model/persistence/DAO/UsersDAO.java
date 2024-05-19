@@ -1,10 +1,10 @@
 package co.edu.unbosque.model.persistence.DAO;
 
 import co.edu.unbosque.interfaces.DAOInterface;
-import co.edu.unbosque.model.User;
 import co.edu.unbosque.model.persistence.DTO.UserDTO;
 import co.edu.unbosque.model.persistence.FileFactory;
 import co.edu.unbosque.model.persistence.adapter.UserMapHandler;
+import co.edu.unbosque.model.user.User;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class UsersDAO implements DAOInterface<User> {
     /**
      * Lista de usuarios almacenados en la capa de persistencia.
      */
-    private List<User> users;
+    private final List<User> users;
 
     /**
      * Constructor de la clase UsersDAO.
@@ -55,13 +55,10 @@ public class UsersDAO implements DAOInterface<User> {
      */
     @Override
     public User findOne(User exist) {
-        User userfound = null;
         for (User user : getAllItems()) {
-            if ((user.getCC() == exist.getCC())) {
-                userfound = user;
-            }
+            if ((user.getCC() == exist.getCC())) return user;
         }
-        return userfound;
+        return null;
     }
 
     /**
@@ -112,7 +109,6 @@ public class UsersDAO implements DAOInterface<User> {
     public boolean deleteItem(User item) {
         if (findOne(item) != null) {
             User userDestroy = findOne(item);
-
             users.remove(userDestroy);
 
             fileFactory.writeFile(userMapHandler.transformModelListToDTOList(users));

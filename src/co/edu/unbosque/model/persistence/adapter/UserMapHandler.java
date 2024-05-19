@@ -1,8 +1,8 @@
 package co.edu.unbosque.model.persistence.adapter;
 
 import co.edu.unbosque.interfaces.MapInterface;
-import co.edu.unbosque.model.User;
 import co.edu.unbosque.model.persistence.DTO.UserDTO;
+import co.edu.unbosque.model.user.User;
 
 import java.util.ArrayList;
 import java.util.List;
