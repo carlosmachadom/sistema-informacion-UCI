@@ -31,9 +31,63 @@ public class DashboardPagesContainer extends JPanel {
         setBackground(ColorPalette.getMainGray());
         setBorder(new EmptyBorder(40,40,40,40));
         setVisible(true);
-    }
+    }	
 	
-		
+	public void insertTeamsList() {
+        removeAllComponents();
+        reRenderComponents();
+        teams = new TeamsList();
+        add(teams, BorderLayout.CENTER);
+        reRenderComponents();
+    }
+
+    public void insertDirectorsList() {
+        removeAllComponents();
+        reRenderComponents();
+        directors = new DirectorsList();
+        add(directors, BorderLayout.CENTER);
+        reRenderComponents();
+    }
+
+    public void insertTherapistsList() {
+        removeAllComponents();
+        reRenderComponents();
+        therapists = new MassageTherapistsList();
+        add(therapists, BorderLayout.CENTER);
+        reRenderComponents();
+    }
+
+    public void insertCyclistsList() {
+        removeAllComponents();
+        reRenderComponents();
+        cyclists = new CyclistsList();
+        add(cyclists, BorderLayout.CENTER);
+        reRenderComponents();
+    }
+
+    public void insertRace() {
+        removeAllComponents();
+        reRenderComponents();
+        race = new Race();
+        add(race, BorderLayout.CENTER);
+        reRenderComponents();
+    }
+
+    public void insertRaceRecords() {
+        removeAllComponents();
+        reRenderComponents();
+        raceRecors = new RaceRecords();
+        add(raceRecors, BorderLayout.CENTER);
+        reRenderComponents();
+    }
+
+    public void insertProfile() {
+        removeAllComponents();
+        reRenderComponents();
+        profile = new Profile();
+        add(profile, BorderLayout.CENTER);
+        reRenderComponents();
+    }
 	
 	public void removeAllComponents() {
 		removeAll();
