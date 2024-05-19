@@ -95,11 +95,11 @@ public class LoginForm extends JPanel {
 		password = new PasswordInput("Contraseña:", 20);
 		password.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-		signInButton = new ButtonGeneral("Iniciar Sesión", "Form_SignIn", ColorPalette.getMainRed(),
+		signInButton = new ButtonGeneral("Iniciar Sesión", "Login_Form_SignIn", ColorPalette.getMainRed(),
 				ColorPalette.getMainWhite());
 		signInButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-		signUpButton = new ButtonGeneral("Registrarse", "Form_SignUp", ColorPalette.getMainBlack(),
+		signUpButton = new ButtonGeneral("Registrarse", "Login_Form_SignUp", ColorPalette.getMainBlack(),
 				ColorPalette.getMainWhite());
 		signUpButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
