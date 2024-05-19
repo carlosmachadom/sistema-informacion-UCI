@@ -109,15 +109,7 @@ public class Controller implements ActionListener {
     	// Manejo de eventos para pagina de inicio de sesión
     	if (view.getRoot().getAuthLayout().getPagesContainer().getSignIn() != null) {    		
     		if (command.equals("Login_Form_SignIn")) {
-    			// Validar usuario
-    			String user = view.getRoot().getAuthLayout().getPagesContainer().getSignIn().getUser().getInput().getText();
-    			char[] password = view.getRoot().getAuthLayout().getPagesContainer().getSignIn().getPassword().getInput().getPassword();
-    			// String passwordString = new String(password);
-    			// Arrays.fill(password, ' ');
-    			
-    			// Si falla la validación se envía el mensaje
-    			
-    			// Si no se procede a insertar el dashboard con el contexto del usuario
+    			login();
     		} else if (command.equals("Login_Form_SignUp")) {
     			view.getRoot().getAuthLayout().getPagesContainer().insertRegistrationForm();
     			setListeners();
@@ -336,7 +328,30 @@ public class Controller implements ActionListener {
     /**
      * Maneja el proceso de inicio de sesión.
      */
-    public void login() {
-    	
+    public void login() {    	
+    	if (view.getRoot().getAuthLayout().getPagesContainer().getSignIn() != null) {
+    		String user = view.getRoot().getAuthLayout().getPagesContainer().getSignIn().getUser().getInput().getText();
+    		char[] password = view.getRoot().getAuthLayout().getPagesContainer().getSignIn().getPassword().getInput().getPassword();
+    		
+    		// String passwordString = new String(password);
+    		// Arrays.fill(password, ' ');
+    		
+    		
+    		
+//    		if (password != null && password.length > 0) {
+//    			String passwordString = new String(password);
+//    			
+//    			if (StringFieldsValidator.isValidPassword(passwordString)) {
+//    				newUser.setPassword(passwordString);	
+//    			} else {
+//    				MessageDialog.showWarningDialog(null, ValidationMessages.getWeakPasswordMessage());
+//    				isValidUser = false;
+//    			}
+//    		} else {
+//    			MessageDialog.showWarningDialog(null, ValidationMessages.getRequiredFieldMessage("Contraseña"));
+//    			isValidUser = false;
+//    		}
+//    		
+    	}
     }
 }
