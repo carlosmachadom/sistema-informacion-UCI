@@ -37,7 +37,7 @@ public class ValidationsUser {
      *                            estándar de correo electrónico.
      */
     public static void verifyEmail(String email) {
-        match = Setup.compiler("^[a-z]+@unbosque\\.edu\\.co$", email);
+        match = Setup.compiler("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.(com|edu|org|net|gov|co)$", email);
         try {
             if (!match.matches()) {
                 throw new PerserInvalidLogin("Formato no valido Email");
@@ -65,8 +65,12 @@ public class ValidationsUser {
         }
     }
 
+    /**
+     * 
+     * @param password
+     */
     public static void verifyPassword(String password) {
-        match = Setup.compiler("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*()\\\\-_+=|\\\\[\\\\]{};:/?.>,<]).{8,}$", password);
+        match = Setup.compiler("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&])[A-Za-z\\d$@$!%*?&]{8,}$", password);
         try {
             if (!match.matches()) {
                 throw new ParserStringError("Formato no valido Contraseña");
