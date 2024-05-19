@@ -2,17 +2,22 @@ package co.edu.unbosque.controller;
 import java.awt.event.ActionEvent;
 
 import java.awt.event.ActionListener;
-import java.nio.file.attribute.UserDefinedFileAttributeView;
-import java.util.Arrays;
 
 import javax.swing.JOptionPane;
 
 import co.edu.unbosque.model.user.Users;
+import co.edu.unbosque.model.cyclists.Cyclists;
+import co.edu.unbosque.model.director.Directors;
+import co.edu.unbosque.model.persistence.DTO.CyclistDTO;
+import co.edu.unbosque.model.persistence.DTO.DirectorDTO;
+import co.edu.unbosque.model.persistence.DTO.MassageDTO;
 import co.edu.unbosque.model.persistence.DTO.UserDTO;
-import co.edu.unbosque.model.user.User;
+import co.edu.unbosque.model.therapist.MassageTherapists;
 import co.edu.unbosque.view.Window;
+import co.edu.unbosque.view.utils.MessageDialog;
 import co.edu.unbosque.view.utils.NumberConverter;
 import co.edu.unbosque.view.utils.StringFieldsValidator;
+import co.edu.unbosque.view.utils.ValidationMessages;
 
 /**
  * Clase Controlador que maneja las interacciones entre la vista y el modelo,
@@ -21,6 +26,9 @@ import co.edu.unbosque.view.utils.StringFieldsValidator;
 public class Controller implements ActionListener {
 	private Window view;
 	private Users userAuth;
+	private Directors directorsList;
+	private MassageTherapists therapistsList;
+	private Cyclists cyclistsList;
 	// private Session // Carga los datos necesarios // Nombre // Correo
 	// private boolean isLogged;
 	
@@ -30,7 +38,6 @@ public class Controller implements ActionListener {
 	public Controller() {
 		view = new Window();
 		userAuth = new Users();
-		
 		run();
 	}
 	 /**
@@ -44,10 +51,10 @@ public class Controller implements ActionListener {
      * Establece el estado inicial de la vista.
      */
 	public void initialState() {
-		//view.getRoot().insertAuthLogic();
-		//view.getRoot().getAuthLayout().getPagesContainer().insertHome();
+		view.getRoot().insertAuthLogic();
+		view.getRoot().getAuthLayout().getPagesContainer().insertHome();
 		
-		view.getRoot().insertAppLogic();
+		//view.getRoot().insertAppLogic();
 	}
 	/**
      * Establece los listeners para los diferentes botones en la vista.
@@ -134,34 +141,112 @@ public class Controller implements ActionListener {
      * 
      * @param role el rol seleccionado por el usuario
      */
-    public void createNewUser(String role) {
+	public void createNewUser(String role) {
     	String dni = view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRoleFormsContainer().getDni().getInput().getText();
     	Object experience = view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRoleFormsContainer().getYearsOfexperience().getInput().getValue();
 		String email = view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRoleFormsContainer().getEmail().getInput().getText();
 		char[] password = view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRoleFormsContainer().getPassword().getInput().getPassword();
+		String nationality = null;
+		String names = null;
+		String lastNames = null;		
+		
 		
 		UserDTO newUser = new UserDTO();
+		DirectorDTO newDirector = null;
+		CyclistDTO newCyclist = null;
+		MassageDTO newTherapist = null; 
+		
+		if (role.equals("Director")) {
+			newDirector = new DirectorDTO();
+		}
+		
+		if (role.equals("Ciclista")) {
+			newCyclist = new CyclistDTO();
+		}
+		
+		if (role.equals("Masagista")) {
+			newTherapist = new MassageDTO();
+		}
+		
 		boolean isValidUser = true;
+		
+		if (role.equals("Ciclista") && newCyclist != null) {
+			boolean validName = true;
+			
+			names = view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRoleFormsContainer().getCiclistLastNames().getInput().getText();
+			
+			if(!StringFieldsValidator.isValidText(names)) {
+				MessageDialog.showWarningDialog(null, ValidationMessages.getRequiredFieldMessage("Nombres"));
+				validName = false;
+			}
+
+			lastNames = view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRoleFormsContainer().getCiclistLastNames().getInput().getText();
+			
+			if(!StringFieldsValidator.isValidText(lastNames)) {
+				MessageDialog.showWarningDialog(null, ValidationMessages.getRequiredFieldMessage("Apellidos"));
+				validName = false;
+			}
+			
+			if (validName) {
+				newCyclist.setName(names + " " +lastNames);
+			}
+		}
+		
 
 		// Agregando Cedula al DTO
 		if (StringFieldsValidator.isValidString(dni)) {
 			try {
 				long cc = NumberConverter.convertToLong(dni);
 				newUser.setCC(cc);
+				
+				if (role.equals("Director") && newDirector != null) {
+					newDirector.setCC(cc);
+				}
+				
+				if (role.equals("Ciclista") && newCyclist != null) {
+					newCyclist.setCC(cc);
+				}
+				
+				if (role.equals("Masagista") && newTherapist != null) {
+					newTherapist.setCC(cc);
+				}
+				
 			} catch (NumberFormatException e) {
-				JOptionPane.showMessageDialog(null, "Ingreso de datos no valido: Este campo solo acepta numeros.", "Error", JOptionPane.ERROR_MESSAGE);
+				MessageDialog.showWarningDialog(null, "Este campo solo acepta numeros");
 				isValidUser = false;
 			}
 		} else {
-			JOptionPane.showMessageDialog(null, "Ingreso de datos no valido: El campo de CC no puede estar vacio", "Error", JOptionPane.ERROR_MESSAGE);
+			MessageDialog.showWarningDialog(null, ValidationMessages.getRequiredFieldMessage("Cédula"));
 			isValidUser = false;
+		}
+		
+		if (role.equals("Director") && newDirector != null) {
+			nationality = view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRoleFormsContainer().getNationality().getInput().getText();
+			if(StringFieldsValidator.isValidText(nationality)) {
+				newDirector.setNationality(nationality);
+			} else {
+				MessageDialog.showWarningDialog(null, ValidationMessages.getRequiredFieldMessage("Nacionalidad"));
+				isValidUser = false;
+			}
 		}
 		
 		// Agregando email al DTO
 		if (StringFieldsValidator.isValidEmail(email)) {
 			newUser.setEmail(email);
+			
+			if (role.equals("Director") && newDirector != null) {
+				newDirector.setEmail(email);
+			}
+			
+			if (role.equals("Ciclista") && newCyclist != null) {
+				newCyclist.setEmail(email);
+			}
+			
+			if (role.equals("Masagista") && newTherapist != null) {
+				newTherapist.setEmail(email);
+			}			
 		} else {
-			JOptionPane.showMessageDialog(null, "Error: Email no valido", "Error", JOptionPane.ERROR_MESSAGE);
+			MessageDialog.showWarningDialog(null, ValidationMessages.getRequiredFieldMessage("Correo electrónico"));
 			isValidUser = false;
 		}
 		
@@ -169,8 +254,20 @@ public class Controller implements ActionListener {
 		if (experience != null) {
 			Number xp = (Number) experience;
 			newUser.setExperience(xp.intValue());
+			
+			if (role.equals("Director") && newDirector != null) {
+				newDirector.setExperience(xp.intValue());
+			}
+			
+			if (role.equals("Ciclista") && newCyclist != null) {
+				newCyclist.setExperience(xp.intValue());
+			}
+			
+			if (role.equals("Masagista") && newTherapist != null) {
+				newTherapist.setExperience(xp.intValue());
+			}	
 		} else {
-			JOptionPane.showMessageDialog(null, "Ingreso de datos no valido: El campo de experiencia no puede estar vacio", "Error", JOptionPane.ERROR_MESSAGE);
+			MessageDialog.showWarningDialog(null, ValidationMessages.getRequiredFieldMessage("Experiencia"));
 			isValidUser = false;
 		}
 		
@@ -180,52 +277,59 @@ public class Controller implements ActionListener {
 			
 			if (StringFieldsValidator.isValidPassword(passwordString)) {
 				newUser.setPassword(passwordString);
+				
+				if (role.equals("Director") && newDirector != null) {
+					newDirector.setPassword(passwordString);
+				}		
+				
+				if (role.equals("Ciclista") && newCyclist != null) {
+					newCyclist.setPassword(passwordString);
+				}
+				
+				if (role.equals("Masagista") && newTherapist != null) {
+					newTherapist.setPassword(passwordString);
+				}	
 			} else {
-				JOptionPane.showMessageDialog(null, "La contraseña debe cumplir con los siguientes requisitos:\n"
-						+ "1. Al menos 8 caracteres de longitud.\n"
-						+ "2. Contener al menos un dígito (0-9).\n"
-						+ "3. Contener al menos una letra mayúscula o minúscula (a-z, A-Z).\n"
-						+ "4. Contener al menos un carácter especial, como !@#$%^&", "Error", JOptionPane.ERROR_MESSAGE);
+				MessageDialog.showWarningDialog(null, ValidationMessages.getWeakPasswordMessage());
 				isValidUser = false;
 			}
 		} else {
-			JOptionPane.showMessageDialog(null, "Ingreso de datos no valido: El campo contraseña no puede estar vacio", "Error", JOptionPane.ERROR_MESSAGE);
+			MessageDialog.showWarningDialog(null, ValidationMessages.getRequiredFieldMessage("Contraseña"));
 			isValidUser = false;
 		}
 		
 		if (isValidUser) {
-			System.out.println(newUser.toString());
 			boolean userCreated = userAuth.add(newUser);
-//			
-//			if (userCreated) {
-//				boolean roleCreated = false;
-//				
-//				switch (role) {				
-//				case "Director":
-//					String nationality = view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRoleFormsContainer().getNationality().getInput().getText();
-//					//Crear DTO Director y agregar
-//					
-//					break;
-//				case "Masajista": 
-//					// Crear Masajista DTO y agregar
-//					break;
-//				case "Ciclista":
-//					// Crear Ciclista DTO y agregar
-//					String specialization = view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRoleFormsContainer().getCyclistExpertise().getSelector().getSelectedItem().toString();
-//					String names = view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRoleFormsContainer().getCiclistLastNames().getInput().getText();
-//					String lastNames = view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRoleFormsContainer().getCiclistLastNames().getInput().getText();
-//					break;
-//				default:
-//					break;
-//				}
+			
+			if (userCreated) {
+				boolean roleCreated = false;
 				
-//				if (roleCreated) {
-//					//Iniciar sesión
-//				}
-//			} else {
-//				JOptionPane.showMessageDialog(null, "Error: El usuario ingresado ya existe", "Error", JOptionPane.ERROR_MESSAGE);
-//				return;
-//			}
+				switch (role) {				
+				case "Director":
+					directorsList = new Directors();
+					roleCreated = directorsList.add(newDirector);
+					break;
+				case "Masajista": 
+					therapistsList = new MassageTherapists();
+					roleCreated = therapistsList.add(newTherapist);
+					break;
+				case "Ciclista":
+					cyclistsList = new Cyclists();
+					roleCreated = cyclistsList.add(newCyclist);
+					break;
+				default:
+					break;
+				}
+				
+				if (roleCreated) {					
+					MessageDialog.showSuccessDialog(null, ValidationMessages.getRegistrationSuccessMessage());
+					view.getRoot().getAuthLayout().getPagesContainer().insertHome();
+					setListeners();
+				}
+			} else {
+				MessageDialog.showErrorDialog(null, ValidationMessages.getUserAlreadyExistsMessage());
+				return;
+			}
 		}
     }
     /**

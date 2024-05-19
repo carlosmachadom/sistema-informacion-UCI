@@ -116,22 +116,23 @@ public class RegistrationFormRoleBasedFormRenderer extends JPanel {
 		reRenderComponents();
 
 		// Crear un panel intermedio con GridLayout
-		JPanel gridPanel = new JPanel(new GridLayout(4, 2, 8, 8));
+		JPanel gridPanel = new JPanel(new GridLayout(3, 2, 8, 8));
 		gridPanel.setBorder(new EmptyBorder(0, 0, 0, 0));
 		gridPanel.setBackground(ColorPalette.getTransparent());
 
-		String[] cyclistTypes = { "Gregario", "Clasicomaniaco", "Relojista", "Escalador", "Corredor", "Rodador" };
-		cyclistExpertise = new SelectorInput("Especialidad:", cyclistTypes, "Form_SignUp_Expertise_Selection");
-		gridPanel.add(cyclistExpertise);
+		//String[] cyclistTypes = { "Gregario", "Clasicomaniaco", "Relojista", "Escalador", "Corredor", "Rodador" };
+		//cyclistExpertise = new SelectorInput("Especialidad:", cyclistTypes, "Form_SignUp_Expertise_Selection");
+		//gridPanel.add(cyclistExpertise);
 
-		yearsOfexperience = new NumericInput("Experienca (Años):");
-		gridPanel.add(yearsOfexperience);
 
 		ciclistNames = new TextInput("Nombres:");
 		gridPanel.add(ciclistNames);
 
 		ciclistLastNames = new TextInput("Apellidos:");
 		gridPanel.add(ciclistLastNames);
+		
+		yearsOfexperience = new NumericInput("Experienca (Años):");
+		gridPanel.add(yearsOfexperience);
 
 		dni = new TextInput("Cédula:");
 		gridPanel.add(dni);

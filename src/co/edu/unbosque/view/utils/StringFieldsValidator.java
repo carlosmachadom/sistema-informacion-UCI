@@ -5,24 +5,34 @@ import java.util.regex.Pattern;
 
 public class StringFieldsValidator {	
 	 // Expresiones regulares para validar nombres y correos electrónicos
-    private static final String NAME_REGEX = "^[\\p{L} .'-]+$";
+    private static final String TEXT_REGEX = "^[\\p{L} .'-]+$";
     private static final String EMAIL_REGEX = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.(com|edu|org|net|gov|co)$";
     private static final String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&])[A-Za-z\\d$@$!%*?&]{8,}$";
 
     // Compilar las expresiones regulares en patrones
-    private static final Pattern NAME_PATTERN = Pattern.compile(NAME_REGEX);
+    private static final Pattern TEXT_PATTERN = Pattern.compile(TEXT_REGEX);
     private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
     private static final Pattern PASSWORD_PATTERN = Pattern.compile(PASSWORD_REGEX);
 
     // Método para validar nombres y apellidos
-    public static boolean isValidName(String name) {
-        if (!isValidEmail(name)) {
-            return false;
-        }
+    public static boolean isValidText(String text) {        
+        boolean response = true;
+    	boolean validString = isValidString(text);
         
-        Matcher matcher = NAME_PATTERN.matcher(name);
+    	if (validString){
+    		Matcher matcher = EMAIL_PATTERN.matcher(text);
+    		
+    		if (matcher.matches()) {
+    			response = true;
+    		} else {
+    			response = false;
+    		}            
+    		
+        } else {
+        	response = false;
+        }        
         
-        return matcher.matches();
+        return response;
     }
 
     // Método para validar correos electrónicos

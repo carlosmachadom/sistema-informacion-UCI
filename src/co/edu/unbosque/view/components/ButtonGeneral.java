@@ -43,6 +43,8 @@ public class ButtonGeneral extends JPanel {
 		this.command = command;
 		this.buttonColor = buttonColor;
 		this.textColor = textColor;
+		
+		initializeButton();
 	}
 
 	/**
