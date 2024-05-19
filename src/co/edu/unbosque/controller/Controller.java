@@ -242,10 +242,16 @@ public class Controller implements ActionListener {
 		}
 
 		if (role.equals("Director") && newDirector != null) {
+<<<<<<< HEAD
 			nationality = view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRoleFormsContainer()
 					.getNationality().getInput().getText();
 			System.out.println(nationality);
 			if (StringFieldsValidator.isValidText(nationality)) {
+=======
+			nationality = view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRoleFormsContainer().getNationality().getInput().getText();
+			
+			if(StringFieldsValidator.isValidText(nationality)) {
+>>>>>>> branch 'main' of https://github.com/carlosmachadom/sistema-informacion-UCI.git
 				newDirector.setNationality(nationality);
 			} else {
 				MessageDialog.showWarningDialog(null, ValidationMessages.getRequiredFieldMessage("Nacionalidad"));
