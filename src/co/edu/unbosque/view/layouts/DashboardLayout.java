@@ -7,16 +7,17 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
+import co.edu.unbosque.view.components.DashboardHeader;
+import co.edu.unbosque.view.components.DashboardMenu;
 import co.edu.unbosque.view.utils.ColorPalette;
 
 /**
  * 
  */
 public class DashboardLayout extends JPanel {
-private JPanel pagesContainer;
-private JPanel menuContainer;
-private JPanel header;
-private JPanel footer;
+private DashboardPagesContainer pagesContainer;
+private DashboardMenu menuContainer;
+private DashboardHeader header;
 	
 	public DashboardLayout() {
 		setLayout(new BorderLayout());
@@ -27,21 +28,14 @@ private JPanel footer;
 	}
 	
 	public void initializeComponents() {
-		header = new JPanel();
-		header.setBackground(ColorPalette.getMainPurple());
+		header = new DashboardHeader();
 		
-		menuContainer = new JPanel();
-		menuContainer.setBackground(ColorPalette.getMainGray());
+		menuContainer = new DashboardMenu();
 
-		pagesContainer = new JPanel();
-		pagesContainer.setBackground(ColorPalette.getMainWhite());
-
-		footer = new JPanel();
-		footer.setBackground(ColorPalette.getMainBlack());
+		pagesContainer = new DashboardPagesContainer();
 		
 		add(header, BorderLayout.NORTH);
 		add(menuContainer, BorderLayout.WEST);
 		add(pagesContainer, BorderLayout.CENTER);
-		add(footer, BorderLayout.SOUTH);
 	}
 }

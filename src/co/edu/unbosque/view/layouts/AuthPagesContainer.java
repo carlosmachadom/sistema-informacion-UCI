@@ -16,10 +16,11 @@ public class AuthPagesContainer extends JPanel {
 	private LoginForm signIn;
 	private RegistrationForm signUp;
 	
-	 public AuthPagesContainer() {
+	public AuthPagesContainer() {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBackground(ColorPalette.getMainWhite());
         setMaximumSize(new Dimension(720, Integer.MAX_VALUE)); // Establecer ancho fijo y altura flexible
+        setVisible(true);
     }
 
     @Override
