@@ -1,7 +1,10 @@
 /**
  *
  */
-package co.edu.unbosque.model;
+package co.edu.unbosque.model.therapist;
+
+
+import co.edu.unbosque.model.user.User;
 
 /**
  * Esta clase representa a un fisioterapeuta del sistema.

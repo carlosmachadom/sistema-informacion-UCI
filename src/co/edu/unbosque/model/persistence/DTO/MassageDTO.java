@@ -3,6 +3,9 @@ package co.edu.unbosque.model.persistence.DTO;
 import java.io.Serial;
 import java.io.Serializable;
 
+/**
+ * Clase que representa un DTO (Data Transfer Object) para el director de la aplicación.
+ */
 public class MassageDTO implements Serializable {
     /**
      * ID de versión serializable para asegurar compatibilidad entre versiones al serializar/deserializar el objeto.

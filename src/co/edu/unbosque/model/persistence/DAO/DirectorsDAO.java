@@ -57,9 +57,7 @@ public class DirectorsDAO implements DAOInterface<Director> {
     @Override
     public Director findOne(Director exist) {
         for (Director director : getAllItems()) {
-            if (director.getCC() == exist.getCC()) {
-                return director;
-            }
+            if (director.getCC() == exist.getCC()) return director;
         }
         return null;
     }

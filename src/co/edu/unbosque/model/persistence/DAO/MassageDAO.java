@@ -1,37 +1,40 @@
 package co.edu.unbosque.model.persistence.DAO;
 
 import co.edu.unbosque.interfaces.DAOInterface;
+import co.edu.unbosque.model.persistence.DTO.MassageDTO;
 import co.edu.unbosque.model.persistence.FileFactory;
+import co.edu.unbosque.model.persistence.adapter.MassageMapHandler;
 import co.edu.unbosque.model.therapist.MassageTherapist;
 
 import java.util.List;
+/**
+ * Clase que implementa la interfaz DAOInterface para realizar operaciones CRUD sobre masajistas.
+ */
+public class MassageDAO implements DAOInterface<MassageTherapist> {
+    /**
+     * Manejador para mapear objetos MassageDTO a objetos User y viceversa.
+     */
+    private final MassageMapHandler massageMapHandler;
 
-public class MasageDAO implements DAOInterface<MassageTherapist> {
     /**
      * Factory para la lectura y escritura del archivo de usuarios.
      */
-    private final FileFactory<MassageTherapist> fileFactory;
+    private final FileFactory<MassageDTO> fileFactory;
 
     /**
      * Lista en memoria para almacenar la información de los usuarios leída del archivo.
      */
-    private List<MassageTherapist> massageTherapists;
+    private final List<MassageTherapist> massageTherapists;
 
     /**
-     * Constructor para la clase `UsersDAO`.
-     *
-     * @param massageTherapists Una lista vacía que se llenará con los usuarios leídos del archivo.
+     * Constructor para la clase `MassageDAO`.
      */
-    public MasageDAO(List<MassageTherapist> massageTherapists) {
+    public MassageDAO() {
         fileFactory = new FileFactory<>("messages.bin");
-        this.massageTherapists = massageTherapists;
+        massageMapHandler = new MassageMapHandler();
+        massageTherapists = massageMapHandler.transformDTOListToModelList(fileFactory.readFile());
     }
 
-    /**
-     * Constructor para la clase `UsersDAO`.
-     *
-     * @param users Una lista vacía que se llenará con los usuarios leídos del archivo.
-     */
     /**
      * Recupera todos los elementos de la fuente de datos.
      *
@@ -40,7 +43,7 @@ public class MasageDAO implements DAOInterface<MassageTherapist> {
      */
     @Override
     public List<MassageTherapist> getAllItems() {
-        return fileFactory.readFile();
+        return massageTherapists;
     }
 
     /**
@@ -54,8 +57,7 @@ public class MasageDAO implements DAOInterface<MassageTherapist> {
      */
     @Override
     public MassageTherapist findOne(MassageTherapist exist) {
-        massageTherapists = fileFactory.readFile();
-        for (MassageTherapist massageTherapist : massageTherapists) {
+        for (MassageTherapist massageTherapist : getAllItems()) {
             if (massageTherapist.getCC() == exist.getCC()) return massageTherapist;
         }
         return null;
@@ -73,7 +75,7 @@ public class MasageDAO implements DAOInterface<MassageTherapist> {
             MassageTherapist newMassage = new MassageTherapist(item.getCC(), item.getExperience(), item.getEmail(), item.getPassword());
             massageTherapists.add(newMassage);
 
-            fileFactory.writeFile(massageTherapists);
+            fileFactory.writeFile(massageMapHandler.transformModelListToDTOList(massageTherapists));
             return true;
         }
         return false;
@@ -92,7 +94,7 @@ public class MasageDAO implements DAOInterface<MassageTherapist> {
             putMessage.setExperience(item.getExperience());
             putMessage.setPassword(item.getPassword());
 
-            fileFactory.writeFile(massageTherapists);
+            fileFactory.writeFile(massageMapHandler.transformModelListToDTOList(massageTherapists));
             return true;
         }
         return false;
@@ -110,7 +112,7 @@ public class MasageDAO implements DAOInterface<MassageTherapist> {
             MassageTherapist massageDestroy = findOne(item);
             massageTherapists.remove(massageDestroy);
 
-            fileFactory.writeFile(massageTherapists);
+            fileFactory.writeFile(massageMapHandler.transformModelListToDTOList(massageTherapists));
             return true;
         }
         return false;
