@@ -19,8 +19,8 @@ public class StringFieldsValidator {
         boolean response = true;
     	boolean validString = isValidString(text);
         
-    	if (validString){
-    		Matcher matcher = EMAIL_PATTERN.matcher(text);
+    	if (validString) {
+    		Matcher matcher = TEXT_PATTERN.matcher(text);
     		
     		if (matcher.matches()) {
     			response = true;

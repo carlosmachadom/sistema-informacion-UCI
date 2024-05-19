@@ -222,6 +222,7 @@ public class Controller implements ActionListener {
 		
 		if (role.equals("Director") && newDirector != null) {
 			nationality = view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRoleFormsContainer().getNationality().getInput().getText();
+			
 			if(StringFieldsValidator.isValidText(nationality)) {
 				newDirector.setNationality(nationality);
 			} else {
