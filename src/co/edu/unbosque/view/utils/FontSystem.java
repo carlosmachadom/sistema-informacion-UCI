@@ -2,6 +2,10 @@ package co.edu.unbosque.view.utils;
 
 import java.awt.Font;
 
+/**
+ *  Esta clase define un sistema de fuentes estáticas que se utilizan en toda la aplicación.
+ * Las fuentes están definidas como constantes y se proporcionan métodos estáticos para acceder a ellas.
+ */
 public class FontSystem {
 	// Definir constantes para las fuentes con nombres descriptivos
     private static final Font H1 = new Font(Font.SANS_SERIF, Font.BOLD, 32);
@@ -16,55 +20,97 @@ public class FontSystem {
     private static final Font LARGE_TITLE = new Font(Font.SANS_SERIF, Font.BOLD, 48);
     private static final Font EXTRA_LARGE_TITLE = new Font(Font.SANS_SERIF, Font.BOLD, 64);
 
-    // Getter para obtener la fuente H1
+    /**
+     * Obtiene la fuente H1.
+     * 
+     * @return la fuente H1.
+     */
     public static Font getH1() {
         return H1;
     }
 
-    // Getter para obtener la fuente H2
+    /**
+     * Obtiene la fuente H2.
+     * 
+     * @return la fuente H2.
+     */
     public static Font getH2() {
         return H2;
     }
 
-    // Getter para obtener la fuente H3
+    /**
+     * Obtiene la fuente H3.
+     * 
+     * @return la fuente H3.
+     */
     public static Font getH3() {
         return H3;
     }
-
-    // Getter para obtener la fuente H4
+    /**
+     * Obtiene la fuente H4.
+     * 
+     * @return la fuente H4.
+     */
     public static Font getH4() {
         return H4;
     }
-
-    // Getter para obtener la fuente H5
+    /**
+     * Obtiene la fuente H5.
+     * 
+     * @return la fuente H5.
+     */
     public static Font getH5() {
         return H5;
     }
 
-    // Getter para obtener la fuente H6
+    /**
+     * Obtiene la fuente H6.
+     * 
+     * @return la fuente H6.
+     */
     public static Font getH6() {
         return H6;
     }
 
-    // Getter para obtener la fuente para párrafos
+    /**
+     * Obtiene la fuente para párrafos.
+     * 
+     * @return la fuente para párrafos.
+     */
     public static Font getParagraph() {
         return PARAGRAPH;
     }
 
-    // Getter para obtener la fuente para títulos grandes
+    /**
+     * Obtiene la fuente para párrafos grandes.
+     * 
+     * @return la fuente para párrafos grandes.
+     */
     public static Font getLargeTitle() {
         return LARGE_TITLE;
     }
 
-    // Getter para obtener la fuente para títulos extra grandes
+    /**
+     * Obtiene la fuente para párrafos extra grandes.
+     * 
+     * @return la fuente para párrafos extra grandes.
+     */
     public static Font getExtraLargeTitle() {
         return EXTRA_LARGE_TITLE;
     }
-
+    /**
+     * Obtiene la fuente para títulos grandes.
+     * 
+     * @return la fuente para títulos grandes.
+     */
 	public static Font getLargeParagraph() {
 		return LARGE_PARAGRAPH;
 	}
-
+    /**
+     * Obtiene la fuente para títulos extra grandes.
+     * 
+     * @return la fuente para títulos extra grandes.
+     */
 	public static Font getExtraLargeParagraph() {
 		return EXTRA_LARGE_PARAGRAPH;
 	}
