@@ -46,24 +46,28 @@ public class Controller implements ActionListener {
 	}
 	
 	public void initialState() {
-		view.getRoot().insertAuthLogic();
-		view.getRoot().getAuthLayout().getPagesContainer().insertHome();
+		//view.getRoot().insertAuthLogic();
+		//view.getRoot().getAuthLayout().getPagesContainer().insertHome();
+		
+		view.getRoot().insertAppLogic();
 	}
 	
 	public void setListeners() {
-		if (view.getRoot().getAuthLayout().getPagesContainer().getEntry() != null) {
-			view.getRoot().getAuthLayout().getPagesContainer().getEntry().getSignInButton().getButton().addActionListener(this);
-			view.getRoot().getAuthLayout().getPagesContainer().getEntry().getRegisterButton().getButton().addActionListener(this);
-		}
-		
-		if (view.getRoot().getAuthLayout().getPagesContainer().getSignIn() != null) {
-			view.getRoot().getAuthLayout().getPagesContainer().getSignIn().getSignInButton().getButton().addActionListener(this);
-			view.getRoot().getAuthLayout().getPagesContainer().getSignIn().getSignUpButton().getButton().addActionListener(this);
-		}
-		
-		if (view.getRoot().getAuthLayout().getPagesContainer().getSignUp() != null) {
-			view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getSignInButton().getButton().addActionListener(this);
-			view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getSignUpButton().getButton().addActionListener(this);
+		if(view.getRoot().getAuthLayout() != null) {
+			if (view.getRoot().getAuthLayout().getPagesContainer().getEntry() != null) {
+				view.getRoot().getAuthLayout().getPagesContainer().getEntry().getSignInButton().getButton().addActionListener(this);
+				view.getRoot().getAuthLayout().getPagesContainer().getEntry().getRegisterButton().getButton().addActionListener(this);
+			}
+			
+			if (view.getRoot().getAuthLayout().getPagesContainer().getSignIn() != null) {
+				view.getRoot().getAuthLayout().getPagesContainer().getSignIn().getSignInButton().getButton().addActionListener(this);
+				view.getRoot().getAuthLayout().getPagesContainer().getSignIn().getSignUpButton().getButton().addActionListener(this);
+			}
+			
+			if (view.getRoot().getAuthLayout().getPagesContainer().getSignUp() != null) {
+				view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getSignInButton().getButton().addActionListener(this);
+				view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getSignUpButton().getButton().addActionListener(this);
+			}			
 		}
 	}
 
