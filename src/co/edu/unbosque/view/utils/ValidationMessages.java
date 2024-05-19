@@ -74,4 +74,9 @@ public class ValidationMessages {
     public static String getUserAlreadyExistsMessage() {
         return "El usuario ya existe. Por favor, elige un nombre de usuario diferente.";
     }
+    
+    public static String getSuccessEmailSentMessage() {
+        return "Se ha enviado un correo que contiene su usario";
+    }
+
 }
