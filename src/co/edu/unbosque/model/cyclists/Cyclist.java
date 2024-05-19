@@ -6,7 +6,7 @@ package co.edu.unbosque.model.cyclists;
 import co.edu.unbosque.helper.ValidationsCyclist;
 import co.edu.unbosque.helper.ValidationsGenerics;
 import co.edu.unbosque.interfaces.CyclistInterface;
-import co.edu.unbosque.model.User;
+import co.edu.unbosque.model.user.User;
 
 import java.time.LocalTime;
 import java.util.UUID;

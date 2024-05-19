@@ -1,6 +1,7 @@
 package co.edu.unbosque.model.cyclists;
 
 import co.edu.unbosque.helper.ValidationsCyclist;
+import co.edu.unbosque.model.cyclists.Cyclist;
 
 /**
  * Esta clase representa a un ciclista de tipo "Clasicómano".
