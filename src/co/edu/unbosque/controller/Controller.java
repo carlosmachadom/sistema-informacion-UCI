@@ -1,24 +1,14 @@
-/**
- *
- */
 package co.edu.unbosque.controller;
-
-/**
- *
- */
-
 import java.awt.event.ActionEvent;
 
-/**
- *
- */
 import java.awt.event.ActionListener;
 
 import co.edu.unbosque.model.Users;
 import co.edu.unbosque.view.Window;
 
 /**
- *
+ * Clase Controlador que maneja las interacciones entre la vista y el modelo,
+ * y gestiona las acciones y eventos del usuario.
  */
 public class Controller implements ActionListener {
 	private Window view;
@@ -26,23 +16,32 @@ public class Controller implements ActionListener {
 	// private Session // Carga los datos necesarios // Nombre // Correo
 	// private boolean isLogged;
 	
+	/**
+     * Constructor que inicializa la vista y el modelo de autenticación de usuario.
+     */
 	public Controller() {
 		view = new Window();
 		userAuh = new Users();
 		
 		run();
 	}
-	
+	 /**
+     * Ejecuta la configuración inicial estableciendo el estado inicial y los listeners.
+     */
 	public void run() {
 		initialState();
 		setListeners();
 	}
-	
+	/**
+     * Establece el estado inicial de la vista.
+     */
 	public void initialState() {
 		view.getRoot().insertAuthLogic();
 		view.getRoot().getAuthLayout().getPagesContainer().insertHome();
 	}
-	
+	/**
+     * Establece los listeners para los diferentes botones en la vista.
+     */
 	public void setListeners() {
 		if (view.getRoot().getAuthLayout().getPagesContainer().getEntry() != null) {
 			view.getRoot().getAuthLayout().getPagesContainer().getEntry().getSignInButton().getButton().addActionListener(this);
@@ -60,12 +59,21 @@ public class Controller implements ActionListener {
 		}
 	}
 
+	/**
+     * Maneja los eventos de acción desencadenados por el usuario.
+     * 
+     * @param e el evento ActionEvent desencadenado por la interacción del usuario
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
     	String command = e.getActionCommand();
     	validateAction(command);
     }
-    
+    /**
+     * Valida el comando de acción y realiza la acción correspondiente.
+     * 
+     * @param command el comando a validar
+     */
     public void validateAction(String command) {
     	
     	// Manejo de eventos para pagina de inicio
@@ -109,7 +117,11 @@ public class Controller implements ActionListener {
     		}
 		}    	
     }
-    
+    /**
+     * Crea un nuevo usuario basado en el rol seleccionado.
+     * 
+     * @param role el rol seleccionado por el usuario
+     */
     public void createNewUser(String role) {
     	if (role.equals("Director")) {
     		String dni = view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRoleFormsContainer().getDni().getInput().getText();
@@ -136,7 +148,9 @@ public class Controller implements ActionListener {
     		//String password = view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRoleFormsContainer();
     	}
     }
-    
+    /**
+     * Maneja el proceso de inicio de sesión.
+     */
     public void login() {
     	
     }

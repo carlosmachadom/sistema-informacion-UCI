@@ -16,6 +16,13 @@ public class ValidationsUser {
 	 */
 	private static Matcher match;
 
+	/**
+     * Valida el formato del número de cédula de un usuario.
+     * El número de cédula debe ser un número entero.
+     *
+     * @param CC El número de cédula a validar.
+     * @throws ParserStringError Si el número de cédula no cumple con el formato especificado.
+     */
     public static void verifyCC(long CC) {
         match = Setup.compiler("^[0-9]{7,10}$", String.valueOf(CC));
         try {
@@ -65,6 +72,14 @@ public class ValidationsUser {
         }
     }
 
+    /**
+     * Valida el formato de la contraseña de un usuario.
+     * La contraseña debe tener al menos 8 caracteres e incluir al menos una letra,
+     * un dígito y un carácter especial.
+     *
+     * @param password La contraseña a validar.
+     * @throws ParserStringError Si la contraseña no cumple con el formato especificado.
+     */
     public static void verifyPassword(String password) {
         match = Setup.compiler("^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*()_+\\\\-=[\\\\]{};':\\\"\\\\\\\\|,.<>/?]).{8,}$", password);
         try {
