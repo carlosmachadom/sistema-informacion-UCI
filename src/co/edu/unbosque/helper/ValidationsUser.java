@@ -20,7 +20,7 @@ public class ValidationsUser {
         match = Setup.compiler("^[0-9]{7,10}$", String.valueOf(CC));
         try {
             if (!match.matches()) {
-                throw new ParserStringError("Formato no valido (Invalid format)");
+                throw new ParserStringError("Formato no valido Cedula");
             }
         } catch (ParserStringError err) {
             System.out.println("err = " + err.getMessage());
@@ -37,10 +37,10 @@ public class ValidationsUser {
      *                            estándar de correo electrónico.
      */
     public static void verifyEmail(String email) {
-        match = Setup.compiler("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\\\.(com|edu|org|net|gov|co)$", email);
+        match = Setup.compiler("^[a-z]+@unbosque\\.edu\\.co$", email);
         try {
             if (!match.matches()) {
-                throw new PerserInvalidLogin("Formato no valido (Invalid format)");
+                throw new PerserInvalidLogin("Formato no valido Email");
             }
         } catch (PerserInvalidLogin err) {
             System.out.println("err = " + err.getMessage());
@@ -58,7 +58,7 @@ public class ValidationsUser {
         match = Setup.compiler("^[0-9]*$", String.valueOf(experience));
         try {
             if (!match.matches()) {
-                throw new ParserStringError("Formato no valido (Invalid format)");
+                throw new ParserStringError("Formato no valido Experiencia");
             }
         } catch (ParserStringError err) {
             System.out.println("err = " + err.getMessage());
@@ -66,10 +66,10 @@ public class ValidationsUser {
     }
 
     public static void verifyPassword(String password) {
-        match = Setup.compiler("^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*()_+\\\\-=[\\\\]{};':\\\"\\\\\\\\|,.<>/?]).{8,}$", password);
+        match = Setup.compiler("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*()\\\\-_+=|\\\\[\\\\]{};:/?.>,<]).{8,}$", password);
         try {
             if (!match.matches()) {
-                throw new ParserStringError("Formato no valido (Invalid format)");
+                throw new ParserStringError("Formato no valido Contraseña");
             }
         } catch (ParserStringError err) {
             System.out.println("err = " + err.getMessage());
