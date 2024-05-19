@@ -1,11 +1,10 @@
-package co.edu.unbosque.model;
+package co.edu.unbosque.model.director;
 
 import co.edu.unbosque.interfaces.ListInterface;
 import co.edu.unbosque.model.persistence.DAO.DirectorsDAO;
 import co.edu.unbosque.model.persistence.DTO.DirectorDTO;
 import co.edu.unbosque.model.persistence.adapter.DirectorMapHandler;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,11 +12,11 @@ import java.util.List;
  */
 public class Directors implements ListInterface<Director, DirectorDTO> {
     /**
-     * Objeto de Acceso a Datos (DAO) para la persistencia de director.
+     * Objeto de Acceso a Datos (DAO) para la persistencia de directores.
      */
     private final DirectorsDAO directorDAO;
     /**
-     * Manejador para el mapeo entre objetos `DirectorDTO` y `Director`.
+     * Manejador para el mapeo entre objetos DirectorDTO y Director.
      */
     private final DirectorMapHandler directorMapHandler;
 
@@ -25,9 +24,8 @@ public class Directors implements ListInterface<Director, DirectorDTO> {
      * Constructor que inicializa la lista de directores, el DAO y el manejador de mapeo.
      */
     public Directors() {
-        List<Director> directors = new ArrayList<>();
-        directorDAO = new DirectorsDAO(directors);
         directorMapHandler = new DirectorMapHandler();
+        directorDAO = new DirectorsDAO();
     }
 
     /**

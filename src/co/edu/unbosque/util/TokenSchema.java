@@ -1,9 +1,9 @@
 package co.edu.unbosque.util;
 
 import co.edu.unbosque.model.cyclists.Cyclist;
-import co.edu.unbosque.model.Director;
-import co.edu.unbosque.model.MassageTherapist;
-import co.edu.unbosque.model.User;
+import co.edu.unbosque.model.director.Director;
+import co.edu.unbosque.model.therapist.MassageTherapist;
+import co.edu.unbosque.model.user.User;
 
 /**
  * Esta clase de utilidad proporciona métodos para generar tokens de usuario basados en el tipo de usuario

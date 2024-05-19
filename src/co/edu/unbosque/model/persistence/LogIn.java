@@ -1,6 +1,5 @@
 package co.edu.unbosque.model.persistence;
 
-import co.edu.unbosque.interfaces.RepositoryInterface;
 import co.edu.unbosque.util.FileHandler;
 
 import java.io.FileReader;
@@ -12,7 +11,7 @@ import java.util.Properties;
  * Esta clase implementa la interfaz `RepositoryInterface` para manejar un token de inicio de sesión.
  * Utiliza un archivo de propiedades ("token.properties") para almacenar y recuperar el token.
  */
-public class LogIn implements RepositoryInterface {
+public class LogIn {
     /**
      * El nombre del archivo de propiedades utilizado para almacenar el token ("token.properties").
      */
@@ -28,40 +27,7 @@ public class LogIn implements RepositoryInterface {
      */
     public LogIn() {
         properties = new Properties();
-    }
-
-    /**
-     * Implementa el método `preLoadingFile` de la interfaz `RepositoryInterface`.
-     * <p>
-     * Crea un archivo de propiedades vacío con la propiedad "token" inicializada a "null".
-     * Si el archivo ya existe, se sobrescribe con el valor predeterminado.
-     *
-     * @throws IOException Si ocurre una excepción durante la creación o escritura del archivo de propiedades.
-     */
-    @Override
-    public void preLoadingFile() {
-        properties.setProperty("token", "null");
-        String path = FileHandler.getFilepath() + file;
-
-        try (FileWriter write = new FileWriter(path)) {
-            properties.store(write, "");
-        } catch (IOException err) {
-            System.out.println(err.getMessage());
-        }
-    }
-
-    /**
-     * Implementa el método `helthCheck` de la interfaz `RepositoryInterface`.
-     * <p>
-     * Verifica si el archivo de token existe. Si no existe, lo crea utilizando `FileHandler.createFile`.
-     * Luego, llama a `preLoadingFile` para inicializar el archivo con el valor predeterminado del token.
-     *
-     * @throws IOException Si ocurre una excepción durante la creación del archivo o la inicialización del token.
-     */
-    @Override
-    public void helthCheck() {
         FileHandler.createFile(file);
-        preLoadingFile();
     }
 
     /**

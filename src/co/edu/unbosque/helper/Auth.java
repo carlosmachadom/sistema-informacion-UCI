@@ -6,29 +6,28 @@ import co.edu.unbosque.util.FileHandler;
 import co.edu.unbosque.util.TokenSchema;
 
 /**
- * This class provides functionalities related to user authentication and authorization.
- * It utilizes the `LogIn` class for persistence of access tokens and the `TokenSchema` class for token generation.
+ * Esta clase proporciona funcionalidades relacionadas con la autenticación y autorización de usuarios.
+ * Utiliza la clase `LogIn` para la persistencia de los tokens de acceso y la clase `TokenSchema` para la generación de tokens.
  */
 public class Auth {
-    /**
-     * An instance of the `LogIn` class used for managing access tokens.
+	/**
+     * Una instancia de la clase `LogIn` utilizada para gestionar los tokens de acceso.
      */
     private static LogIn logIn;
 
     /**
-     * Constructor for the `Auth` class.
-     * Initializes the `logIn` instance and calls its `helthCheck` method to ensure proper file existence.
+     * Constructor de la clase `Auth`.
+     * Inicializa la instancia `logIn` y llama a su método `helthCheck` para asegurar la existencia adecuada del archivo.
      */
     public Auth() {
         logIn = new LogIn();
-        logIn.helthCheck();
     }
 
     /**
-     * Generates and stores an access token for a user.
+     * Genera y almacena un token de acceso para un usuario.
      *
-     * @param email    The email address of the user.
-     * @param password The user's password.
+     * @param email    La dirección de correo electrónico del usuario.
+     * @param password La contraseña del usuario.
      */
     public void generateAccessToken(String email, String password) {
         String token = TokenSchema.createUserToken(email, password);
@@ -36,10 +35,10 @@ public class Auth {
     }
 
     /**
-     * Verifies if a user is logged in based on the email and password.
+     * Verifica si un usuario ha iniciado sesión basado en su correo electrónico y contraseña.
      *
-     * @param email    The email address of the user.
-     * @param password The user's password.
+     * @param email    La dirección de correo electrónico del usuario.
+     * @param password La contraseña del usuario.
      */
     public void verifyIsLogged(String email, String password) {
         String accessToken = logIn.readFile();
@@ -53,7 +52,7 @@ public class Auth {
     }
 
     /**
-     * Verifies if the currently logged in user has authorization (e.g., role of "director") to perform an action.
+     * Verifica si el usuario actualmente conectado tiene autorización (por ejemplo, rol de "director") para realizar una acción.
      */
     public void verifyAuthorizationDirector() {
         String accessToken = logIn.readFile();

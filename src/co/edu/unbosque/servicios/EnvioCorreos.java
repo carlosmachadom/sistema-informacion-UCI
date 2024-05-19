@@ -9,7 +9,10 @@ import javax.mail.internet.MimeMessage;
 
 import co.edu.unbosque.helper.ValidationsUser;
 
-
+/**
+ * Clase EnvioCorreos se encarga de manejar el envío de correos electrónicos
+ * mediante el uso del protocolo SMTP de Gmail.
+ */
 public class EnvioCorreos {
 
 	private final String CORREO = "ucisystemmail@gmail.com";
@@ -22,10 +25,21 @@ public class EnvioCorreos {
 	private Session mSession;
 	private MimeMessage mCorreo;
 
+    /**
+     * Constructor que inicializa las propiedades para la configuración del correo.
+     */
 	public EnvioCorreos() {
 		mProperties = new Properties();
 	}
 
+	/**
+     * Crea un correo electrónico con los detalles proporcionados.
+     *
+     * @param emailTo  Dirección de correo del destinatario.
+     * @param subject  Asunto del correo.
+     * @param content  Contenido del correo.
+     * @return boolean indicando si el correo fue creado exitosamente.
+     */
 	public boolean createEmail(String emailTo, String subject, String content) {
 		boolean flag = false;
 		this.emailTo = emailTo;
@@ -59,7 +73,12 @@ public class EnvioCorreos {
 		}
 		return flag;
 	}
-
+	
+    /**
+     * Envía el correo electrónico previamente creado.
+     *
+     * @return boolean indicando si el correo fue enviado exitosamente.
+     */
 	public boolean sendEmail() {
 		boolean flag = false;
 		try {

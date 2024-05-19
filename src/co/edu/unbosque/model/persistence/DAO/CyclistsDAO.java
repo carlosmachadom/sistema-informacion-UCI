@@ -36,7 +36,6 @@ public class CyclistsDAO implements DAOInterface<Cyclist> {
      */
     public CyclistsDAO(List<Cyclist> cyclists) {
         fileFactory = new FileFactory<>("cyclists.bin");
-        fileFactory.helthCheck();
         auth = new Auth();
         this.cyclists = cyclists;
     }

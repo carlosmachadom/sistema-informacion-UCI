@@ -4,44 +4,35 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * Clase que representa un Data Transfer Object (DTO) para un director.
- * Esta clase es serializable y se utiliza para transferir datos de un director entre diferentes capas de la aplicación.
+ * Clase que representa un DTO (Data Transfer Object) para el director de la aplicación.
  */
-public class DirectorDTO implements Serializable {
+public class MassageDTO implements Serializable {
     /**
      * ID de versión serializable para asegurar compatibilidad entre versiones al serializar/deserializar el objeto.
      */
     @Serial
     private static final long serialVersionUID = 1L;
-
     /**
-     * Cédula de ciudadanía del director.
+     * Cédula de ciudadanía del usuario.
      */
     private long CC;
-
     /**
-     * Experiencia del director (campo que podría usarse en la aplicación).
+     * Experiencia del usuario (campo que podría usarse en la aplicación).
      */
     private int experience;
-
     /**
-     * Correo electrónico del director.
+     * Correo electrónico del usuario.
      */
     private String email;
-
     /**
-     * Contraseña del director (se recomienda no transmitir esta información en un DTO por motivos de seguridad).
+     * Contraseña del usuario (se recomienda no transmitir esta información en un DTO por motivos de seguridad).
      */
     private String password;
 
     /**
-     * Nacionalidad del director.
-     */
-    private String nationality;
-
-    /**
      * Obtiene la cédula de ciudadanía del usuario.
-     * @return la cédula de ciudadanía.
+     *
+     * @return La cédula de ciudadanía del usuario.
      */
     public long getCC() {
         return CC;
@@ -49,7 +40,8 @@ public class DirectorDTO implements Serializable {
 
     /**
      * Establece la cédula de ciudadanía del usuario.
-     * @param CC la nueva cédula de ciudadanía.
+     *
+     * @param CC La cédula de ciudadanía del usuario.
      */
     public void setCC(long CC) {
         this.CC = CC;
@@ -57,7 +49,8 @@ public class DirectorDTO implements Serializable {
 
     /**
      * Obtiene la experiencia del usuario.
-     * @return la experiencia del usuario.
+     *
+     * @return La experiencia del usuario (campo que podría usarse en la aplicación).
      */
     public int getExperience() {
         return experience;
@@ -65,7 +58,8 @@ public class DirectorDTO implements Serializable {
 
     /**
      * Establece la experiencia del usuario.
-     * @param experience la nueva experiencia del usuario.
+     *
+     * @param experience La experiencia del usuario.
      */
     public void setExperience(int experience) {
         this.experience = experience;
@@ -73,7 +67,8 @@ public class DirectorDTO implements Serializable {
 
     /**
      * Obtiene el correo electrónico del usuario.
-     * @return el correo electrónico del usuario.
+     *
+     * @return El correo electrónico del usuario.
      */
     public String getEmail() {
         return email;
@@ -81,7 +76,8 @@ public class DirectorDTO implements Serializable {
 
     /**
      * Establece el correo electrónico del usuario.
-     * @param email el nuevo correo electrónico del usuario.
+     *
+     * @param email El correo electrónico del usuario.
      */
     public void setEmail(String email) {
         this.email = email;
@@ -89,7 +85,8 @@ public class DirectorDTO implements Serializable {
 
     /**
      * Obtiene la contraseña del usuario.
-     * @return la contraseña del usuario.
+     *
+     * @return La contraseña del usuario (se recomienda no transmitir esta información en un DTO por motivos de seguridad).
      */
     public String getPassword() {
         return password;
@@ -97,25 +94,10 @@ public class DirectorDTO implements Serializable {
 
     /**
      * Establece la contraseña del usuario.
-     * @param password la nueva contraseña del usuario.
+     *
+     * @param password La contraseña del usuario.
      */
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    /**
-     * Obtiene la nacionalidad del director.
-     * @return la nacionalidad del director.
-     */
-    public String getNationality() {
-        return nationality;
-    }
-
-    /**
-     * Establece la nacionalidad del director.
-     * @param nationality la nueva nacionalidad del director.
-     */
-    public void setNationality(String nationality) {
-        this.nationality = nationality;
     }
 }

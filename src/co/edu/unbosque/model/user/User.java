@@ -1,7 +1,7 @@
 /**
  *
  */
-package co.edu.unbosque.model;
+package co.edu.unbosque.model.user;
 
 import co.edu.unbosque.helper.ValidationsUser;
 
@@ -25,13 +25,6 @@ public class User {
      * Contraseña del usuario.
      */
     private String password;
-
-    public User() {
-        email = "";
-        password = "";
-        CC = 0;
-        experience = 0;
-    }
 
     /**
      * Constructor de la clase `User`.
