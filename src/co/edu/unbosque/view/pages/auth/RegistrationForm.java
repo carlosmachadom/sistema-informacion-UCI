@@ -99,7 +99,7 @@ public class RegistrationForm extends JPanel{
         
         signUpButton = new ButtonGeneral(
     		"Registrarse", 
-    		"Form_SignUp", 
+    		"Registration_Form_SignUp", 
     		ColorPalette.getMainRed(), 
     		ColorPalette.getMainWhite()
         );
@@ -107,7 +107,7 @@ public class RegistrationForm extends JPanel{
         
         signInButton = new ButtonGeneral(
     		"Iniciar Sesión", 
-    		"Form_SignIn", 
+    		"Registration_Form_SignIn", 
     		ColorPalette.getMainBlack(), 
     		ColorPalette.getMainWhite()
         );

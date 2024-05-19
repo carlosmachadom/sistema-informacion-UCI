@@ -43,7 +43,7 @@ public class TimeTrialist extends Cyclist {
                         String password) {
         super(name, bodyStructure, cadencePedaling, CC, experience, email, password);
 
-        ValidationsCyclist.verifySpeedMaxOrClassicsWon(speedMaximum);
+        ValidationsCyclist.verifySpeedMax(speedMaximum);
         this.speedMaximum = speedMaximum;
 
         this.state = state;
@@ -74,7 +74,7 @@ public class TimeTrialist extends Cyclist {
      *                     La velocidad máxima se valida antes de actualizar el valor del atributo.
      */
     public void setSpeedMaximum(int speedMaximum) {
-        ValidationsCyclist.verifySpeedMaxOrClassicsWon(speedMaximum);
+        ValidationsCyclist.verifySpeedMax(speedMaximum);
         this.speedMaximum = speedMaximum;
     }
 

@@ -104,4 +104,9 @@ public class UserDTO implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+
+	@Override
+	public String toString() {
+		return "UserDTO [CC=" + CC + ", experience=" + experience + ", email=" + email + ", password=" + password + "]";
+	}
 }

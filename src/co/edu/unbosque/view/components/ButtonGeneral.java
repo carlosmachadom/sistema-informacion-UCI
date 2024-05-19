@@ -3,6 +3,7 @@ package co.edu.unbosque.view.components;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Dimension;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -46,6 +47,7 @@ public class ButtonGeneral extends JPanel {
         button.setBorder(new EmptyBorder(12, 16, 12, 16));
         button.setBackground(buttonColor);
         button.setActionCommand(command);
+        
         add(button, BorderLayout.CENTER);
 	}
 

@@ -8,6 +8,13 @@ import co.edu.unbosque.model.persistence.adapter.DirectorMapHandler;
 
 import java.util.List;
 
+/**
+ * Esta clase implementa la interfaz `DAOInterface` para el acceso a datos de usuarios.
+ * Se encarga de la persistencia de objetos `User` en un archivo binario.
+ * Utiliza la clase `FileFactory` para la lectura y escritura del archivo, y la clase `Auth` para la autenticación y autorización.
+ *
+ * @param <Director> El tipo de objeto que se persistirá (en este caso, `Director`).
+ */
 public class DirectorsDAO implements DAOInterface<Director> {
     /**
      * Manejador para mapear objetos DirectosDTO a objetos Director y viceversa.

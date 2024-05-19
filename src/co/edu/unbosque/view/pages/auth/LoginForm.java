@@ -86,7 +86,7 @@ public class LoginForm extends JPanel{
         
         signInButton = new ButtonGeneral(
     		"Iniciar Sesión", 
-    		"Form_SignIn", 
+    		"Login_Form_SignIn", 
     		ColorPalette.getMainRed(), 
     		ColorPalette.getMainWhite()
         );       
@@ -94,7 +94,7 @@ public class LoginForm extends JPanel{
         
         signUpButton = new ButtonGeneral(
     		"Registrarse", 
-    		"Form_SignUp", 
+    		"Login_Form_SignUp", 
     		ColorPalette.getMainBlack(), 
     		ColorPalette.getMainWhite()
         );    
