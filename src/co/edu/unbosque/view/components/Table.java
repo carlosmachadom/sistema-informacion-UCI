@@ -25,10 +25,11 @@ import co.edu.unbosque.view.utils.ColorPalette;
  *
  * @param <T> El tipo de datos que contendrá la tabla.
  */
-public class Table<T> extends JPanel {
+public class Table extends JPanel {
 	private ButtonGeneral buttonCreate;
-    private ArrayList<T> list;
+    private String[][] list;
     private String[] headers;
+    private String tableName;
 
     /**
      * Constructor de la clase Table.
@@ -36,9 +37,10 @@ public class Table<T> extends JPanel {
      * @param list    La lista de elementos que se mostrarán en la tabla.
      * @param headers Los encabezados de la tabla.
      */
-    public Table(ArrayList<T> list, String[] headers) {
+    public Table(String[][] list, String[] headers, String tableName) {
         this.list = list;
         this.headers = headers;
+        this.tableName = tableName;
         initializeTable();
     }
     
@@ -58,7 +60,10 @@ public class Table<T> extends JPanel {
      * Este método se llama desde initializeTable() para crear los componentes principales de la tabla.
      */
     public void initializeComponents() {
-    	insertTableCreatorHeader();
+    	if (tableName.equals("Equipos")) {
+    		insertTableCreatorHeader();    		
+    	}
+    	
     	insertTable();
     }
     /**
@@ -76,9 +81,9 @@ public class Table<T> extends JPanel {
         mainContent.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         mainContent.setBackground(ColorPalette.getTransparent());
         
-        // Insertar rows
-        
-        insertHeaderTable();
+        // Insertar rows  
+        mainContent.add(getHeaderTable());
+        mainContent.add(getBodyTable());
     	
      // Agregar mainContent al wrapperPanel con GridBagConstraints para centrar verticalmente
         GridBagConstraints gbc = new GridBagConstraints();
@@ -113,8 +118,10 @@ public class Table<T> extends JPanel {
     }
     
     //TODO
-    public void insertHeaderTable() {
+    public TableHeader getHeaderTable() {
+    	TableHeader header = new TableHeader(headers);
     	
+    	return header;
     }
     
     /**
@@ -122,15 +129,18 @@ public class Table<T> extends JPanel {
      *
      * @param lista La lista de elementos que se mostrarán en el cuerpo de la tabla.
      */
-    public void insertBodyTable(ArrayList<T> lista) {
-    	TableBody body = new TableBody(lista);
+    public TableBody getBodyTable() {
+    	TableBody body = new TableBody(list, headers);
 		
 		JScrollPane scrollArea = new JScrollPane(
 			body,
 			JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 			JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED
 		);
+		scrollArea.setPreferredSize(new Dimension(600, 400));
 
 		scrollArea.setBorder(new EmptyBorder(0,0,0,0));
+		
+		return body;
     }
 }

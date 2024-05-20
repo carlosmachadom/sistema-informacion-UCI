@@ -137,7 +137,7 @@ public class ValidationMessages {
     }
 
     public static String getLoginErrorMessage() {
-    	return "Usuario o contraseña no son validos. ¡Bienvenido de nuevo!";
+    	return "Usuario, contraseña o rol no coinciden no son validos. ¡Bienvenido de nuevo!";
     }
     
     /**

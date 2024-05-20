@@ -5,6 +5,7 @@ import co.edu.unbosque.model.director.Director;
 import co.edu.unbosque.model.persistence.DTO.DirectorDTO;
 import co.edu.unbosque.model.persistence.FileFactory;
 import co.edu.unbosque.model.persistence.adapter.DirectorMapHandler;
+import co.edu.unbosque.model.therapist.MassageTherapist;
 
 import java.util.List;
 
@@ -67,6 +68,18 @@ public class DirectorsDAO implements DAOInterface<Director> {
             if (director.getCC() == exist.getCC()) return director;
         }
         return null;
+    }
+    
+    public Director findByUserByCC(long u) {
+    	Director userFound = null;
+    	
+    	for (Director user : getAllItems()) {
+            if ((user.getCC() == u)) { 
+            	userFound = user;
+            }
+        }
+        
+        return userFound;
     }
 
     /**

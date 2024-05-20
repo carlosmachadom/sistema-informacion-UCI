@@ -16,7 +16,7 @@ import co.edu.unbosque.view.utils.FontSystem;
  * encabezados de la tabla.
  */
 public class TableHeader extends JPanel {
-	private List<String> headers;
+	private String[] headers;
 
 	/**
 	 * Crea un nuevo encabezado de tabla con los nombres de columna proporcionados.
@@ -24,10 +24,10 @@ public class TableHeader extends JPanel {
 	 * @param headers La lista de nombres de columna para mostrar como encabezados
 	 *                de la tabla.
 	 */
-	public TableHeader(List<String> headers) {
+	public TableHeader(String[] headers) {
 		this.headers = headers;
 
-		setLayout(new GridLayout(1, headers.size()));
+		setLayout(new GridLayout(1, headers.length));
 		setBackground(ColorPalette.getMainBlack());
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 
@@ -41,8 +41,8 @@ public class TableHeader extends JPanel {
 	 * para cada nombre de columna.
 	 */
 	public void initializeComponents() {
-		for (int i = 0; i < headers.size(); i++) {
-			String h = headers.get(i);
+		for (int i = 0; i < headers.length; i++) {
+			String h = headers[i];
 			JPanel section = getSection(h);
 			add(section);
 		}

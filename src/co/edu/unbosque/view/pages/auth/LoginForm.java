@@ -36,6 +36,7 @@ public class LoginForm extends JPanel {
 	private PasswordInput password;
 	private ButtonGeneral signInButton;
 	private ButtonGeneral signUpButton;
+	private SelectorInput role;
 
 	/**
 	 * Constructor para inicializar el formulario de inicio de sesión.
@@ -88,6 +89,10 @@ public class LoginForm extends JPanel {
 		subTitleLabel.setFont(FontSystem.getLargeParagraph());
 		subTitleLabel.setForeground(ColorPalette.getMainBlack());
 		subTitleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		String[] roles = { "Ciclista", "Masajista", "Director"};
+		role = new SelectorInput("Selecciona una opcion:", roles, "Form_SignUp_Role_Selection");
+		role.setAlignmentX(Component.CENTER_ALIGNMENT);		
 
 		user = new TextInput("Usuario:");
 		user.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -106,6 +111,8 @@ public class LoginForm extends JPanel {
 		// Agregar componentes al mainContent
 		mainContent.add(titleLabel);
 		mainContent.add(subTitleLabel);
+		mainContent.add(Box.createVerticalStrut(8));
+		mainContent.add(role);
 		mainContent.add(Box.createVerticalStrut(8));
 		mainContent.add(user);
 		mainContent.add(Box.createVerticalStrut(8));
@@ -169,5 +176,9 @@ public class LoginForm extends JPanel {
 	 */
 	public ButtonGeneral getSignUpButton() {
 		return signUpButton;
+	}
+
+	public SelectorInput getRole() {
+		return role;
 	}
 }

@@ -120,10 +120,6 @@ public class RegistrationFormRoleBasedFormRenderer extends JPanel {
 		gridPanel.setBorder(new EmptyBorder(0, 0, 0, 0));
 		gridPanel.setBackground(ColorPalette.getTransparent());
 
-		//String[] cyclistTypes = { "Gregario", "Clasicomaniaco", "Relojista", "Escalador", "Corredor", "Rodador" };
-		//cyclistExpertise = new SelectorInput("Especialidad:", cyclistTypes, "Form_SignUp_Expertise_Selection");
-		//gridPanel.add(cyclistExpertise);
-
 
 		ciclistNames = new TextInput("Nombres:");
 		gridPanel.add(ciclistNames);

@@ -43,10 +43,10 @@ public class Root extends JPanel {
 	 * Método para insertar la lógica de la aplicación (dashboard). Crea y agrega el
 	 * layout del dashboard al panel.
 	 */
-	public void insertAppLogic() {
+	public void insertAppLogic(String user, String role) {
 		removeAllComponents();
 		reRenderApp();
-		dashboard = new DashboardLayout(); // Crea una instancia del Layout para autenticación
+		dashboard = new DashboardLayout(user, role); // Crea una instancia del Layout para autenticación
 		add(dashboard, BorderLayout.CENTER); // Agrega el LayoutPrincipal al centro de la ventana
 		reRenderApp();
 	}

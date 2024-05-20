@@ -53,10 +53,10 @@ public class DashboardPagesContainer extends JPanel {
     /**
      * Inserta el componente DirectorsList en el contenedor.
      */
-    public void insertDirectorsList() {
+    public void insertDirectorsList(String[][] list, String[] headers, String tableName) {
         removeAllComponents();
         reRenderComponents();
-        directors = new DirectorsList();
+        directors = new DirectorsList(list, headers, tableName);
         add(directors, BorderLayout.CENTER);
         reRenderComponents();
     }
@@ -122,5 +122,26 @@ public class DashboardPagesContainer extends JPanel {
 	public void reRenderComponents() {
 		revalidate();
 		repaint();
+	}
+	public TeamsList getTeams() {
+		return teams;
+	}
+	public DirectorsList getDirectors() {
+		return directors;
+	}
+	public MassageTherapistsList getTherapists() {
+		return therapists;
+	}
+	public CyclistsList getCyclists() {
+		return cyclists;
+	}
+	public Race getRace() {
+		return race;
+	}
+	public RaceRecords getRaceRecors() {
+		return raceRecors;
+	}
+	public Profile getProfile() {
+		return profile;
 	}
 }

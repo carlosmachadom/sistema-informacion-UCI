@@ -3,6 +3,7 @@ package co.edu.unbosque.model.persistence.DAO;
 import co.edu.unbosque.helper.Auth;
 import co.edu.unbosque.interfaces.DAOInterface;
 import co.edu.unbosque.model.cyclists.Cyclist;
+import co.edu.unbosque.model.director.Director;
 import co.edu.unbosque.model.persistence.FileFactory;
 
 import java.util.List;
@@ -66,6 +67,18 @@ public class CyclistsDAO implements DAOInterface<Cyclist> {
             if (cyclist.getCC() == exist.getCC()) return cyclist;
         }
         return null;
+    }
+    
+    public Cyclist findByUserByCC(long u) {
+    	Cyclist userFound = null;
+    	
+    	for (Cyclist user : getAllItems()) {
+            if ((user.getCC() == u)) { 
+            	userFound = user;
+            }
+        }
+        
+        return userFound;
     }
 
     /**

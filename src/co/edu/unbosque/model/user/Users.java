@@ -109,4 +109,17 @@ public class Users implements ListInterface<User, UserDTO> {
     		return null;
     	}    	
     }
+    
+    public UserDTO findUser(long user) {
+    	User userFound = usersDAO.findByUserByCC(user);     		
+    	
+    	if (userFound != null) {
+    		
+    		UserDTO response = userMapHandler.transformModelToDTO(userFound);
+    		
+    		return response;
+    	} else {
+    		return null;
+    	}    	
+    }
 }

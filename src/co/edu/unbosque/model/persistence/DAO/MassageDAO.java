@@ -5,6 +5,7 @@ import co.edu.unbosque.model.persistence.DTO.MassageDTO;
 import co.edu.unbosque.model.persistence.FileFactory;
 import co.edu.unbosque.model.persistence.adapter.MassageMapHandler;
 import co.edu.unbosque.model.therapist.MassageTherapist;
+import co.edu.unbosque.model.user.User;
 
 import java.util.List;
 /**
@@ -61,6 +62,18 @@ public class MassageDAO implements DAOInterface<MassageTherapist> {
             if (massageTherapist.getCC() == exist.getCC()) return massageTherapist;
         }
         return null;
+    }
+    
+    public MassageTherapist findByUserByCC(long u) {
+    	MassageTherapist userFound = null;
+    	
+    	for (MassageTherapist user : getAllItems()) {
+            if ((user.getCC() == u)) { 
+            	userFound = user;
+            }
+        }
+        
+        return userFound;
     }
 
     /**

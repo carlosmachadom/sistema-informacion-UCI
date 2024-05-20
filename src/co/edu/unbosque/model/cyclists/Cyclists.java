@@ -1,9 +1,13 @@
 package co.edu.unbosque.model.cyclists;
 
 import co.edu.unbosque.interfaces.ListInterface;
+import co.edu.unbosque.model.director.Director;
 import co.edu.unbosque.model.persistence.DAO.CyclistsDAO;
 import co.edu.unbosque.model.persistence.DTO.CyclistDTO;
+import co.edu.unbosque.model.persistence.DTO.DirectorDTO;
+import co.edu.unbosque.model.persistence.DTO.MassageDTO;
 import co.edu.unbosque.model.persistence.adapter.CyclistMapHandler;
+import co.edu.unbosque.model.therapist.MassageTherapist;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,5 +90,40 @@ public class Cyclists implements ListInterface<Cyclist, CyclistDTO> {
     public Cyclist unique(CyclistDTO modelDTO) {
         Cyclist cyclistMap = cyclistMapHandler.transformDTOToModel(modelDTO);
         return cyclistsDAO.findOne(cyclistMap);
+    }
+    
+    public CyclistDTO findUser(long user) {
+    	Cyclist userFound = cyclistsDAO.findByUserByCC(user);     		
+    	
+    	if (userFound != null) {
+    		
+    		CyclistDTO response = cyclistMapHandler.transformModelToDTO(userFound);
+    		
+    		return response;
+    	} else {
+    		return null;
+    	}    	
+    }
+    
+    public String[][] transformDirectorsDTOListToMatrix() {
+    	List<Cyclist> list = cyclistsDAO.getAllItems();
+    	
+    	if (list != null && list.size() > 0) {
+    		List<CyclistDTO> listDTO = cyclistMapHandler.transformModelListToDTOList(list);
+
+    		int columns = 3;
+        
+	    	String[][] dataMatrix = new String[listDTO.size()][columns];
+	
+	        for (int i = 0; i < listDTO.size(); i++) {
+	        	CyclistDTO user = listDTO.get(i);
+	            dataMatrix[i][0] = ""+user.getCC();
+	            dataMatrix[i][1] = user.getEmail();
+	        }
+	
+	        return dataMatrix;
+    	} else {
+    		return new String[0][0];
+    	}    	
     }
 }

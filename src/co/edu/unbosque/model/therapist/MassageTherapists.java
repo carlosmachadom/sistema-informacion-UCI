@@ -1,9 +1,13 @@
 package co.edu.unbosque.model.therapist;
 
 import co.edu.unbosque.interfaces.ListInterface;
+import co.edu.unbosque.model.director.Director;
 import co.edu.unbosque.model.persistence.DAO.MassageDAO;
+import co.edu.unbosque.model.persistence.DTO.DirectorDTO;
 import co.edu.unbosque.model.persistence.DTO.MassageDTO;
+import co.edu.unbosque.model.persistence.DTO.UserDTO;
 import co.edu.unbosque.model.persistence.adapter.MassageMapHandler;
+import co.edu.unbosque.model.user.User;
 
 import java.util.List;
 
@@ -85,5 +89,41 @@ public class MassageTherapists implements ListInterface<MassageTherapist, Massag
     public MassageTherapist unique(MassageDTO modelDTO) {
         MassageTherapist massageTherapist = massageMapHandler.transformDTOToModel(modelDTO);
         return massageDAO.findOne(massageTherapist);
+    }
+    
+    
+    public MassageDTO findUser(long user) {
+    	MassageTherapist userFound = massageDAO.findByUserByCC(user);     		
+    	
+    	if (userFound != null) {
+    		
+    		MassageDTO response = massageMapHandler.transformModelToDTO(userFound);
+    		
+    		return response;
+    	} else {
+    		return null;
+    	}    	
+    }
+    
+    public String[][] transformDirectorsDTOListToMatrix() {
+    	List<MassageTherapist> list = massageDAO.getAllItems();
+    	
+    	if (list != null && list.size() > 0) {
+    		List<MassageDTO> listDTO = massageMapHandler.transformModelListToDTOList(list);
+
+    		int columns = 3;
+        
+	    	String[][] dataMatrix = new String[listDTO.size()][columns];
+	
+	        for (int i = 0; i < listDTO.size(); i++) {
+	        	MassageDTO user = listDTO.get(i);
+	            dataMatrix[i][0] = ""+user.getCC();
+	            dataMatrix[i][1] = user.getEmail();
+	        }
+	
+	        return dataMatrix;
+    	} else {
+    		return new String[0][0];
+    	}    	
     }
 }

@@ -72,6 +72,18 @@ public class UsersDAO implements DAOInterface<User> {
         
         return userFound;
     }
+    
+    public User findByUserByCC(long u) {
+    	User userFound = null;
+    	
+    	for (User user : getAllItems()) {
+            if ((user.getCC() == u)) { 
+            	userFound = user;
+            }
+        }
+        
+        return userFound;
+    }
 
     /**
      * Crea un nuevo usuario en la lista y lo guarda en el archivo.

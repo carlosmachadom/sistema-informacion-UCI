@@ -90,6 +90,19 @@ public class Controller implements ActionListener {
 						.addActionListener(this);
 			}
 		}
+		
+		if (view.getRoot().getDashboard() != null) {
+			if (view.getRoot().getDashboard().getMenuContainer() != null) {
+				view.getRoot().getDashboard().getMenuContainer().getLogOutButton().getButton().addActionListener(this);
+				view.getRoot().getDashboard().getMenuContainer().getProfileButton().getButton().addActionListener(this);
+				view.getRoot().getDashboard().getMenuContainer().getSquadsListButton().getButton().addActionListener(this);
+				view.getRoot().getDashboard().getMenuContainer().getCyclistListButton().getButton().addActionListener(this);
+				view.getRoot().getDashboard().getMenuContainer().getTherapistsListButton().getButton().addActionListener(this);
+				view.getRoot().getDashboard().getMenuContainer().getDirectorsListButton().getButton().addActionListener(this);
+				view.getRoot().getDashboard().getMenuContainer().getRaceRecordButton().getButton().addActionListener(this);
+				view.getRoot().getDashboard().getMenuContainer().getRaceButton().getButton().addActionListener(this);
+			}
+		}
 	}
 
 	/**
@@ -109,39 +122,67 @@ public class Controller implements ActionListener {
 	 * @param command el comando a validar
 	 */
 	public void validateAction(String command) {
-
-		// Manejo de eventos para pagina de inicio
-		if (view.getRoot().getAuthLayout().getPagesContainer().getEntry() != null) {
-			if (command.equals("Home_SignIn")) {
-				view.getRoot().getAuthLayout().getPagesContainer().insertLoginForm();
-				setListeners();
-			} else if (command.equals("Home_SignUp")) {
-				view.getRoot().getAuthLayout().getPagesContainer().insertRegistrationForm();
-				setListeners();
+		if (view.getRoot().getAuthLayout() != null) {			
+			// Manejo de eventos para pagina de inicio
+			if (view.getRoot().getAuthLayout().getPagesContainer().getEntry() != null) {
+				if (command.equals("Home_SignIn")) {
+					view.getRoot().getAuthLayout().getPagesContainer().insertLoginForm();
+					setListeners();
+				} else if (command.equals("Home_SignUp")) {
+					view.getRoot().getAuthLayout().getPagesContainer().insertRegistrationForm();
+					setListeners();
+				}
+			}
+			
+			
+			// Manejo de eventos para pagina de inicio de sesión
+			if (view.getRoot().getAuthLayout().getPagesContainer().getSignIn() != null) {
+				if (command.equals("Login_Form_SignIn")) {
+					login();
+				} else if (command.equals("Login_Form_SignUp")) {
+					view.getRoot().getAuthLayout().getPagesContainer().insertRegistrationForm();
+					setListeners();
+				}
+			}
+			
+			// Manejo de eventos para pagina de registro
+			if (view.getRoot().getAuthLayout().getPagesContainer().getSignUp() != null) {
+				if (command.equals("Registration_Form_SignIn")) {
+					view.getRoot().getAuthLayout().getPagesContainer().insertLoginForm();
+					setListeners();
+				} else if (command.equals("Registration_Form_SignUp")) {
+					String currentRole = view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRole()
+							.getSelector().getSelectedItem().toString();
+					createNewUser(currentRole);
+				}
 			}
 		}
 
-
-		// Manejo de eventos para pagina de inicio de sesión
-		if (view.getRoot().getAuthLayout().getPagesContainer().getSignIn() != null) {
-			if (command.equals("Login_Form_SignIn")) {
-				login();
-			} else if (command.equals("Login_Form_SignUp")) {
-				view.getRoot().getAuthLayout().getPagesContainer().insertRegistrationForm();
-				setListeners();
+		
+		if (view.getRoot().getDashboard() != null) {
+			if (command.equals("Directors_DashboardMenu")) {
+				directorsList = new Directors();
+				String[][] list = directorsList.transformDirectorsDTOListToMatrix();
+				String[] headers = {"Cedula", "Nacionalidad", "Correo"};
+				
+				view.getRoot().getDashboard().getPagesContainer().insertDirectorsList(list, headers, "Dorectores");
+			}	
+			
+			if (command.equals("Cyclists_DashboardMenu")) {
+				cyclistsList = new Cyclists();
+				String[][] list = cyclistsList.transformDirectorsDTOListToMatrix();
+				String[] headers = {"Nombre", "Cedula", "Correo"};
+				
+				view.getRoot().getDashboard().getPagesContainer().insertDirectorsList(list, headers, "Dorectores");
 			}
-		}
-
-		// Manejo de eventos para pagina de registro
-		if (view.getRoot().getAuthLayout().getPagesContainer().getSignUp() != null) {
-			if (command.equals("Registration_Form_SignIn")) {
-				view.getRoot().getAuthLayout().getPagesContainer().insertLoginForm();
-				setListeners();
-			} else if (command.equals("Registration_Form_SignUp")) {
-				String currentRole = view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRole()
-						.getSelector().getSelectedItem().toString();
-				createNewUser(currentRole);
-			}
+			
+			if (command.equals("Therapists_DashboardMenu")) {
+				therapistsList = new MassageTherapists();
+				String[][] list = therapistsList.transformDirectorsDTOListToMatrix();
+				String[] headers = {"Cedula", "Correo"};
+				
+				view.getRoot().getDashboard().getPagesContainer().insertDirectorsList(list, headers, "Dorectores");
+			}		
 		}
 	}
 
@@ -377,13 +418,12 @@ public class Controller implements ActionListener {
     	if (view.getRoot().getAuthLayout().getPagesContainer().getSignIn() != null) {
     		String user = view.getRoot().getAuthLayout().getPagesContainer().getSignIn().getUser().getInput().getText();
     		char[] password = view.getRoot().getAuthLayout().getPagesContainer().getSignIn().getPassword().getInput().getPassword();
+    		String currentRole = view.getRoot().getAuthLayout().getPagesContainer().getSignIn().getRole().getSelector().getSelectedItem().toString();
+    		
     		String passwordString = null;
     		long cc = 0;
     		
     		boolean validSearch = true;
-    		
-    		// String passwordString = new String(password);
-    		// Arrays.fill(password, ' ');
     		
     		if (FieldsValidator.isValidCC(user)) {
     			try {
@@ -405,17 +445,45 @@ public class Controller implements ActionListener {
     		
     		if (validSearch) {
     			UserDTO userFound = userAuth.login(cc, passwordString);
+    			DirectorDTO newDirector = null;
+    			CyclistDTO newCyclist = null;
+    			MassageDTO newTherapist = null;
+    			
+    			boolean validRole = false;
+    			
+    			if (currentRole.equals("Director")) {
+    				directorsList = new Directors();
+    				newDirector = directorsList.findUser(cc);
+    				
+    				if (newDirector != null) {
+    					validRole = true;
+    				}
+    			}else if(currentRole.equals("Masajista")) {
+    				therapistsList = new MassageTherapists();
+    				newTherapist = therapistsList.findUser(cc);
+    				
+    				if (newTherapist != null) {
+    					validRole = true;
+    				}
+    			} else if(currentRole.equals("Ciclista")) {
+    				cyclistsList = new Cyclists();
+    				newCyclist = cyclistsList.findUser(cc);
+    				
+    				if (newCyclist != null) {
+    					validRole = true;
+    				}
+    			}
 
-    			if (userFound != null) {
+    			if (userFound != null && validRole) {
     				isLogged = true;
     				LogIn token = new LogIn();
     				token.writeFile(user);
     				currentToken = token.readFile();
-    				Arrays.fill(password, ' ');
+    				Arrays.fill(password, ' ');    				
     				
     				MessageDialog.showSuccessDialog(null, ValidationMessages.getLoginSuccessMessage());
     				
-    				view.getRoot().insertAppLogic();
+    				view.getRoot().insertAppLogic(currentToken, currentRole);
     				setListeners();
     			} else {
     				MessageDialog.showErrorDialog(null, ValidationMessages.getLoginErrorMessage());

@@ -3,7 +3,9 @@ package co.edu.unbosque.model.director;
 import co.edu.unbosque.interfaces.ListInterface;
 import co.edu.unbosque.model.persistence.DAO.DirectorsDAO;
 import co.edu.unbosque.model.persistence.DTO.DirectorDTO;
+import co.edu.unbosque.model.persistence.DTO.MassageDTO;
 import co.edu.unbosque.model.persistence.adapter.DirectorMapHandler;
+import co.edu.unbosque.model.therapist.MassageTherapist;
 
 import java.util.List;
 
@@ -84,5 +86,41 @@ public class Directors implements ListInterface<Director, DirectorDTO> {
     public Director unique(DirectorDTO modelDTO) {
         Director directorMap = directorMapHandler.transformDTOToModel(modelDTO);
         return directorDAO.findOne(directorMap);
+    }
+    
+    public DirectorDTO findUser(long user) {
+    	Director userFound = directorDAO.findByUserByCC(user);     		
+    	
+    	if (userFound != null) {
+    		
+    		DirectorDTO response = directorMapHandler.transformModelToDTO(userFound);
+    		
+    		return response;
+    	} else {
+    		return null;
+    	}    	
+    }
+    
+    public String[][] transformDirectorsDTOListToMatrix() {
+    	List<Director> list = directorDAO.getAllItems();
+    	
+    	if (list != null && list.size() > 0) {
+    		List<DirectorDTO> listDTO = directorMapHandler.transformModelListToDTOList(list);
+
+    		int columns = 3;
+        
+	    	String[][] dataMatrix = new String[listDTO.size()][columns];
+	
+	        for (int i = 0; i < listDTO.size(); i++) {
+	            DirectorDTO user = listDTO.get(i);
+	            dataMatrix[i][0] = ""+user.getCC();
+	            dataMatrix[i][1] = user.getNationality();
+	            dataMatrix[i][2] = user.getEmail();
+	        }
+	
+	        return dataMatrix;
+    	} else {
+    		return new String[0][0];
+    	}    	
     }
 }

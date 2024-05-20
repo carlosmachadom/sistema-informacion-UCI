@@ -17,27 +17,36 @@ import co.edu.unbosque.view.utils.ColorPalette;
  * el menú y el contenedor de páginas.
  */
 public class DashboardLayout extends JPanel {
-private DashboardPagesContainer pagesContainer;
-private DashboardMenu menuContainer;
-private DashboardHeader header;
+	private DashboardPagesContainer pagesContainer;
+	private DashboardMenu menuContainer;
+	private DashboardHeader header;
+	private String role;
+	private String user;
 	
 /**
  * Construye un nuevo DashboardLayout con un BorderLayout y 
  * configuraciones iniciales.
  */
-	public DashboardLayout() {
+	public DashboardLayout(String user, String role) {
+		this.user = user;
+		this.role = role;
+		
+		initializeHeader();
+	}
+	
+	public void initializeHeader() {
 		setLayout(new BorderLayout());
 		
 		initializeComponents();
 		
-		setVisible(true);
+		setVisible(true);		
 	}
 	
     /**
      * Inicializa y agrega los componentes principales al DashboardLayout.
      */
 	public void initializeComponents() {
-		header = new DashboardHeader();
+		header = new DashboardHeader(user, role);
 		
 		menuContainer = new DashboardMenu();
 
@@ -46,5 +55,17 @@ private DashboardHeader header;
 		add(header, BorderLayout.NORTH);
 		add(menuContainer, BorderLayout.WEST);
 		add(pagesContainer, BorderLayout.CENTER);
+	}
+
+	public DashboardPagesContainer getPagesContainer() {
+		return pagesContainer;
+	}
+
+	public DashboardMenu getMenuContainer() {
+		return menuContainer;
+	}
+
+	public DashboardHeader getHeader() {
+		return header;
 	}
 }

@@ -19,10 +19,16 @@ import co.edu.unbosque.view.utils.ColorPalette;
  * El panel que contiene la cabecera del panel de control.
  */
 public class DashboardHeader extends JPanel {
+	private String user;
+	private String role;
+	
 	/**
 	 * Constructor para inicializar la cabecera del panel de control.
 	 */
-	public DashboardHeader() {
+	public DashboardHeader(String user, String role) {
+		this.user = user;
+		this.role = role;
+		
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		setBorder(new EmptyBorder(24, 40, 24, 40));
 		setBackground(ColorPalette.getMainWhite());
@@ -57,8 +63,8 @@ public class DashboardHeader extends JPanel {
 		JPanel userInfo = new JPanel();
 		userInfo.setLayout(new BoxLayout(userInfo, BoxLayout.Y_AXIS));
 		userInfo.setBackground(ColorPalette.getTransparent());
-		userInfo.add(new JLabel("User id"));
-		userInfo.add(new JLabel("User role"));
+		userInfo.add(new JLabel(user));
+		userInfo.add(new JLabel(role));
 		add(userInfo);
 	}
 }
