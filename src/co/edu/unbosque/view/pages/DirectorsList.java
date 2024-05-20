@@ -12,6 +12,7 @@ import co.edu.unbosque.view.utils.ColorPalette;
 /**
  * 
  */
+//TODO
 public class DirectorsList extends JPanel {
 	public JPanel teamData;
 	public JPanel table;

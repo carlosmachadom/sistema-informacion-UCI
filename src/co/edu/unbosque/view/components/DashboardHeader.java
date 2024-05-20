@@ -15,38 +15,50 @@ import javax.swing.border.EmptyBorder;
 
 import co.edu.unbosque.view.utils.ColorPalette;
 
+/**
+ * El panel que contiene la cabecera del panel de control.
+ */
 public class DashboardHeader extends JPanel {
+	/**
+	 * Constructor para inicializar la cabecera del panel de control.
+	 */
 	public DashboardHeader() {
-		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));		
-		setBorder(new EmptyBorder(24,40,24,40));
+		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		setBorder(new EmptyBorder(24, 40, 24, 40));
 		setBackground(ColorPalette.getMainWhite());
-		
+
 		initializeComponents();
-		
+
 		setVisible(true);
 	}
-	
+
+	/**
+	 * Inicializa los componentes de la cabecera.
+	 */
 	public void initializeComponents() {
 		insertIcon();
-        add(Box.createHorizontalGlue());
-        insertRightPanel();
+		add(Box.createHorizontalGlue());
+		insertRightPanel();
 	}
-	
+
+	/**
+	 * Inserta el icono en la cabecera.
+	 */
 	public void insertIcon() {
 		ImageIcon iconPath = new ImageIcon("images" + File.separator + "isologo_uci.png");
-        Image image = iconPath.getImage();
-        Image scaled = image.getScaledInstance(60, 40, Image.SCALE_SMOOTH);
-        ImageIcon icon = new ImageIcon(scaled);
-        JLabel labelIcon = new JLabel(icon);	
+		Image image = iconPath.getImage();
+		Image scaled = image.getScaledInstance(60, 40, Image.SCALE_SMOOTH);
+		ImageIcon icon = new ImageIcon(scaled);
+		JLabel labelIcon = new JLabel(icon);
 		add(labelIcon);
 	}
-	
+
 	public void insertRightPanel() {
-        JPanel userInfo = new JPanel();
-        userInfo.setLayout(new BoxLayout(userInfo, BoxLayout.Y_AXIS));
-        userInfo.setBackground(ColorPalette.getTransparent());
-        userInfo.add(new JLabel("User id"));
-        userInfo.add(new JLabel("User role"));
-        add(userInfo);
-    }
+		JPanel userInfo = new JPanel();
+		userInfo.setLayout(new BoxLayout(userInfo, BoxLayout.Y_AXIS));
+		userInfo.setBackground(ColorPalette.getTransparent());
+		userInfo.add(new JLabel("User id"));
+		userInfo.add(new JLabel("User role"));
+		add(userInfo);
+	}
 }
