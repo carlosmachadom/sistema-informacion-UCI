@@ -19,17 +19,33 @@ import javax.swing.border.EmptyBorder;
 
 import co.edu.unbosque.view.utils.ColorPalette;
 
+/**
+ * La clase Table representa una tabla en la interfaz de usuario.
+ * Esta clase proporciona métodos para crear y gestionar una tabla con un botón para crear elementos y un encabezado.
+ *
+ * @param <T> El tipo de datos que contendrá la tabla.
+ */
 public class Table<T> extends JPanel {
 	private ButtonGeneral buttonCreate;
     private ArrayList<T> list;
     private String[] headers;
 
+    /**
+     * Constructor de la clase Table.
+     *
+     * @param list    La lista de elementos que se mostrarán en la tabla.
+     * @param headers Los encabezados de la tabla.
+     */
     public Table(ArrayList<T> list, String[] headers) {
         this.list = list;
         this.headers = headers;
         initializeTable();
     }
     
+    /**
+     * Inicializa la tabla.
+     * Este método configura el diseño y los componentes de la tabla.
+     */
     public void initializeTable() {
     	setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -37,12 +53,18 @@ public class Table<T> extends JPanel {
         initializeComponents();
         setVisible(true);
     }
-    
+    /**
+     * Inicializa los componentes de la tabla.
+     * Este método se llama desde initializeTable() para crear los componentes principales de la tabla.
+     */
     public void initializeComponents() {
     	insertTableCreatorHeader();
     	insertTable();
     }
-    
+    /**
+     * Inserta la tabla en el contenedor principal.
+     * Este método crea el cuerpo de la tabla y lo agrega al contenedor principal.
+     */
     public void insertTable() {    	
     	// Crear un contenedor principal para centrar verticalmente el contenido
         JPanel wrapperPanel = new JPanel(new GridBagLayout());
@@ -69,6 +91,10 @@ public class Table<T> extends JPanel {
         add(wrapperPanel, BorderLayout.CENTER);
     }
     
+    /**
+     * Inserta el encabezado de la tabla en la parte superior.
+     * Este método crea un botón para crear nuevos elementos y lo agrega en la parte superior de la tabla.
+     */
     public void insertTableCreatorHeader() {
     	JPanel seccionBotonCrear = new JPanel();
     	seccionBotonCrear.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -86,10 +112,16 @@ public class Table<T> extends JPanel {
     	add(seccionBotonCrear, BorderLayout.NORTH);
     }
     
+    //TODO
     public void insertHeaderTable() {
     	
     }
     
+    /**
+     * Inserta el cuerpo de la tabla en el contenedor principal.
+     *
+     * @param lista La lista de elementos que se mostrarán en el cuerpo de la tabla.
+     */
     public void insertBodyTable(ArrayList<T> lista) {
     	TableBody body = new TableBody(lista);
 		

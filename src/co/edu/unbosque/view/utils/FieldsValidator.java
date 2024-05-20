@@ -3,6 +3,9 @@ package co.edu.unbosque.view.utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Esta clase proporciona métodos para validar diferentes tipos de campos de entrada.
+ */
 public class FieldsValidator {
 	// Expresiones regulares para validar nombres y correos electrónicos
 	private static final String TEXT_REGEX = "^[\\p{L} .'-]+$";
@@ -16,7 +19,12 @@ public class FieldsValidator {
 	private static final Pattern PASSWORD_PATTERN = Pattern.compile(PASSWORD_REGEX);
 	private static final Pattern CC_PATTERN = Pattern.compile(CC_REGEX);
 
-	// Método para validar nombres y apellidos
+	/**
+     * Valida si el texto es un nombre o apellido válido.
+     *
+     * @param text el texto a validar.
+     * @return true si es válido, de lo contrario false.
+     */
 	public static boolean isValidText(String text) {
 		boolean response = true;
 		boolean validString = isValidString(text);
@@ -37,7 +45,12 @@ public class FieldsValidator {
 		return response;
 	}
 
-	// Método para validar correos electrónicos
+	/**
+     * Valida si el correo electrónico tiene un formato válido.
+     *
+     * @param email el correo electrónico a validar.
+     * @return true si es válido, de lo contrario false.
+     */
 	public static boolean isValidEmail(String email) {
 		boolean response = true;
 		boolean validString = isValidString(email);
@@ -58,7 +71,12 @@ public class FieldsValidator {
 		return response;
 	}
 
-	// Método para validar correos electrónicos
+	/**
+     * Valida si la contraseña cumple con los requisitos de formato.
+     *
+     * @param password la contraseña a validar.
+     * @return true si es válida, de lo contrario false.
+     */
 	public static boolean isValidPassword(String password) {
 		boolean response = true;
 		boolean validString = isValidString(password);
@@ -78,7 +96,12 @@ public class FieldsValidator {
 
 		return response;
 	}
-
+	/**
+     * Valida si una cadena de texto no es nula ni vacía.
+     *
+     * @param str la cadena de texto a validar.
+     * @return true si la cadena no es nula ni vacía, de lo contrario false.
+     */
 	public static boolean isValidString(String str) {
 		boolean response = true;
 
@@ -88,7 +111,13 @@ public class FieldsValidator {
 
 		return response;
 	}
-
+	
+	/**
+     * Valida si el número de cédula tiene un formato válido.
+     *
+     * @param cc el número de cédula a validar.
+     * @return true si es válido, de lo contrario false.
+     */
 	public static boolean isValidCC(String cc) {
 		boolean response = true;
 		boolean validString = isValidString(cc);

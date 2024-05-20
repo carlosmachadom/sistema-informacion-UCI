@@ -16,6 +16,11 @@ import co.edu.unbosque.view.pages.RaceRecords;
 import co.edu.unbosque.view.pages.TeamsList;
 import co.edu.unbosque.view.utils.ColorPalette;
 
+/**
+ * DashboardPagesContainer es un JPanel que actúa como contenedor para varias
+ * páginas en el panel de control. Permite la inserción y eliminación dinámica
+ * de diferentes componentes de página.
+ */
 public class DashboardPagesContainer extends JPanel {
 	private TeamsList teams;
 	private DirectorsList directors;
@@ -25,14 +30,19 @@ public class DashboardPagesContainer extends JPanel {
 	private RaceRecords raceRecors;
 	private Profile profile;	
 	
-	
+    /**
+     * Construye un nuevo DashboardPagesContainer con un BorderLayout y
+     * configuraciones iniciales.
+     */
 	public DashboardPagesContainer() {
 		setLayout(new BorderLayout());
         setBackground(ColorPalette.getMainGray());
         setBorder(new EmptyBorder(40,40,40,40));
         setVisible(true);
     }	
-	
+    /**
+     * Inserta el componente TeamsList en el contenedor.
+     */
 	public void insertTeamsList() {
         removeAllComponents();
         reRenderComponents();
@@ -40,7 +50,9 @@ public class DashboardPagesContainer extends JPanel {
         add(teams, BorderLayout.CENTER);
         reRenderComponents();
     }
-
+    /**
+     * Inserta el componente DirectorsList en el contenedor.
+     */
     public void insertDirectorsList() {
         removeAllComponents();
         reRenderComponents();
@@ -48,7 +60,9 @@ public class DashboardPagesContainer extends JPanel {
         add(directors, BorderLayout.CENTER);
         reRenderComponents();
     }
-
+    /**
+     * Inserta el componente MassageTherapistsList en el contenedor.
+     */
     public void insertTherapistsList() {
         removeAllComponents();
         reRenderComponents();
@@ -56,7 +70,9 @@ public class DashboardPagesContainer extends JPanel {
         add(therapists, BorderLayout.CENTER);
         reRenderComponents();
     }
-
+    /**
+     * Inserta el componente CyclistsList en el contenedor.
+     */
     public void insertCyclistsList() {
         removeAllComponents();
         reRenderComponents();
@@ -64,7 +80,9 @@ public class DashboardPagesContainer extends JPanel {
         add(cyclists, BorderLayout.CENTER);
         reRenderComponents();
     }
-
+    /**
+     * Inserta el componente Race en el contenedor.
+     */
     public void insertRace() {
         removeAllComponents();
         reRenderComponents();
@@ -72,7 +90,9 @@ public class DashboardPagesContainer extends JPanel {
         add(race, BorderLayout.CENTER);
         reRenderComponents();
     }
-
+    /**
+     * Inserta el componente RaceRecords en el contenedor.
+     */
     public void insertRaceRecords() {
         removeAllComponents();
         reRenderComponents();
@@ -80,7 +100,9 @@ public class DashboardPagesContainer extends JPanel {
         add(raceRecors, BorderLayout.CENTER);
         reRenderComponents();
     }
-
+    /**
+     * Inserta el componente Profile en el contenedor.
+     */
     public void insertProfile() {
         removeAllComponents();
         reRenderComponents();
@@ -88,11 +110,15 @@ public class DashboardPagesContainer extends JPanel {
         add(profile, BorderLayout.CENTER);
         reRenderComponents();
     }
-	
+    /**
+     * Elimina todos los componentes del contenedor.
+     */
 	public void removeAllComponents() {
 		removeAll();
 	}
-	
+    /**
+     * Revalida y repinta el contenedor para reflejar los cambios.
+     */
 	public void reRenderComponents() {
 		revalidate();
 		repaint();
