@@ -1,5 +1,6 @@
 package co.edu.unbosque.controller;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 
 import java.awt.event.ActionListener;
@@ -18,6 +19,7 @@ import co.edu.unbosque.model.persistence.DTO.MassageDTO;
 import co.edu.unbosque.model.persistence.DTO.UserDTO;
 import co.edu.unbosque.model.therapist.MassageTherapists;
 import co.edu.unbosque.view.Window;
+import co.edu.unbosque.view.components.TableRow;
 import co.edu.unbosque.view.utils.MessageDialog;
 import co.edu.unbosque.view.utils.NumberConverter;
 import co.edu.unbosque.view.utils.FieldsValidator;
@@ -94,9 +96,36 @@ public class Controller implements ActionListener {
 		if (view.getRoot().getDashboard() != null) {
 			if (view.getRoot().getDashboard().getMenuContainer() != null) {
 				view.getRoot().getDashboard().getMenuContainer().getLogOutButton().getButton().addActionListener(this);
+				view.getRoot().getDashboard().getMenuContainer().getProfileButton().getButton().addActionListener(this);
 				view.getRoot().getDashboard().getMenuContainer().getCyclistListButton().getButton().addActionListener(this);
 				view.getRoot().getDashboard().getMenuContainer().getTherapistsListButton().getButton().addActionListener(this);
 				view.getRoot().getDashboard().getMenuContainer().getDirectorsListButton().getButton().addActionListener(this);
+			}
+			
+			if (view.getRoot().getDashboard().getPagesContainer() !=  null) {
+				
+				if (view.getRoot().getDashboard().getPagesContainer().getTablePage() != null) {
+					
+					if (view.getRoot().getDashboard().getPagesContainer().getTablePage().getTable() != null) {
+						
+						if (view.getRoot().getDashboard().getPagesContainer().getTablePage().getTable().getTableBody() != null) {
+							
+							Component[] rows = view.getRoot().getDashboard().getPagesContainer().getTablePage().getTable().getTableBody().getMainContent().getComponents();
+							
+							for (Component row : rows) {								
+								if (row instanceof TableRow) {								
+									if(((TableRow) row).getButtonDetails() != null) {
+										((TableRow) row).getButtonDetails().getButton().addActionListener(this);
+									}
+									
+									if (((TableRow) row).getButtonDelete() != null) {
+										((TableRow) row).getButtonDelete().getButton().addActionListener(this);								
+									}									
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 	}
@@ -134,7 +163,7 @@ public class Controller implements ActionListener {
 			// Manejo de eventos para pagina de inicio de sesión
 			if (view.getRoot().getAuthLayout().getPagesContainer().getSignIn() != null) {
 				if (command.equals("Login_Form_SignIn")) {
-					login();
+					logIn();
 				} else if (command.equals("Login_Form_SignUp")) {
 					view.getRoot().getAuthLayout().getPagesContainer().insertRegistrationForm();
 					setListeners();
@@ -159,26 +188,100 @@ public class Controller implements ActionListener {
 			if (command.equals("Directors_DashboardMenu")) {
 				directorsList = new Directors();
 				String[][] list = directorsList.transformDirectorsDTOListToMatrix();
-				String[] headers = {"Cedula", "Nacionalidad", "Correo"};
+				String[] headers = {"Cedula", "Nacionalidad", "Correo", "Detalles"};
 				
-				view.getRoot().getDashboard().getPagesContainer().insertDirectorsList(list, headers, "Dorectores");
+				view.getRoot().getDashboard().getPagesContainer().insertList(list, headers, "Directores");
+				setListeners();
 			}	
 			
 			if (command.equals("Cyclists_DashboardMenu")) {
 				cyclistsList = new Cyclists();
 				String[][] list = cyclistsList.transformDirectorsDTOListToMatrix();
-				String[] headers = {"Nombre", "Cedula", "Correo"};
+				String[] headers = {"Cedula", "Nombre", "Correo", "Detalles"};
 				
-				view.getRoot().getDashboard().getPagesContainer().insertDirectorsList(list, headers, "Dorectores");
+				view.getRoot().getDashboard().getPagesContainer().insertList(list, headers, "Ciclistas");
+				setListeners();
 			}
 			
 			if (command.equals("Therapists_DashboardMenu")) {
 				therapistsList = new MassageTherapists();
 				String[][] list = therapistsList.transformDirectorsDTOListToMatrix();
-				String[] headers = {"Cedula", "Correo"};
+				String[] headers = {"Cedula", "Correo", "Detalles"};
 				
-				view.getRoot().getDashboard().getPagesContainer().insertDirectorsList(list, headers, "Dorectores");
-			}		
+				view.getRoot().getDashboard().getPagesContainer().insertList(list, headers, "Masajistas");
+				setListeners();
+			}	
+			
+			if (command.equals("LogOut_DashboardMenu")) {
+				logOut();
+			}
+			
+			if(command.equals("Profile_DashboardMenu" )) {
+				String user = view.getRoot().getDashboard().getHeader().getUser();
+				String role = view.getRoot().getDashboard().getHeader().getRole();
+				
+				if (role.equals("Director")) {
+					directorsList = new Directors();
+					String[][] u = directorsList.transformDirectorDTOToMatrixKeyValue(NumberConverter.convertToLong(user));
+					
+					view.getRoot().getDashboard().getPagesContainer().insertProfile("usuario: " + user, u);
+					setListeners();
+				}
+
+				if (role.equals("Ciclista")) {
+					cyclistsList = new Cyclists();
+					String[][] u = cyclistsList.transformDirectorDTOToMatrixKeyValue(NumberConverter.convertToLong(user));
+					view.getRoot().getDashboard().getPagesContainer().insertProfile("usuario: " + user, u);
+					setListeners();
+				}
+
+				if (role.equals("Masajista")) {
+					therapistsList = new MassageTherapists();
+					String[][] u = therapistsList.transformDirectorDTOToMatrixKeyValue(NumberConverter.convertToLong(user));
+					view.getRoot().getDashboard().getPagesContainer().insertProfile("usuario: " + user, u);
+					setListeners();
+				}
+			}
+			
+			if (command.contains("Details_Element")) {
+				
+				String element = command.split("=")[1];
+				
+				// Agregando Cedula al DTO
+				if (FieldsValidator.isValidCC(element)) {
+					long cc = NumberConverter.convertToLong(element);
+					
+					if (view.getRoot().getDashboard().getPagesContainer().getTablePage().getTable().getTableName().equals("Directores")) {
+						directorsList = new Directors();
+						
+						if (directorsList.all().size() > 0) {
+							String[][] user = directorsList.transformDirectorDTOToMatrixKeyValue(cc);
+							
+							view.getRoot().getDashboard().getPagesContainer().insertDetail("director: " + cc, user);
+						}						
+					}
+					
+					if (view.getRoot().getDashboard().getPagesContainer().getTablePage().getTable().getTableName().equals("Masajistas")) {
+						therapistsList = new MassageTherapists();
+						
+						if (therapistsList.all().size() > 0) {
+							String[][] user = therapistsList.transformDirectorDTOToMatrixKeyValue(cc);
+							
+							view.getRoot().getDashboard().getPagesContainer().insertDetail("masajista: " + cc, user);
+						}						
+					}
+					
+					if (view.getRoot().getDashboard().getPagesContainer().getTablePage().getTable().getTableName().equals("Ciclistas")) {
+						cyclistsList = new Cyclists();
+						
+						if (cyclistsList.all().size() > 0) {
+							String[][] user = cyclistsList.transformDirectorDTOToMatrixKeyValue(cc);
+							
+							view.getRoot().getDashboard().getPagesContainer().insertDetail("ciclista: " + cc, user);
+						}						
+					}
+				}				
+			}
 		}
 	}
 
@@ -213,7 +316,7 @@ public class Controller implements ActionListener {
 			newCyclist = new CyclistDTO();
 		}
 
-		if (role.equals("Masagista")) {
+		if (role.equals("Masajista")) {
 			newTherapist = new MassageDTO();
 		}
 
@@ -223,7 +326,7 @@ public class Controller implements ActionListener {
 			boolean validName = true;
 
 			names = view.getRoot().getAuthLayout().getPagesContainer().getSignUp().getRoleFormsContainer()
-					.getCiclistLastNames().getInput().getText();
+					.getCiclistNames().getInput().getText();
 
 			if (!FieldsValidator.isValidText(names)) {
 				MessageDialog.showWarningDialog(null, ValidationMessages.getRequiredFieldMessage("Nombres"));
@@ -257,7 +360,7 @@ public class Controller implements ActionListener {
 					newCyclist.setCC(cc);
 				}
 
-				if (role.equals("Masagista") && newTherapist != null) {
+				if (role.equals("Masajista") && newTherapist != null) {
 					newTherapist.setCC(cc);
 				}
 
@@ -294,7 +397,7 @@ public class Controller implements ActionListener {
 				newCyclist.setEmail(email);
 			}
 
-			if (role.equals("Masagista") && newTherapist != null) {
+			if (role.equals("Masajista") && newTherapist != null) {
 				newTherapist.setEmail(email);
 			}
 		} else {
@@ -315,7 +418,7 @@ public class Controller implements ActionListener {
 				newCyclist.setExperience(xp.intValue());
 			}
 
-			if (role.equals("Masagista") && newTherapist != null) {
+			if (role.equals("Masajista") && newTherapist != null) {
 				newTherapist.setExperience(xp.intValue());
 			}
 		} else {
@@ -338,7 +441,7 @@ public class Controller implements ActionListener {
 					newCyclist.setPassword(passwordString);
 				}
 
-				if (role.equals("Masagista") && newTherapist != null) {
+				if (role.equals("Masajista") && newTherapist != null) {
 					newTherapist.setPassword(passwordString);
 				}
 			} else {
@@ -410,7 +513,7 @@ public class Controller implements ActionListener {
     /**
      * Maneja el proceso de inicio de sesión.
      */
-    public void login() {    	
+    public void logIn() {    	
     	if (view.getRoot().getAuthLayout().getPagesContainer().getSignIn() != null) {
     		String user = view.getRoot().getAuthLayout().getPagesContainer().getSignIn().getUser().getInput().getText();
     		char[] password = view.getRoot().getAuthLayout().getPagesContainer().getSignIn().getPassword().getInput().getPassword();
@@ -487,6 +590,21 @@ public class Controller implements ActionListener {
     			}
     		}
     		
+    	}
+    }
+
+    public void logOut() {
+    	if (isLogged) {
+    		LogIn token = new LogIn();
+			token.writeFile("null");
+			isLogged = false;
+			directorsList = null;
+			therapistsList = null;
+			cyclistsList = null;
+			
+			view.getRoot().insertAuthLogic();
+			view.getRoot().getAuthLayout().getPagesContainer().insertHome();
+			setListeners();
     	}
     }
 }

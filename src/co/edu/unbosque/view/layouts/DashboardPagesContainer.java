@@ -1,19 +1,13 @@
 package co.edu.unbosque.view.layouts;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-
-import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import co.edu.unbosque.view.pages.CyclistsList;
-import co.edu.unbosque.view.pages.DirectorsList;
-import co.edu.unbosque.view.pages.MassageTherapistsList;
+import co.edu.unbosque.view.pages.Detail;
 import co.edu.unbosque.view.pages.Profile;
 import co.edu.unbosque.view.pages.Race;
-import co.edu.unbosque.view.pages.RaceRecords;
-import co.edu.unbosque.view.pages.TeamsList;
+import co.edu.unbosque.view.pages.TablePage;
 import co.edu.unbosque.view.utils.ColorPalette;
 
 /**
@@ -22,13 +16,10 @@ import co.edu.unbosque.view.utils.ColorPalette;
  * de diferentes componentes de página.
  */
 public class DashboardPagesContainer extends JPanel {
-	private TeamsList teams;
-	private DirectorsList directors;
-	private MassageTherapistsList therapists;
-	private CyclistsList cyclists;
+	private TablePage tablePage;
 	private Race race;
-	private RaceRecords raceRecors;
-	private Profile profile;	
+	private Detail detail;	
+	private Profile profile;
 	
     /**
      * Construye un nuevo DashboardPagesContainer con un BorderLayout y
@@ -40,46 +31,18 @@ public class DashboardPagesContainer extends JPanel {
         setBorder(new EmptyBorder(40,40,40,40));
         setVisible(true);
     }	
-    /**
-     * Inserta el componente TeamsList en el contenedor.
-     */
-	public void insertTeamsList() {
-        removeAllComponents();
-        reRenderComponents();
-        teams = new TeamsList();
-        add(teams, BorderLayout.CENTER);
-        reRenderComponents();
-    }
-    /**
-     * Inserta el componente DirectorsList en el contenedor.
-     */
-    public void insertDirectorsList(String[][] list, String[] headers, String tableName) {
-        removeAllComponents();
-        reRenderComponents();
-        directors = new DirectorsList(list, headers, tableName);
-        add(directors, BorderLayout.CENTER);
-        reRenderComponents();
-    }
+	
     /**
      * Inserta el componente MassageTherapistsList en el contenedor.
      */
-    public void insertTherapistsList() {
+    public void insertList(String[][] list, String[] headers, String tableName) {
         removeAllComponents();
         reRenderComponents();
-        therapists = new MassageTherapistsList();
-        add(therapists, BorderLayout.CENTER);
+        tablePage = new TablePage(list, headers, tableName);
+        add(tablePage, BorderLayout.CENTER);
         reRenderComponents();
     }
-    /**
-     * Inserta el componente CyclistsList en el contenedor.
-     */
-    public void insertCyclistsList() {
-        removeAllComponents();
-        reRenderComponents();
-        cyclists = new CyclistsList();
-        add(cyclists, BorderLayout.CENTER);
-        reRenderComponents();
-    }
+    
     /**
      * Inserta el componente Race en el contenedor.
      */
@@ -90,26 +53,27 @@ public class DashboardPagesContainer extends JPanel {
         add(race, BorderLayout.CENTER);
         reRenderComponents();
     }
-    /**
-     * Inserta el componente RaceRecords en el contenedor.
-     */
-    public void insertRaceRecords() {
-        removeAllComponents();
-        reRenderComponents();
-        raceRecors = new RaceRecords();
-        add(raceRecors, BorderLayout.CENTER);
-        reRenderComponents();
-    }
+    
     /**
      * Inserta el componente Profile en el contenedor.
      */
-    public void insertProfile() {
+    public void insertDetail(String title, String[][] data) {
         removeAllComponents();
         reRenderComponents();
-        profile = new Profile();
-        add(profile, BorderLayout.CENTER);
+        detail = new Detail(title, data);
+        add(detail, BorderLayout.CENTER);
         reRenderComponents();
     }
+    
+    
+    public void insertProfile(String title, String[][] data) {
+    	removeAllComponents();
+    	reRenderComponents();
+    	profile = new Profile(title, data);
+    	add(profile, BorderLayout.CENTER);
+    	reRenderComponents();
+    }
+    
     /**
      * Elimina todos los componentes del contenedor.
      */
@@ -122,26 +86,13 @@ public class DashboardPagesContainer extends JPanel {
 	public void reRenderComponents() {
 		revalidate();
 		repaint();
+	}	
+	
+	public TablePage getTablePage() {
+		return tablePage;
 	}
-	public TeamsList getTeams() {
-		return teams;
-	}
-	public DirectorsList getDirectors() {
-		return directors;
-	}
-	public MassageTherapistsList getTherapists() {
-		return therapists;
-	}
-	public CyclistsList getCyclists() {
-		return cyclists;
-	}
-	public Race getRace() {
-		return race;
-	}
-	public RaceRecords getRaceRecors() {
-		return raceRecors;
-	}
-	public Profile getProfile() {
-		return profile;
+
+	public Detail getProfile() {
+		return detail;
 	}
 }

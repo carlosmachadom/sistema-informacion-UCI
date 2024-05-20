@@ -38,10 +38,10 @@ public class Roller extends Cyclist {
      * Este método abstracto se hereda de la clase `Cyclist` y debe ser implementado para definir la especialidad del ciclista de pista.
      * En este caso, la implementación podría detallar cómo el ciclista corre en el velódromo.
      */
-    @Override
-    public void specialty() {
-
-    }
+//    @Override
+//    public void specialty() {
+//
+//    }
 
     /**
      * Método getter para la cadencia de velocidad del ciclista.

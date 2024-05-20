@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import co.edu.unbosque.view.utils.ColorPalette;
+import co.edu.unbosque.view.utils.FontSystem;
 
 /**
  * El panel que contiene la cabecera del panel de control.
@@ -63,8 +64,25 @@ public class DashboardHeader extends JPanel {
 		JPanel userInfo = new JPanel();
 		userInfo.setLayout(new BoxLayout(userInfo, BoxLayout.Y_AXIS));
 		userInfo.setBackground(ColorPalette.getTransparent());
-		userInfo.add(new JLabel(user));
-		userInfo.add(new JLabel(role));
+		
+		JLabel userLabel = new JLabel(user);
+		userLabel.setFont(FontSystem.getH4());
+		userLabel.setForeground(ColorPalette.getMainBlack());
+		
+		JLabel roleLabel = new JLabel(role);
+		roleLabel.setFont(FontSystem.getH6());
+		roleLabel.setForeground(ColorPalette.getMainBlack());
+		
+		userInfo.add(userLabel);
+		userInfo.add(roleLabel);
 		add(userInfo);
+	}
+
+	public String getUser() {
+		return user;
+	}
+
+	public String getRole() {
+		return role;
 	}
 }

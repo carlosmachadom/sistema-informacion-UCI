@@ -1,8 +1,10 @@
+/**
+ * 
+ */
 package co.edu.unbosque.view.pages;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -14,18 +16,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import co.edu.unbosque.view.components.ButtonGeneral;
-import co.edu.unbosque.view.components.TextInput;
 import co.edu.unbosque.view.utils.ColorPalette;
 import co.edu.unbosque.view.utils.FontSystem;
 
-public class Profile extends JPanel {
+/**
+ * 
+ */
+//TODO
+public class Detail extends JPanel {
 	private String title;
 	private String[][] data;
-	private ButtonGeneral update;
-	private ButtonGeneral delete;
 	
-	public Profile(String title, String[][] data) {
+	public Detail(String title, String[][] data) {
 		this.title = title;
 		this.data = data;
 		
@@ -39,7 +41,6 @@ public class Profile extends JPanel {
 	public void initializeComponents() {
 		insertTitle();
 		insertBody();
-		insertButtons();
 	}
 	
 	public void insertTitle() {
@@ -48,7 +49,7 @@ public class Profile extends JPanel {
 		panelTitle.setLayout(new FlowLayout(FlowLayout.LEFT, 0,0));
 		panelTitle.setBorder(new EmptyBorder(40,40,40,40));
 		
-		JLabel titulo = new JLabel("Perfil " + title);
+		JLabel titulo = new JLabel("Detalle " + title);
 		titulo.setFont(FontSystem.getLargeTitle());
 		titulo.setForeground(ColorPalette.getMainBlack());
 		
@@ -72,8 +73,7 @@ public class Profile extends JPanel {
 				String row[] = data[i];
 				
 				if (row[0] != null && row[0] != null) {
-					TextInput r = new TextInput(row[0]);
-					r.getInput().setText(row[1]);
+		            JPanel r = getDataPanel(row[0], row[1]);
 		            r.setAlignmentX(Component.CENTER_ALIGNMENT);
 		            mainContent.add(r);
 		            mainContent.add(Box.createVerticalStrut(8));
@@ -93,28 +93,21 @@ public class Profile extends JPanel {
 		add(wrapperPanel, BorderLayout.CENTER);
 	}
 	
-	public void insertButtons() {
-		JPanel mainContent = new JPanel();
-		mainContent.setLayout(new FlowLayout(FlowLayout.CENTER));
-		mainContent.setBackground(ColorPalette.getMainWhite());
-		Dimension maxSize = new Dimension(Integer.MAX_VALUE, 400);
-		mainContent.setMaximumSize(maxSize);
-
-		update = new ButtonGeneral("Actualizar mis datos", "Update_ProfilePage",
-				ColorPalette.getMainBlack(), ColorPalette.getMainWhite());
-
-		update.setAlignmentX(Component.CENTER_ALIGNMENT);
-		mainContent.add(update);
-		mainContent.add(Box.createVerticalStrut(8));
-		
-		delete = new ButtonGeneral("Eliminar mi cuenta", "Delete_ProfilePage",
-				ColorPalette.getMainRed(), ColorPalette.getMainWhite());
-		
-		delete.setAlignmentX(Component.CENTER_ALIGNMENT);
-		mainContent.add(delete);
-		mainContent.add(Box.createVerticalStrut(8));
-		
-		// Agregar wrapperPanel al centro de este panel (CenteredMainContentPanel)
-		add(mainContent, BorderLayout.SOUTH);
+	
+	public JPanel getDataPanel(String key, String value) {
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        
+        JLabel keyLabel = new JLabel(key + ": ");
+        keyLabel.setFont(FontSystem.getH4());
+        keyLabel.setForeground(ColorPalette.getMainBlack());
+        
+        JLabel valueLabel = new JLabel(value);
+        valueLabel.setFont(FontSystem.getLargeParagraph());
+        valueLabel.setForeground(ColorPalette.getMainBlack());
+        
+        panel.add(keyLabel);
+        panel.add(valueLabel);
+        
+        return panel;
 	}
 }

@@ -35,8 +35,8 @@ public class Gregarious extends Cyclist {
      * Este método abstracto se hereda de la clase `Cyclist` y debe ser implementado para definir la especialidad del ciclista gregario.
      * En este caso, la implementación podría detallar cómo el ciclista apoya a sus compañeros en el pelotón.
      */
-    @Override
-    public void specialty() {
-
-    }
+//    @Override
+//    public void specialty() {
+//
+//    }
 }

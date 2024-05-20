@@ -123,4 +123,39 @@ public class Directors implements ListInterface<Director, DirectorDTO> {
     		return new String[0][0];
     	}    	
     }
+    
+    public String[][] transformDirectorDTOToMatrixKeyValue(long cc) {
+        Director director = directorDAO.findByUserByCC(cc);
+        
+        if (director != null) {
+            DirectorDTO directorDTO = directorMapHandler.transformModelToDTO(director);
+
+            int rows = 4;
+            int columns = 2;
+            
+            String[][] dataMatrix = new String[rows][columns];
+
+            int index = 0;
+
+            dataMatrix[index][0] = "Cédula de ciudadania:";
+            dataMatrix[index][1] = "" + directorDTO.getCC();
+            index++;
+
+            dataMatrix[index][0] = "Años de experiencia:";
+            dataMatrix[index][1] = "" + directorDTO.getExperience();
+            index++;
+
+            dataMatrix[index][0] = "Correo electrónico:";
+            dataMatrix[index][1] = directorDTO.getEmail();
+            index++;
+
+            dataMatrix[index][0] = "Nacionalidad:";
+            dataMatrix[index][1] = directorDTO.getNationality();
+            index++;
+
+            return dataMatrix;
+        } else {
+            return new String[0][0];
+        }   
+    }
 }

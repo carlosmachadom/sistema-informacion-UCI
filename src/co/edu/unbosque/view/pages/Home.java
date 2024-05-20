@@ -36,7 +36,7 @@ public class Home extends JPanel {
 	 */
 	public Home() {
 		setLayout(new BorderLayout());
-		setBackground(ColorPalette.getTransparent());
+		setBackground(ColorPalette.getMainWhite());
 
 		initializeComponents();
 		setVisible(true);

@@ -5,6 +5,8 @@ import co.edu.unbosque.interfaces.DAOInterface;
 import co.edu.unbosque.model.cyclists.Cyclist;
 import co.edu.unbosque.model.director.Director;
 import co.edu.unbosque.model.persistence.FileFactory;
+import co.edu.unbosque.model.persistence.DTO.CyclistDTO;
+import co.edu.unbosque.model.persistence.adapter.CyclistMapHandler;
 
 import java.util.List;
 
@@ -19,7 +21,7 @@ public class CyclistsDAO implements DAOInterface<Cyclist> {
     /**
      * Factory para la lectura y escritura del archivo de usuarios.
      */
-    private final FileFactory<Cyclist> fileFactory;
+    private final FileFactory<CyclistDTO> fileFactory;
 
     /**
      * Lista en memoria para almacenar la información de los usuarios leída del archivo.
@@ -30,15 +32,18 @@ public class CyclistsDAO implements DAOInterface<Cyclist> {
      */
     private final Auth auth;
 
+    
+    private final CyclistMapHandler cyclistMapHadler;
     /**
      * Constructor para la clase `UsersDAO`.
      *
      * @param cyclists Una lista vacía que se llenará con los usuarios leídos del archivo.
      */
-    public CyclistsDAO(List<Cyclist> cyclists) {
-        fileFactory = new FileFactory<>("cyclists.bin");
-        auth = new Auth();
-        this.cyclists = cyclists;
+    public CyclistsDAO() {
+    	auth = new Auth();
+        fileFactory = new FileFactory<>("cyclists.bin"); 
+        cyclistMapHadler = new CyclistMapHandler();
+        cyclists = cyclistMapHadler.transformDTOListToModelList(fileFactory.readFile());
     }
     /**
      * Recupera todos los elementos de la fuente de datos.
@@ -48,7 +53,7 @@ public class CyclistsDAO implements DAOInterface<Cyclist> {
      */
     @Override
     public List<Cyclist> getAllItems() {
-        return fileFactory.readFile();
+        return cyclists;
     }
 
     /**
@@ -62,7 +67,7 @@ public class CyclistsDAO implements DAOInterface<Cyclist> {
      */
     @Override
     public Cyclist findOne(Cyclist exist) {
-        cyclists = fileFactory.readFile();
+        cyclists = cyclistMapHadler.transformDTOListToModelList(fileFactory.readFile());
         for (Cyclist cyclist : cyclists) {
             if (cyclist.getCC() == exist.getCC()) return cyclist;
         }
@@ -90,17 +95,10 @@ public class CyclistsDAO implements DAOInterface<Cyclist> {
     @Override
     public boolean CreateItem(Cyclist item) {
         if (findOne(item) == null) {
-            auth.generateAccessToken(item.getEmail(), item.getPassword());
-
-            Cyclist newCyclist = new Cyclist(item.getName(), item.getBodyStructure(), item.getCadencePedaling(), item.getCC(), item.getExperience(), item.getEmail(), item.getPassword()) {
-                @Override
-                public void specialty() {
-
-                }
-            };
+        	Cyclist newCyclist = new Cyclist(item.getName(), item.getBodyStructure(), item.getCadencePedaling(), item.getCC(), item.getExperience(), item.getEmail(), item.getPassword());
             cyclists.add(newCyclist);
 
-            fileFactory.writeFile(cyclists);
+            fileFactory.writeFile(cyclistMapHadler.transformModelListToDTOList(cyclists));
             return true;
         }
         return false;
@@ -124,7 +122,7 @@ public class CyclistsDAO implements DAOInterface<Cyclist> {
             putCyclist.setExperience(item.getExperience());
             putCyclist.setPassword(item.getPassword());
 
-            fileFactory.writeFile(cyclists);
+            fileFactory.writeFile(cyclistMapHadler.transformModelListToDTOList(cyclists));
             return true;
         }
         return false;
@@ -144,7 +142,7 @@ public class CyclistsDAO implements DAOInterface<Cyclist> {
             Cyclist cyclistDestroy = findOne(item);
             cyclists.remove(cyclistDestroy);
 
-            fileFactory.writeFile(cyclists);
+            fileFactory.writeFile(cyclistMapHadler.transformModelListToDTOList(cyclists));
             return true;
         }
         return false;

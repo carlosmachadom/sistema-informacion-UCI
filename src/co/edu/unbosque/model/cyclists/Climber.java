@@ -63,10 +63,10 @@ public class Climber extends Cyclist {
      * Este método abstracto se hereda de la clase `Cyclist` y debe ser implementado para definir la especialidad del ciclista escalador.
      * En este caso, la implementación podría detallar cómo el ciclista aborda las subidas.
      */
-    @Override
-    public void specialty() {
-
-    }
+//    @Override
+//    public void specialty() {
+//
+//    }
 
     /**
      * Método getter para la aceleración del ciclista en subida.

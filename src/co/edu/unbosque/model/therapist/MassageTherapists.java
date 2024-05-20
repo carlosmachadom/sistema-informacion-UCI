@@ -126,4 +126,35 @@ public class MassageTherapists implements ListInterface<MassageTherapist, Massag
     		return new String[0][0];
     	}    	
     }
+    
+    public String[][] transformDirectorDTOToMatrixKeyValue(long cc) {
+    	MassageTherapist therapist = massageDAO.findByUserByCC(cc);
+        
+        if (therapist != null) {
+        	MassageDTO therapistDTO = massageMapHandler.transformModelToDTO(therapist);
+
+            int rows = 4;
+            int columns = 2;
+            
+            String[][] dataMatrix = new String[rows][columns];
+
+            int index = 0;
+
+            dataMatrix[index][0] = "Cédula de ciudadanía:";
+            dataMatrix[index][1] = "" + therapistDTO.getCC();
+            index++;
+
+            dataMatrix[index][0] = "Años de experiencia:";
+            dataMatrix[index][1] = "" + therapistDTO.getExperience();
+            index++;
+
+            dataMatrix[index][0] = "Correo electrónico:";
+            dataMatrix[index][1] = therapistDTO.getEmail();
+            index++;
+
+            return dataMatrix;
+        } else {
+            return new String[0][0];
+        }   
+    }
 }

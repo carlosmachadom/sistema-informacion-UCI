@@ -46,10 +46,10 @@ public class Sprinter extends Cyclist {
      * Este método abstracto se hereda de la clase `Cyclist` y debe ser implementado para definir la especialidad del ciclista sprinter.
      * En este caso, la implementación podría detallar cómo el ciclista realiza un sprint.
      */
-    @Override
-    public void specialty() {
-
-    }
+//    @Override
+//    public void specialty() {
+//
+//    }
 
     /**
      * Método getter para la velocidad punta del ciclista en un sprint.

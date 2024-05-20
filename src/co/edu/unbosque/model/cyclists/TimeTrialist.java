@@ -53,10 +53,10 @@ public class TimeTrialist extends Cyclist {
      * Este método abstracto se hereda de la clase `Cyclist` y debe ser implementado para definir la especialidad del ciclista contrarelojista.
      * En este caso, la implementación podría detallar cómo el ciclista aborda una prueba contrarreloj.
      */
-    @Override
-    public void specialty() {
-
-    }
+//    @Override
+//    public void specialty() {
+//
+//    }
 
     /**
      * Método getter para la velocidad máxima alcanzada por el ciclista en una prueba contrarreloj.

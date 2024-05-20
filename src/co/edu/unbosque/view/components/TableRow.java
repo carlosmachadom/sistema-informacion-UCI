@@ -1,5 +1,7 @@
 package co.edu.unbosque.view.components;
 
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -42,25 +44,17 @@ public class TableRow extends JPanel {
 	 * eliminar.
 	 */
 	public void inicializarComponentes() {
+		for (int i = 0; i < data.length; i++) {
+			add(getTextSection(data[i]));
+		}
+	
 		for (int i = 0; i < headers.length; i++) {
-			String d = data[i];
-			String h = headers[i];
-
-			if (!h.equals("Detalle") || !h.equals("Eliminar")) {
-				JPanel section = getSection(d);
-				add(section);
-			} else if (h.equals("Detalle")) {
-				buttonDetails = new ButtonGeneral("Detalles", "Details_Element=" + data[0], ColorPalette.getMainBlack(),
-						ColorPalette.getMainWhite());
-
-				JPanel buttonDetailsSection = getButtonSeccion(buttonDetails);
-				add(buttonDetailsSection);
-			} else if (h.equals("Eliminar")) {
-				buttonDelete = new ButtonGeneral("Eliminar", "Delete_Element=" + data[0], ColorPalette.getMainBlack(),
-						ColorPalette.getMainWhite());
-
-				JPanel buttonDeletesection = getButtonSeccion(buttonDelete);
-				add(buttonDeletesection);
+			String h = headers[i];	
+			
+			if (h.equals("Detalles")) {
+				add(getButtonDetailsPanel(data[0]));
+			} else if (h.equals("Eliminar")) {				
+				add(getButtonDeletePanel(data[0]));
 			}
 		}
 	}
@@ -71,17 +65,47 @@ public class TableRow extends JPanel {
 	 * @param d El dato que se mostrará en la sección.
 	 * @return Un JPanel que contiene el dato.
 	 */
-	public JPanel getSection(String d) {
+	public JPanel getTextSection(String d) {
 		JPanel section = new JPanel();
+		section.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		section.setBackground(ColorPalette.getMainWhite());
-		section.setBorder(new EmptyBorder(10, 10, 10, 10));
+		section.setBorder(new EmptyBorder(20, 10, 20, 10));
 
 		JLabel text = new JLabel(d);
-		text.setFont(FontSystem.getH2());
+		text.setFont(FontSystem.getParagraph());
 		text.setForeground(ColorPalette.getMainBlack());
 
 		section.add(text);
 		return section;
+	}
+	
+	
+	public JPanel getButtonDetailsPanel(String command) {
+		buttonDetails = new ButtonGeneral(
+			"Detalles", 
+			"Details_Element=" + command, 
+			ColorPalette.getMainBlack(),
+			ColorPalette.getMainWhite()
+		);
+		
+		JPanel container = getButtonSeccion();
+		container.add(buttonDetails);
+		
+		return container;
+	}
+	
+	public JPanel getButtonDeletePanel(String command) {
+		buttonDelete = new ButtonGeneral(
+			"Eliminar", 
+			"Delete_Element=" + command, 
+			ColorPalette.getMainRed(),
+			ColorPalette.getMainWhite()
+		);
+		
+		JPanel container = getButtonSeccion();
+		container.add(buttonDetails);
+		
+		return container;
 	}
 
 	/**
@@ -90,13 +114,13 @@ public class TableRow extends JPanel {
 	 * @param boton El botón que se mostrará en la sección.
 	 * @return Un JPanel que contiene el botón.
 	 */
-	public JPanel getButtonSeccion(ButtonGeneral boton) {
+	public JPanel getButtonSeccion() {
 		JPanel section = new JPanel();
 		section.setBackground(ColorPalette.getMainWhite());
-		section.setBorder(new EmptyBorder(10, 10, 10, 10));
-		section.add(boton);
+		section.setBorder(new EmptyBorder(10, 16, 10, 16));
 		return section;
 	}
+	
 
 	/**
 	 * Obtiene el botón de eliminar.

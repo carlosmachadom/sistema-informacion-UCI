@@ -30,6 +30,7 @@ public class Table extends JPanel {
     private String[][] list;
     private String[] headers;
     private String tableName;
+    private TableBody body;
 
     /**
      * Constructor de la clase Table.
@@ -78,19 +79,28 @@ public class Table extends JPanel {
      // Crear el contenido principal (mainContent)
         JPanel mainContent = new JPanel();
         mainContent.setLayout(new BoxLayout(mainContent, BoxLayout.Y_AXIS));
-        mainContent.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        mainContent.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         mainContent.setBackground(ColorPalette.getTransparent());
         
-        // Insertar rows  
+     // Insertar rows  
         mainContent.add(getHeaderTable());
         mainContent.add(getBodyTable());
+        
+        JScrollPane scrollArea = new JScrollPane(
+			mainContent,
+			JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+			JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED
+		);
+		
+		scrollArea.setPreferredSize(new Dimension(900, 400));
+		scrollArea.setBorder(new EmptyBorder(0,0,0,0));
     	
      // Agregar mainContent al wrapperPanel con GridBagConstraints para centrar verticalmente
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridy = 0;
         gbc.weighty = 1.0; // Establecer peso vertical para centrar
         
-        wrapperPanel.add(mainContent, gbc);
+        wrapperPanel.add(scrollArea, gbc);
         
         // Agregar wrapperPanel al centro de este panel (CenteredMainContentPanel)
         add(wrapperPanel, BorderLayout.CENTER);
@@ -130,17 +140,15 @@ public class Table extends JPanel {
      * @param lista La lista de elementos que se mostrarán en el cuerpo de la tabla.
      */
     public TableBody getBodyTable() {
-    	TableBody body = new TableBody(list, headers);
-		
-		JScrollPane scrollArea = new JScrollPane(
-			body,
-			JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-			JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED
-		);
-		scrollArea.setPreferredSize(new Dimension(600, 400));
-
-		scrollArea.setBorder(new EmptyBorder(0,0,0,0));
-		
+    	body = new TableBody(list, headers);		
 		return body;
     }
+
+	public String getTableName() {
+		return tableName;
+	}
+	
+	public TableBody getTableBody() {		
+		return body;
+    }	
 }

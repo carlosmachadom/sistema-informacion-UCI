@@ -29,10 +29,10 @@ public class CyclistMapHandler implements MapInterface<Cyclist, CyclistDTO> {
              * Este método es abstracto y debe ser implementado por las clases hijas
              * para definir la especialidad de cada tipo de ciclista.
              */
-            @Override
-            public void specialty() {
-
-            }
+//            @Override
+//            public void specialty() {
+//
+//            }
         };
     }
 

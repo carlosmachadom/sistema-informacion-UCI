@@ -15,7 +15,7 @@ import java.util.UUID;
  * Define las características básicas de un ciclista y hereda de la clase `User`.
  * los métodos de esta clase abstracta.
  */
-public abstract class Cyclist extends User implements CyclistInterface {
+public class Cyclist extends User {
     /**
      * Identificador del ciclista
      */
@@ -70,8 +70,8 @@ public abstract class Cyclist extends User implements CyclistInterface {
      * Este método es abstracto y debe ser implementado por las clases hijas
      * para definir la especialidad de cada tipo de ciclista.
      */
-    @Override
-    abstract public void specialty();
+    //@Override
+    //abstract public void specialty();
 
     /**
      * Método getter para el identificador único del ciclista (UUID).

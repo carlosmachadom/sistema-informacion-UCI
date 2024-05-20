@@ -30,7 +30,7 @@ public class Cyclists implements ListInterface<Cyclist, CyclistDTO> {
      */
     public Cyclists() {
         List<Cyclist> cyclists = new ArrayList<>();
-        cyclistsDAO = new CyclistsDAO(cyclists);
+        cyclistsDAO = new CyclistsDAO();
         cyclistMapHandler = new CyclistMapHandler();
     }
 
@@ -118,12 +118,48 @@ public class Cyclists implements ListInterface<Cyclist, CyclistDTO> {
 	        for (int i = 0; i < listDTO.size(); i++) {
 	        	CyclistDTO user = listDTO.get(i);
 	            dataMatrix[i][0] = ""+user.getCC();
-	            dataMatrix[i][1] = user.getEmail();
+	            dataMatrix[i][1] = user.getName();
+	            dataMatrix[i][2] = user.getEmail();
 	        }
 	
 	        return dataMatrix;
     	} else {
     		return new String[0][0];
     	}    	
+    }
+    
+    public String[][] transformDirectorDTOToMatrixKeyValue(long cc) {
+        Cyclist cyclist = cyclistsDAO.findByUserByCC(cc);
+        
+        if (cyclist != null) {
+            CyclistDTO cyclistDTO = cyclistMapHandler.transformModelToDTO(cyclist);
+
+            int rows = 4;
+            int columns = 2;
+            
+            String[][] dataMatrix = new String[rows][columns];
+
+            int index = 0;
+
+            dataMatrix[index][0] = "Nombre:";
+            dataMatrix[index][1] = "" + cyclistDTO.getName();
+            index++;
+
+            dataMatrix[index][0] = "Cédula de ciudadanía:";
+            dataMatrix[index][1] = "" + cyclistDTO.getCC();
+            index++;
+
+            dataMatrix[index][0] = "Correo electrónico:";
+            dataMatrix[index][1] = cyclistDTO.getEmail();
+            index++;
+
+            dataMatrix[index][0] = "Años de experiencia:";
+            dataMatrix[index][1] = "" + cyclistDTO.getExperience();
+            index++;
+
+            return dataMatrix;
+        } else {
+            return new String[0][0];
+        }   
     }
 }

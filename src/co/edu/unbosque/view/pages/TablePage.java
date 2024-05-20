@@ -4,7 +4,6 @@
 package co.edu.unbosque.view.pages;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.FlowLayout;
 
 import javax.swing.JLabel;
@@ -19,14 +18,13 @@ import co.edu.unbosque.view.utils.FontSystem;
  * 
  */
 //TODO
-public class DirectorsList extends JPanel {
-	public JPanel teamData;
-	public JPanel table;
+public class TablePage extends JPanel{
+	private Table table;
 	private String[][] list;
     private String[] headers;
     private String tableName;
 	
-	public DirectorsList(String[][] list, String[] headers, String tableName) {
+	public TablePage(String[][] list, String[] headers, String tableName) {
 		this.list = list;
         this.headers = headers;
         this.tableName = tableName;
@@ -41,8 +39,7 @@ public class DirectorsList extends JPanel {
 	public void initiazeComponents() {
 		insertTitle();
 		insertTable();
-	}
-	
+	}	
 	
 	public void insertTitle() {
 		JPanel panelTitle = new JPanel();
@@ -50,7 +47,7 @@ public class DirectorsList extends JPanel {
 		panelTitle.setLayout(new FlowLayout(FlowLayout.LEFT, 0,0));
 		panelTitle.setBorder(new EmptyBorder(40,40,40,40));
 		
-		JLabel titulo = new JLabel("Lista de directores");
+		JLabel titulo = new JLabel("Lista de " + tableName);
 		titulo.setFont(FontSystem.getLargeTitle());
 		titulo.setForeground(ColorPalette.getMainBlack());
 		
@@ -59,8 +56,12 @@ public class DirectorsList extends JPanel {
 	}
 	
 	public void insertTable() {		
-		Table directorsTable = new Table(list, headers, tableName);
+		table = new Table(list, headers, tableName);
 		
-		add(directorsTable, BorderLayout.CENTER);
+		add(table, BorderLayout.CENTER);
+	}
+
+	public Table getTable() {
+		return table;
 	}
 }

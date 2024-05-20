@@ -46,10 +46,10 @@ public class Classicomaniac extends Cyclist {
      * Se puede sobrescribir en el futuro para definir una especialidad
      * particular de este tipo de ciclista.
      */
-    @Override
-    public void specialty() {
-        // No implementado
-    }
+//    @Override
+//    public void specialty() {
+//        // No implementado
+//    }
 
     /**
      * Obtiene la cantidad de clásicas ganadas por el ciclista Clasicómano.

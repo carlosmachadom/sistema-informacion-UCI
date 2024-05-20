@@ -1,5 +1,6 @@
 package co.edu.unbosque.view.components;
 
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.util.List;
 

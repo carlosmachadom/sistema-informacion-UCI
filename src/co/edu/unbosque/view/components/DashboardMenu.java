@@ -17,6 +17,7 @@ import co.edu.unbosque.view.utils.ColorPalette;
  * usuarios.
  */
 public class DashboardMenu extends JPanel {
+	private ButtonGeneral profileButton;
 	private ButtonGeneral logOutButton;
 
 	private ButtonGeneral cyclistListButton;
@@ -84,6 +85,13 @@ public class DashboardMenu extends JPanel {
 		Dimension maxSize = new Dimension(Integer.MAX_VALUE, 200); // Altura fija de 150 píxeles
 		mainContent.setMaximumSize(maxSize);
 
+		profileButton = new ButtonGeneral("Perfil", "Profile_DashboardMenu", ColorPalette.getMainBlack(),
+				ColorPalette.getMainWhite());
+		
+		profileButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		mainContent.add(profileButton);
+		mainContent.add(Box.createVerticalStrut(8));
+		
 		logOutButton = new ButtonGeneral("Cerrar sesion", "LogOut_DashboardMenu", ColorPalette.getMainBlack(),
 				ColorPalette.getMainWhite());
 
@@ -128,5 +136,9 @@ public class DashboardMenu extends JPanel {
 	 */
 	public ButtonGeneral getDirectorsListButton() {
 		return directorsListButton;
+	}
+
+	public ButtonGeneral getProfileButton() {
+		return profileButton;
 	}
 }
