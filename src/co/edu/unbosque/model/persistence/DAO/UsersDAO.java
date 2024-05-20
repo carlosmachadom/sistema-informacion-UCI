@@ -60,6 +60,18 @@ public class UsersDAO implements DAOInterface<User> {
         }
         return null;
     }
+    
+    public User findByUserAndPassword(long u, String pws) {
+    	User userFound = null;
+    	
+    	for (User user : getAllItems()) {
+            if ((user.getCC() == u) && (user.getPassword().equals(pws))) { 
+            	userFound = user;
+            }
+        }
+        
+        return userFound;
+    }
 
     /**
      * Crea un nuevo usuario en la lista y lo guarda en el archivo.

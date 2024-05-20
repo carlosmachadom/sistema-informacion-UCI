@@ -69,6 +69,10 @@ public class ValidationMessages {
     public static String getLoginSuccessMessage() {
         return "Inicio de sesión exitoso. ¡Bienvenido de nuevo!";
     }
+
+    public static String getLoginErrorMessage() {
+    	return "Usuario o contraseña no son validos. ¡Bienvenido de nuevo!";
+    }
     
  // Mensaje para usuario ya existente
     public static String getUserAlreadyExistsMessage() {

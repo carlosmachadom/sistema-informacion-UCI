@@ -3,6 +3,7 @@ package co.edu.unbosque.controller;
 import java.awt.event.ActionEvent;
 
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 import javax.swing.JOptionPane;
 
@@ -10,6 +11,7 @@ import co.edu.unbosque.model.user.Users;
 import co.edu.unbosque.servicios.EnvioCorreos;
 import co.edu.unbosque.model.cyclists.Cyclists;
 import co.edu.unbosque.model.director.Directors;
+import co.edu.unbosque.model.persistence.LogIn;
 import co.edu.unbosque.model.persistence.DTO.CyclistDTO;
 import co.edu.unbosque.model.persistence.DTO.DirectorDTO;
 import co.edu.unbosque.model.persistence.DTO.MassageDTO;
@@ -31,8 +33,9 @@ public class Controller implements ActionListener {
 	private Directors directorsList;
 	private MassageTherapists therapistsList;
 	private Cyclists cyclistsList;
+	private boolean isLogged;
+	private String currentToken; 
 	// private Session // Carga los datos necesarios // Nombre // Correo
-	// private boolean isLogged;
 
 	/**
 	 * Constructor que inicializa la vista y el modelo de autenticación de usuario.
@@ -40,6 +43,7 @@ public class Controller implements ActionListener {
 	public Controller() {
 		view = new Window();
 		userAuth = new Users();
+		isLogged = false;
 		run();
 	}
 
@@ -58,8 +62,6 @@ public class Controller implements ActionListener {
 	public void initialState() {
 		view.getRoot().insertAuthLogic();
 		view.getRoot().getAuthLayout().getPagesContainer().insertHome();
-
-		// view.getRoot().insertAppLogic();
 	}
 
 	/**
@@ -123,17 +125,7 @@ public class Controller implements ActionListener {
 		// Manejo de eventos para pagina de inicio de sesión
 		if (view.getRoot().getAuthLayout().getPagesContainer().getSignIn() != null) {
 			if (command.equals("Login_Form_SignIn")) {
-				// Validar usuario
-				String user = view.getRoot().getAuthLayout().getPagesContainer().getSignIn().getUser().getInput()
-						.getText();
-				char[] password = view.getRoot().getAuthLayout().getPagesContainer().getSignIn().getPassword()
-						.getInput().getPassword();
-				// String passwordString = new String(password);
-				// Arrays.fill(password, ' ');
-
-				// Si falla la validación se envía el mensaje
-
-				// Si no se procede a insertar el dashboard con el contexto del usuario
+				login();
 			} else if (command.equals("Login_Form_SignUp")) {
 				view.getRoot().getAuthLayout().getPagesContainer().insertRegistrationForm();
 				setListeners();
@@ -385,26 +377,52 @@ public class Controller implements ActionListener {
     	if (view.getRoot().getAuthLayout().getPagesContainer().getSignIn() != null) {
     		String user = view.getRoot().getAuthLayout().getPagesContainer().getSignIn().getUser().getInput().getText();
     		char[] password = view.getRoot().getAuthLayout().getPagesContainer().getSignIn().getPassword().getInput().getPassword();
+    		String passwordString = null;
+    		long cc = 0;
+    		
+    		boolean validSearch = true;
     		
     		// String passwordString = new String(password);
     		// Arrays.fill(password, ' ');
     		
+    		if (FieldsValidator.isValidCC(user)) {
+    			try {
+    				cc = NumberConverter.convertToLong(user);    				    				
+    			} catch (NumberFormatException e) {
+    				MessageDialog.showWarningDialog(null, "El usuario valido es un numero de cédula.");
+    				validSearch = false;
+    			}    			
+    		} else {
+    			MessageDialog.showWarningDialog(null, ValidationMessages.getRequiredFieldMessage("Usuario"));
+    		}
     		
+    		if (password != null && password.length > 0) {
+    			passwordString = new String(password);    			
+    		} else {
+    			MessageDialog.showWarningDialog(null, ValidationMessages.getRequiredFieldMessage("Contraseña"));
+    			validSearch = false;
+    		}
     		
-//    		if (password != null && password.length > 0) {
-//    			String passwordString = new String(password);
-//    			
-//    			if (StringFieldsValidator.isValidPassword(passwordString)) {
-//    				newUser.setPassword(passwordString);	
-//    			} else {
-//    				MessageDialog.showWarningDialog(null, ValidationMessages.getWeakPasswordMessage());
-//    				isValidUser = false;
-//    			}
-//    		} else {
-//    			MessageDialog.showWarningDialog(null, ValidationMessages.getRequiredFieldMessage("Contraseña"));
-//    			isValidUser = false;
-//    		}
-//    		
+    		if (validSearch) {
+    			UserDTO userFound = userAuth.login(cc, passwordString);
+
+    			if (userFound != null) {
+    				isLogged = true;
+    				LogIn token = new LogIn();
+    				token.writeFile(user);
+    				currentToken = token.readFile();
+    				Arrays.fill(password, ' ');
+    				
+    				MessageDialog.showSuccessDialog(null, ValidationMessages.getLoginSuccessMessage());
+    				
+    				view.getRoot().insertAppLogic();
+    				setListeners();
+    			} else {
+    				MessageDialog.showErrorDialog(null, ValidationMessages.getLoginErrorMessage());
+    				return;
+    			}
+    		}
+    		
     	}
     }
 }

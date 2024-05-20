@@ -89,4 +89,24 @@ public class Users implements ListInterface<User, UserDTO> {
         User userMap = userMapHandler.transformDTOToModel(modelDTO);
         return usersDAO.findOne(userMap);
     }
+    
+    
+    /**
+     * Retrieves a unique user from the collection based on the provided DTO.
+     *
+     * @param modelDTO The DTO representing the user to retrieve.
+     * @return The user object if found, null otherwise.
+     */
+    public UserDTO login(long user, String pws) {
+    	User userFound = usersDAO.findByUserAndPassword(user, pws);     		
+    	
+    	if (userFound != null) {
+    		
+    		UserDTO response = userMapHandler.transformModelToDTO(userFound);
+    		
+    		return response;
+    	} else {
+    		return null;
+    	}    	
+    }
 }
