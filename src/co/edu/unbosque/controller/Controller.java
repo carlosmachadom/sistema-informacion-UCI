@@ -94,13 +94,9 @@ public class Controller implements ActionListener {
 		if (view.getRoot().getDashboard() != null) {
 			if (view.getRoot().getDashboard().getMenuContainer() != null) {
 				view.getRoot().getDashboard().getMenuContainer().getLogOutButton().getButton().addActionListener(this);
-				view.getRoot().getDashboard().getMenuContainer().getProfileButton().getButton().addActionListener(this);
-				view.getRoot().getDashboard().getMenuContainer().getSquadsListButton().getButton().addActionListener(this);
 				view.getRoot().getDashboard().getMenuContainer().getCyclistListButton().getButton().addActionListener(this);
 				view.getRoot().getDashboard().getMenuContainer().getTherapistsListButton().getButton().addActionListener(this);
 				view.getRoot().getDashboard().getMenuContainer().getDirectorsListButton().getButton().addActionListener(this);
-				view.getRoot().getDashboard().getMenuContainer().getRaceRecordButton().getButton().addActionListener(this);
-				view.getRoot().getDashboard().getMenuContainer().getRaceButton().getButton().addActionListener(this);
 			}
 		}
 	}
